@@ -1,61 +1,43 @@
-import { useMemo } from 'react';
-import { EthnicityData, Language } from '@/types/ethnicity';
+"use client";
+
+import { useState, useMemo, useEffect } from 'react';
+import { Language } from '@/types/ethnicity';
 import { getTranslation } from '@/lib/translations';
+import { getAllEthnicities } from '@/lib/datasetLoader';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ChevronRight, Users } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
 
 interface EthnicityViewProps {
-  data: EthnicityData[];
   language: Language;
   onEthnicitySelect: (ethnicity: string) => void;
 }
 
-export const EthnicityView = ({ data, language, onEthnicitySelect }: EthnicityViewProps) => {
+export const EthnicityView = ({ language, onEthnicitySelect }: EthnicityViewProps) => {
   const t = getTranslation(language);
-  
-  const ethnicGroups = useMemo(() => {
-    const groupMap = new Map<string, {
-      totalPopulation: number;
-      africaPercentage: number;
-      countries: Set<string>;
-    }>();
-    
-    data.forEach(row => {
-      if (row.Ethnicity_or_Subgroup && !row.Ethnicity_or_Subgroup.includes('sous-groupe') && !row.Ethnicity_or_Subgroup.includes('(sous-groupe)')) {
-        const name = row.Ethnicity_or_Subgroup;
-        
-        if (!groupMap.has(name)) {
-          groupMap.set(name, {
-            totalPopulation: 0,
-            africaPercentage: 0,
-            countries: new Set(),
-          });
-        }
-        
-        const group = groupMap.get(name)!;
-        const pop = parseFloat(row["population de l'ethnie estimée dans le pays"]) || 0;
-        const africaPct = parseFloat(row["pourcentage dans la population totale d'Afrique"]) || 0;
-        
-        group.totalPopulation += pop;
-        group.africaPercentage += africaPct;
-        if (row.Country) {
-          group.countries.add(row.Country);
-        }
-      }
+  const [search, setSearch] = useState<string>("");
+  const [ethnicGroups, setEthnicGroups] = useState<Array<{
+    name: string;
+    totalPopulation: number;
+    percentageInAfrica: number;
+    countryCount: number;
+  }>>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getAllEthnicities().then(data => {
+      setEthnicGroups(data);
+      setLoading(false);
     });
-    
-    return Array.from(groupMap.entries())
-      .map(([name, info]) => ({
-        name,
-        totalPopulation: info.totalPopulation,
-        africaPercentage: info.africaPercentage,
-        countryCount: info.countries.size,
-        countries: Array.from(info.countries),
-      }))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, [data]);
+  }, []);
+
+  const filteredGroups = useMemo(() => {
+    return ethnicGroups.filter(group =>
+      group.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [ethnicGroups, search]);
 
   const formatNumber = (num: number): string => {
     return new Intl.NumberFormat(language === 'en' ? 'en-US' : language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : 'pt-PT')
@@ -67,56 +49,59 @@ export const EthnicityView = ({ data, language, onEthnicitySelect }: EthnicityVi
   };
 
   return (
-    <ScrollArea className="h-[calc(100vh-16rem)]">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-        {ethnicGroups.map(group => (
-          <Card
-            key={group.name}
-            className="p-6 hover:shadow-warm cursor-pointer transition-smooth group"
-            onClick={() => onEthnicitySelect(group.name)}
-          >
-            <div className="flex items-start justify-between mb-3">
-              <h3 className="text-lg font-display font-semibold text-foreground group-hover:text-primary transition-smooth flex-1">
-                {group.name}
-              </h3>
-              <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-smooth flex-shrink-0 ml-2" />
-            </div>
-            
-            <div className="flex items-center gap-2 mb-3">
-              <Users className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">
-                {group.countryCount} {group.countryCount === 1 ? t.country.toLowerCase() : t.country.toLowerCase() + 's'}
-              </span>
-            </div>
-            
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">{t.population}:</span>
-                <span className="font-medium">{formatNumber(group.totalPopulation)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">{t.inAfrica}:</span>
-                <span className="font-medium">{formatPercent(group.africaPercentage)}</span>
-              </div>
-            </div>
-            
-            <div className="mt-3 pt-3 border-t border-border">
-              <div className="flex flex-wrap gap-1">
-                {group.countries.slice(0, 3).map(country => (
-                  <Badge key={country} variant="outline" className="text-xs">
-                    {country.length > 12 ? country.substring(0, 12) + '...' : country}
-                  </Badge>
-                ))}
-                {group.countries.length > 3 && (
-                  <Badge variant="outline" className="text-xs">
-                    +{group.countries.length - 3}
-                  </Badge>
-                )}
-              </div>
-            </div>
-          </Card>
-        ))}
+    <div className="space-y-4">
+      {/* Barre de recherche */}
+      <div className="relative px-4 pt-4">
+        <Search className="absolute left-7 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          type="text"
+          placeholder={t.searchPlaceholder}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="pl-9"
+        />
       </div>
-    </ScrollArea>
+
+      {/* Liste des ethnies */}
+      <ScrollArea className="h-[calc(100vh-20rem)]">
+        <div className="space-y-2 px-4 pb-4">
+          {loading ? (
+            <div className="flex items-center justify-center h-64">
+              <p className="text-muted-foreground">Loading ethnicities...</p>
+            </div>
+          ) : (
+            filteredGroups.map(group => (
+              <Card
+                key={group.name}
+                className="p-4 hover:shadow-md cursor-pointer transition-all group"
+                onClick={() => onEthnicitySelect(group.name)}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-base group-hover:text-primary transition-colors mb-2">
+                      {group.name}
+                    </h3>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t.population}:</span>
+                        <span className="font-medium">{formatNumber(group.totalPopulation)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t.inAfrica}:</span>
+                        <span className="font-medium">{formatPercent(group.percentageInAfrica)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t.country}:</span>
+                        <span className="font-medium">{group.countryCount} {group.countryCount === 1 ? t.country.toLowerCase() : t.country.toLowerCase() + 's'}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))
+          )}
+        </div>
+      </ScrollArea>
+    </div>
   );
 };

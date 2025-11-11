@@ -83,3 +83,103 @@ export const getEthnicGroups = (data: EthnicityData[]) => {
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 };
+
+// Fonction pour obtenir les détails complets d'un pays
+export const getCountryDetails = (data: EthnicityData[], countryName: string) => {
+  const countryData = data.filter(row => row.Country === countryName);
+  if (countryData.length === 0) return null;
+
+  const firstRow = countryData[0];
+  const population = parseFloat(firstRow["population 2025 du pays"]) || 0;
+
+  const ethnicities = countryData
+    .filter(row => row.Ethnicity_or_Subgroup && !row.Ethnicity_or_Subgroup.includes('sous-groupe'))
+    .map(row => ({
+      name: row.Ethnicity_or_Subgroup,
+      population: parseFloat(row["population de l'ethnie estimée dans le pays"]) || 0,
+      percentageInCountry: parseFloat(row["pourcentage dans la population du pays"]) || 0,
+      percentageInAfrica: parseFloat(row["pourcentage dans la population totale d'Afrique"]) || 0,
+    }))
+    .sort((a, b) => b.population - a.population);
+
+  return {
+    name: countryName,
+    population,
+    ethnicities,
+    ethnicityCount: ethnicities.length,
+  };
+};
+
+// Fonction pour obtenir les détails complets d'une ethnie
+export const getEthnicityDetails = (data: EthnicityData[], ethnicityName: string) => {
+  const ethnicityData = data.filter(row => 
+    row.Ethnicity_or_Subgroup === ethnicityName && 
+    !row.Ethnicity_or_Subgroup.includes('sous-groupe')
+  );
+  
+  if (ethnicityData.length === 0) return null;
+
+  let totalPopulation = 0;
+  let totalAfricaPercentage = 0;
+  const countries = new Map<string, {
+    population: number;
+    percentageInCountry: number;
+    percentageInAfrica: number;
+  }>();
+
+  ethnicityData.forEach(row => {
+    const pop = parseFloat(row["population de l'ethnie estimée dans le pays"]) || 0;
+    const pctCountry = parseFloat(row["pourcentage dans la population du pays"]) || 0;
+    const pctAfrica = parseFloat(row["pourcentage dans la population totale d'Afrique"]) || 0;
+    
+    totalPopulation += pop;
+    totalAfricaPercentage += pctAfrica;
+    
+    if (row.Country) {
+      countries.set(row.Country, {
+        population: pop,
+        percentageInCountry: pctCountry,
+        percentageInAfrica: pctAfrica,
+      });
+    }
+  });
+
+  const countriesList = Array.from(countries.entries())
+    .map(([name, data]) => ({ name, ...data }))
+    .sort((a, b) => b.population - a.population);
+
+  return {
+    name: ethnicityName,
+    totalPopulation,
+    percentageInAfrica: totalAfricaPercentage,
+    countries: countriesList,
+    countryCount: countriesList.length,
+  };
+};
+
+// Fonction pour obtenir la région d'un pays
+export const getCountryRegion = (countryName: string): string => {
+  const northAfrica = [
+    "Algérie", "Maroc", "Tunisie", "Égypte", "Libye", "Soudan", "Mauritanie", "Sahara occidental"
+  ];
+  const westAfrica = [
+    "Bénin", "Burkina Faso", "Cabo Verde", "Côte d'Ivoire", "Gambie", "Ghana",
+    "Guinée", "Guinée-Bissau", "Liberia", "Mali", "Niger", "Nigeria",
+    "Sénégal", "Sierra Leone", "Togo"
+  ];
+  const centralAfrica = [
+    "Cameroun", "République centrafricaine", "Tchad", "Congo (Brazzaville)",
+    "Congo (RDC)", "Gabon", "Guinée équatoriale", "São Tomé-et-Príncipe"
+  ];
+  const eastAfrica = [
+    "Burundi", "Comores", "Djibouti", "Érythrée", "Éthiopie", "Kenya",
+    "Madagascar", "Malawi", "Maurice", "Mozambique", "Ouganda", "Rwanda",
+    "Seychelles", "Somalie", "Soudan du Sud", "Tanzanie"
+  ];
+
+  if (northAfrica.some(c => countryName.includes(c))) return "north";
+  if (westAfrica.some(c => countryName.includes(c))) return "west";
+  if (centralAfrica.some(c => countryName.includes(c))) return "central";
+  if (eastAfrica.some(c => countryName.includes(c))) return "east";
+  return "south";
+};

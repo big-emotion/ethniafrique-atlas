@@ -1,162 +1,47 @@
-import { useState, useMemo } from "react";
-import { EthnicityData, Language } from "@/types/ethnicity";
+"use client";
+
+import { useState, useMemo, useEffect } from "react";
+import { Language } from "@/types/ethnicity";
 import { getTranslation } from "@/lib/translations";
+import { getAllCountries } from "@/lib/datasetLoader";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Users } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 interface CountryViewProps {
-  data: EthnicityData[];
   language: Language;
-  onCountrySelect: (country: string) => void;
-  onEthnicitySelect: (ethnicity: string) => void;
+  onCountrySelect: (country: string, regionKey: string) => void;
 }
 
-type ViewMode = "alphabet" | "countries" | "ethnicities";
-
 export const CountryView = ({
-  data,
   language,
   onCountrySelect,
-  onEthnicitySelect,
 }: CountryViewProps) => {
   const t = getTranslation(language);
-  const [viewMode, setViewMode] = useState<ViewMode>("alphabet");
-  const [selectedLetter, setSelectedLetter] = useState<string>("");
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
+  const [countries, setCountries] = useState<Array<{
+    name: string;
+    region: string;
+    regionName: string;
+    data: any;
+  }>>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Obtenir les lettres de l'alphabet qui ont des pays
-  const availableLetters = useMemo(() => {
-    const letters = new Set<string>();
-    data.forEach((row) => {
-      if (row.Country) {
-        letters.add(row.Country.charAt(0).toUpperCase());
-      }
+  useEffect(() => {
+    getAllCountries().then(data => {
+      setCountries(data);
+      setLoading(false);
     });
-    return Array.from(letters).sort();
-  }, [data]);
+  }, []);
 
-  // Obtenir les pays par lettre
-  const countriesByLetter = useMemo(() => {
-    const countryMap = new Map<
-      string,
-      {
-        population: number;
-        groupCount: number;
-      }
-    >();
-
-    data.forEach((row) => {
-      if (row.Country && !countryMap.has(row.Country)) {
-        countryMap.set(row.Country, {
-          population: parseFloat(row["population 2025 du pays"]) || 0,
-          groupCount: 0,
-        });
-      }
-      if (
-        row.Country &&
-        row.Ethnicity_or_Subgroup &&
-        !row.Ethnicity_or_Subgroup.includes("sous-groupe")
-      ) {
-        const country = countryMap.get(row.Country)!;
-        country.groupCount++;
-      }
-    });
-
-    return Array.from(countryMap.entries())
-      .map(([name, info]) => ({ name, ...info }))
-      .filter((country) => country.name.startsWith(selectedLetter))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, [data, selectedLetter]);
-
-  // Obtenir les ethnies d'un pays
-  const ethnicitiesByCountry = useMemo(() => {
-    const ethnicities = new Set<string>();
-    data.forEach((row) => {
-      if (
-        row.Country === selectedCountry &&
-        row.Ethnicity_or_Subgroup &&
-        !row.Ethnicity_or_Subgroup.includes("sous-groupe")
-      ) {
-        ethnicities.add(row.Ethnicity_or_Subgroup);
-      }
-    });
-    return Array.from(ethnicities).sort();
-  }, [data, selectedCountry]);
-
-  const getRegion = (countryName: string): string => {
-    // Simple region mapping based on file structure
-    const northAfrica = [
-      "Algérie",
-      "Maroc",
-      "Tunisie",
-      "Égypte",
-      "Libye",
-      "Soudan",
-      "Mauritanie",
-      "Sahara occidental",
-    ];
-    const westAfrica = [
-      "Bénin",
-      "Burkina Faso",
-      "Cabo Verde",
-      "Côte d'Ivoire",
-      "Gambie",
-      "Ghana",
-      "Guinée",
-      "Guinée-Bissau",
-      "Liberia",
-      "Mali",
-      "Niger",
-      "Nigeria",
-      "Sénégal",
-      "Sierra Leone",
-      "Togo",
-    ];
-    const centralAfrica = [
-      "Cameroun",
-      "République centrafricaine",
-      "Tchad",
-      "Congo (Brazzaville)",
-      "Congo (RDC)",
-      "Gabon",
-      "Guinée équatoriale",
-      "São Tomé-et-Príncipe",
-    ];
-    const eastAfrica = [
-      "Burundi",
-      "Comores",
-      "Djibouti",
-      "Érythrée",
-      "Éthiopie",
-      "Kenya",
-      "Madagascar",
-      "Malawi",
-      "Maurice",
-      "Mozambique",
-      "Ouganda",
-      "Rwanda",
-      "Seychelles",
-      "Somalie",
-      "Soudan du Sud",
-      "Tanzanie",
-    ];
-
-    if (northAfrica.some((c) => countryName.includes(c))) return t.northAfrica;
-    if (westAfrica.some((c) => countryName.includes(c))) return t.westAfrica;
-    if (centralAfrica.some((c) => countryName.includes(c)))
-      return t.centralAfrica;
-    if (eastAfrica.some((c) => countryName.includes(c))) return t.eastAfrica;
-    return t.southernAfrica;
-  };
+  const filteredCountries = useMemo(() => {
+    return countries.filter(country =>
+      country.name.toLowerCase().includes(search.toLowerCase()) ||
+      country.regionName.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [countries, search]);
 
   const formatNumber = (num: number): string => {
     return new Intl.NumberFormat(
@@ -170,126 +55,53 @@ export const CountryView = ({
     ).format(num);
   };
 
-  const handleLetterClick = (letter: string) => {
-    setSelectedLetter(letter);
-    setViewMode("countries");
-  };
-
-  const handleCountryClick = (country: string) => {
-    setSelectedCountry(country);
-    setViewMode("ethnicities");
-    onCountrySelect(country);
-  };
-
-  const handleEthnicityClick = (ethnicity: string) => {
-    onEthnicitySelect(ethnicity);
-  };
-
-  const handleBackToAlphabet = () => {
-    setViewMode("alphabet");
-    setSelectedLetter("");
-    setSelectedCountry("");
-  };
-
-  const handleBackToCountries = () => {
-    setViewMode("countries");
-    setSelectedCountry("");
-  };
-
-  const renderAlphabetView = () => (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Sélectionnez une lettre</h2>
-      <div className="grid grid-cols-5 gap-3">
-        {availableLetters.map((letter) => (
-          <Button
-            key={letter}
-            variant="outline"
-            className="h-12 text-lg font-semibold hover:bg-primary hover:text-primary-foreground"
-            onClick={() => handleLetterClick(letter)}
-          >
-            {letter}
-          </Button>
-        ))}
-      </div>
-    </div>
-  );
-
-  const renderCountriesView = () => (
-    <div className="p-4">
-      <div className="flex items-center gap-4 mb-4">
-        <Button variant="ghost" size="sm" onClick={handleBackToAlphabet}>
-          <ChevronLeft className="h-4 w-4 mr-1" />
-          Retour
-        </Button>
-        <h2 className="text-xl font-semibold">
-          Pays commençant par "{selectedLetter}"
-        </h2>
-      </div>
-      <div className="grid grid-cols-5 gap-3">
-        {countriesByLetter.map((country) => (
-          <Card
-            key={country.name}
-            className="p-4 hover:shadow-md cursor-pointer transition-all group"
-            onClick={() => handleCountryClick(country.name)}
-          >
-            <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
-              {country.name}
-            </h3>
-            <Badge variant="secondary" className="mt-2 text-xs">
-              {getRegion(country.name)}
-            </Badge>
-            <div className="mt-2 text-xs text-muted-foreground">
-              <div>{formatNumber(country.population)} hab.</div>
-              <div>{country.groupCount} ethnies</div>
-            </div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-
-  const renderEthnicitiesView = () => (
-    <div className="p-4">
-      <div className="flex items-center gap-4 mb-4">
-        <Button variant="ghost" size="sm" onClick={handleBackToCountries}>
-          <ChevronLeft className="h-4 w-4 mr-1" />
-          Retour
-        </Button>
-        <h2 className="text-xl font-semibold">Ethnies de {selectedCountry}</h2>
-      </div>
-
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="ethnicities">
-          <AccordionTrigger className="text-lg">
-            <div className="flex items-center gap-2">
-              <Users className="h-5 w-5" />
-              {ethnicitiesByCountry.length} ethnies
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="grid grid-cols-1 gap-2 pt-4">
-              {ethnicitiesByCountry.map((ethnicity) => (
-                <Button
-                  key={ethnicity}
-                  variant="ghost"
-                  className="justify-start h-auto p-3 hover:bg-primary hover:text-primary-foreground"
-                  onClick={() => handleEthnicityClick(ethnicity)}
-                >
-                  {ethnicity}
-                </Button>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
-  );
-
   return (
-    <ScrollArea className="h-[calc(100vh-16rem)]">
-      {viewMode === "alphabet" && renderAlphabetView()}
-      {viewMode === "countries" && renderCountriesView()}
-      {viewMode === "ethnicities" && renderEthnicitiesView()}
-    </ScrollArea>
+    <div className="space-y-4">
+      {/* Barre de recherche */}
+      <div className="relative px-4 pt-4">
+        <Search className="absolute left-7 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          type="text"
+          placeholder={t.searchPlaceholder}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="pl-9"
+        />
+      </div>
+
+      {/* Liste des pays */}
+      <ScrollArea className="h-[calc(100vh-20rem)]">
+        <div className="space-y-2 px-4 pb-4">
+          {loading ? (
+            <div className="flex items-center justify-center h-64">
+              <p className="text-muted-foreground">Loading countries...</p>
+            </div>
+          ) : (
+            filteredCountries.map((country) => (
+              <Card
+                key={country.name}
+                className="p-4 hover:shadow-md cursor-pointer transition-all group"
+                onClick={() => onCountrySelect(country.name, country.region)}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-base group-hover:text-primary transition-colors mb-2">
+                      {country.name}
+                    </h3>
+                    <Badge variant="secondary" className="text-xs mb-2">
+                      {country.regionName}
+                    </Badge>
+                    <div className="text-xs text-muted-foreground space-y-1">
+                      <div>{formatNumber(country.data.population)} {language === "en" ? "inhabitants" : "habitants"}</div>
+                      <div>{country.data.ethnicityCount} {t.ethnicGroups.toLowerCase()}</div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))
+          )}
+        </div>
+      </ScrollArea>
+    </div>
   );
 };

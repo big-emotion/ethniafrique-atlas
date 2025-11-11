@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo, useState } from 'react';
 import { EthnicityData, Language } from '@/types/ethnicity';
 import { getTranslation } from '@/lib/translations';
