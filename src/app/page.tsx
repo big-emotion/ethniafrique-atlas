@@ -12,6 +12,7 @@ import { MobileSearchBar } from "@/components/MobileSearchBar";
 import { SearchModal } from "@/components/SearchModal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
+import Link from "next/link";
 import {
   SidebarProvider,
   Sidebar,
@@ -117,10 +118,17 @@ export default function Home() {
                 {t.subtitle}
               </p>
             </div>
-            <LanguageSelector
-              currentLang={language}
-              onLanguageChange={setLanguage}
-            />
+            <div className="flex items-center gap-2">
+              <Link href="/about">
+                <Button variant="secondary" size="sm">
+                  {t.whyThisSite}
+                </Button>
+              </Link>
+              <LanguageSelector
+                currentLang={language}
+                onLanguageChange={setLanguage}
+              />
+            </div>
           </div>
         </div>
       </header>

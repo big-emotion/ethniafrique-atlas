@@ -1,4 +1,4 @@
- import { Language } from "@/types/ethnicity";
+import { Language } from "@/types/ethnicity";
 
 export const translations = {
   en: {
@@ -35,8 +35,18 @@ export const translations = {
     southernAfrica: "Southern Africa",
     viewDetails: "View Details",
     close: "Close",
-    ethnicitySummary: (name: string, population: string, percent: string, region: string, countries: string, count: number) =>
-      `The ${name} gather approximately ${population} people, representing ${percent}% of the African population, mainly in ${region}. They are found mainly in ${countries}, distributed across ${count} ${count === 1 ? "country" : "countries"}.`,
+    whyThisSite: "Why this site?",
+    ethnicitySummary: (
+      name: string,
+      population: string,
+      percent: string,
+      region: string,
+      countries: string,
+      count: number
+    ) =>
+      `The ${name} gather approximately ${population} people, representing ${percent}% of the African population, mainly in ${region}. They are found mainly in ${countries}, distributed across ${count} ${
+        count === 1 ? "country" : "countries"
+      }.`,
     madeWithEmotion: "Made with emotion for Africa",
   },
   fr: {
@@ -44,7 +54,7 @@ export const translations = {
     subtitle:
       "Encyclopédie complète des groupes ethniques dans 55 pays africains",
     byCountry: "Par Pays",
-    byEthnicity: "Par Ethnie",
+    byEthnicity: "Par Groupe Ethnique",
     statistics: "Statistiques",
     searchPlaceholder: "Rechercher pays ou ethnies...",
     population: "Population",
@@ -73,15 +83,25 @@ export const translations = {
     southernAfrica: "Afrique Australe",
     viewDetails: "Voir Détails",
     close: "Fermer",
-    ethnicitySummary: (name: string, population: string, percent: string, region: string, countries: string, count: number) =>
-      `Les ${name} rassemblent environ ${population} de personnes, soit ${percent}% de la population africaine, principalement en ${region}. On les retrouve surtout dans ${countries}, répartis sur ${count} ${count === 1 ? "pays" : "pays"}.`,
+    whyThisSite: "Pourquoi ce site ?",
+    ethnicitySummary: (
+      name: string,
+      population: string,
+      percent: string,
+      region: string,
+      countries: string,
+      count: number
+    ) =>
+      `Les ${name} rassemblent environ ${population} de personnes, soit ${percent}% de la population africaine, principalement en ${region}. On les retrouve surtout dans ${countries}, répartis sur ${count} ${
+        count === 1 ? "pays" : "pays"
+      }.`,
     madeWithEmotion: "Fait avec émotion pour l'Afrique",
   },
   es: {
     title: "Diccionario de Etnias Africanas",
     subtitle: "Enciclopedia completa de grupos étnicos en 55 países africanos",
     byCountry: "Por País",
-    byEthnicity: "Por Etnia",
+    byEthnicity: "Por Grupo Étnico",
     statistics: "Estadísticas",
     searchPlaceholder: "Buscar países o etnias...",
     population: "Población",
@@ -110,15 +130,25 @@ export const translations = {
     southernAfrica: "África Austral",
     viewDetails: "Ver Detalles",
     close: "Cerrar",
-    ethnicitySummary: (name: string, population: string, percent: string, region: string, countries: string, count: number) =>
-      `Los ${name} reúnen aproximadamente ${population} de personas, representando el ${percent}% de la población africana, principalmente en ${region}. Se encuentran principalmente en ${countries}, distribuidos en ${count} ${count === 1 ? "país" : "países"}.`,
+    whyThisSite: "¿Por qué este sitio?",
+    ethnicitySummary: (
+      name: string,
+      population: string,
+      percent: string,
+      region: string,
+      countries: string,
+      count: number
+    ) =>
+      `Los ${name} reúnen aproximadamente ${population} de personas, representando el ${percent}% de la población africana, principalmente en ${region}. Se encuentran principalmente en ${countries}, distribuidos en ${count} ${
+        count === 1 ? "país" : "países"
+      }.`,
     madeWithEmotion: "Hecho con emoción para África",
   },
   pt: {
     title: "Dicionário das Etnias Africanas",
     subtitle: "Enciclopédia completa de grupos étnicos em 55 países africanos",
     byCountry: "Por País",
-    byEthnicity: "Por Etnia",
+    byEthnicity: "Por Grupo Étnico",
     statistics: "Estatísticas",
     searchPlaceholder: "Pesquisar países ou etnias...",
     population: "População",
@@ -147,8 +177,18 @@ export const translations = {
     southernAfrica: "África Austral",
     viewDetails: "Ver Detalhes",
     close: "Fechar",
-    ethnicitySummary: (name: string, population: string, percent: string, region: string, countries: string, count: number) =>
-      `Os ${name} reúnem aproximadamente ${population} de pessoas, representando ${percent}% da população africana, principalmente em ${region}. Encontram-se principalmente em ${countries}, distribuídos em ${count} ${count === 1 ? "país" : "países"}.`,
+    whyThisSite: "Por que este site?",
+    ethnicitySummary: (
+      name: string,
+      population: string,
+      percent: string,
+      region: string,
+      countries: string,
+      count: number
+    ) =>
+      `Os ${name} reúnem aproximadamente ${population} de pessoas, representando ${percent}% da população africana, principalmente em ${region}. Encontram-se principalmente em ${countries}, distribuídos em ${count} ${
+        count === 1 ? "país" : "países"
+      }.`,
     madeWithEmotion: "Feito com emoção para a África",
   },
 };

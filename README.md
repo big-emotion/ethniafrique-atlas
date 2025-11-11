@@ -1,73 +1,73 @@
-# Welcome to your Lovable project
+# Dictionnaire des Ethnies d’Afrique
 
-## Project info
+Une application web open source pour explorer les peuples d’Afrique par région, pays et groupe ethnique, avec des statistiques de population claires et une interface pensée pour desktop et mobile.
 
-**URL**: https://lovable.dev/projects/7eeb7031-0924-49fe-85f9-69a5443bca9b
+Page “À propos” disponible sur `/about`.
 
-## How can I edit this code?
+## Fonctionnalités
 
-There are several ways of editing your application.
+- Navigation par onglets: Régions, Pays, Groupes ethniques
+- Vue détaillée avec résumé synthétique, populations et pourcentages
+- Recherche (desktop et mobile) + navigation alphabétique
+- Mobile: barre de recherche fixe + vue détaillée plein écran
+- Multi‑langues: français, anglais, espagnol, portugais
 
-**Use Lovable**
+## Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7eeb7031-0924-49fe-85f9-69a5443bca9b) and start prompting.
+- Next.js (App Router) + TypeScript
+- Tailwind CSS + shadcn/ui
+- TanStack Query (React Query) pour le chargement local
 
-Changes made via Lovable will be committed automatically to this repo.
+## Démarrer en local
 
-**Use your preferred IDE**
+Prérequis: Node.js 18+ et npm.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
+# Générer les données à partir des CSV sources
+npm run parse-dataset
+# Lancer le serveur de développement
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+L’application démarre sur http://localhost:3000.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Données et pipeline
 
-**Use GitHub Codespaces**
+- CSV sources: `dataset/source/*.csv`
+- Script de parsing: `scripts/parseDataset.ts`
+  - Agrège et calcule les totaux et pourcentages (pays, régions, continent)
+  - Produit `dataset/result/**` et `dataset/result/index.json`
+  - Copie automatiquement la sortie dans `public/dataset/**` pour l’application
+- Chargement côté app: `src/lib/datasetLoader.ts`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Sortie (extrait):
 
-## What technologies are used for this project?
+```
+public/dataset/
+  index.json
+  afrique_du_nord/Maroc/groupes_ethniques.csv
+  ...
+```
 
-This project is built with:
+## Contribuer
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Les contributions sont bienvenues: fichiers CSV, corrections, nouvelles sources, UI/UX, refacto, etc.
 
-## How can I deploy this project?
+- Dépôt: https://github.com/big-emotion/ethniafrique-atlas
+- Contexte & liens: `/about`
 
-Simply open [Lovable](https://lovable.dev/projects/7eeb7031-0924-49fe-85f9-69a5443bca9b) and click on Share -> Publish.
+Merci de:
 
-## Can I connect a custom domain to my Lovable project?
+- Respecter la structure des CSV et l’encodage (guillemets, apostrophes)
+- Lancer `npm run parse-dataset` après modification des sources
 
-Yes, you can!
+## Roadmap (extraits)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- Carte interactive des zones de présence
+- Fiches enrichies: sous‑ethnies, histoire, culture, religions et croyances, royaumes et personnalités, langues, sciences et arts
+- Ajout progressif de contenus en langues africaines
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Licence
+
+Open source — voir le dépôt GitHub.
