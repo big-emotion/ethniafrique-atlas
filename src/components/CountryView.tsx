@@ -14,6 +14,7 @@ import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 interface CountryViewProps {
   language: Language;
   onCountrySelect: (country: string, regionKey: string) => void;
+  hideSearchAndAlphabet?: boolean;
 }
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -21,6 +22,7 @@ const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 export const CountryView = ({
   language,
   onCountrySelect,
+  hideSearchAndAlphabet = false,
 }: CountryViewProps) => {
   const t = getTranslation(language);
   const [search, setSearch] = useState<string>("");
@@ -100,48 +102,53 @@ export const CountryView = ({
   return (
     <div className="space-y-4">
       {/* Navigation alphabétique */}
-      <div className="px-4 pt-4">
-        <div className="flex flex-wrap gap-1 justify-center">
-          <Button
-            variant={selectedLetter === null ? "default" : "outline"}
-            size="sm"
-            className="h-8 w-8 p-0 text-xs"
-            onClick={() => setSelectedLetter(null)}
-          >
-            Tous
-          </Button>
-          {ALPHABET.map((letter) => (
-            <Button
-              key={letter}
-              variant={selectedLetter === letter ? "default" : "outline"}
-              size="sm"
-              className={`h-8 w-8 p-0 text-xs ${
-                availableLetters.includes(letter)
-                  ? ""
-                  : "opacity-30 cursor-not-allowed"
-              }`}
-              onClick={() =>
-                availableLetters.includes(letter) && setSelectedLetter(letter)
-              }
-              disabled={!availableLetters.includes(letter)}
-            >
-              {letter}
-            </Button>
-          ))}
-        </div>
-      </div>
+      {!hideSearchAndAlphabet && (
+        <>
+          <div className="px-4 pt-4">
+            <div className="flex flex-wrap gap-1 justify-center">
+              <Button
+                variant={selectedLetter === null ? "default" : "outline"}
+                size="sm"
+                className="h-8 w-8 p-0 text-xs"
+                onClick={() => setSelectedLetter(null)}
+              >
+                Tous
+              </Button>
+              {ALPHABET.map((letter) => (
+                <Button
+                  key={letter}
+                  variant={selectedLetter === letter ? "default" : "outline"}
+                  size="sm"
+                  className={`h-8 w-8 p-0 text-xs ${
+                    availableLetters.includes(letter)
+                      ? ""
+                      : "opacity-30 cursor-not-allowed"
+                  }`}
+                  onClick={() =>
+                    availableLetters.includes(letter) &&
+                    setSelectedLetter(letter)
+                  }
+                  disabled={!availableLetters.includes(letter)}
+                >
+                  {letter}
+                </Button>
+              ))}
+            </div>
+          </div>
 
-      {/* Barre de recherche */}
-      <div className="relative px-4">
-        <Search className="absolute left-7 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder={t.searchPlaceholder}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="pl-9"
-        />
-      </div>
+          {/* Barre de recherche */}
+          <div className="relative px-4">
+            <Search className="absolute left-7 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder={t.searchPlaceholder}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+        </>
+      )}
 
       {/* Liste des pays */}
       <ScrollArea className="h-[calc(100vh-24rem)]">
