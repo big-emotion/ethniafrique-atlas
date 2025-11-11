@@ -28,12 +28,12 @@ export const metadata: Metadata = {
     description:
       "Comprehensive multilingual encyclopedia of African ethnic groups",
     type: "website",
-    images: ["https://lovable.dev/opengraph-image-p98pqg.png"],
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@lovable_dev",
-    images: ["https://lovable.dev/opengraph-image-p98pqg.png"],
+    site: "@big_emotion",
+    images: ["/twitter-image"],
   },
 };
 
