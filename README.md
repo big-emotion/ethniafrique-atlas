@@ -4,6 +4,11 @@ Une application web open source pour explorer les peuples d’Afrique par régio
 
 Page “À propos” disponible sur `/about`.
 
+## Liens utiles
+
+- À propos / Contexte / Participation: `/about`
+- Dépôt GitHub: https://github.com/big-emotion/ethniafrique-atlas
+
 ## Fonctionnalités
 
 - Navigation par onglets: Régions, Pays, Groupes ethniques
@@ -16,7 +21,7 @@ Page “À propos” disponible sur `/about`.
 
 - Next.js (App Router) + TypeScript
 - Tailwind CSS + shadcn/ui
-- TanStack Query (React Query) pour le chargement local
+- TanStack Query (React Query)
 
 ## Démarrer en local
 
@@ -31,6 +36,10 @@ npm run dev
 ```
 
 L’application démarre sur http://localhost:3000.
+
+## Contact
+
+Vous pouvez me contacter via le formulaire présent sur la page `/about` (Typeform intégré).
 
 ## Données et pipeline
 
