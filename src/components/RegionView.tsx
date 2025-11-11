@@ -112,7 +112,7 @@ export const RegionView = ({
   }
 
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 ${hideSearchAndAlphabet ? "h-full flex flex-col" : ""}`}>
       {/* Navigation alphabétique */}
       {!hideSearchAndAlphabet && (
         <>
@@ -163,8 +163,8 @@ export const RegionView = ({
       )}
 
       {/* Liste des régions */}
-      <ScrollArea className="h-[calc(100vh-24rem)]">
-        <div className="space-y-2 px-4 pb-4">
+      <ScrollArea className={hideSearchAndAlphabet ? "flex-1 min-h-0" : "h-[calc(100vh-24rem)]"}>
+        <div className={`space-y-2 ${hideSearchAndAlphabet ? "px-0" : "px-4"} pb-4`}>
           {loading ? (
             <div className="flex items-center justify-center h-64">
               <p className="text-muted-foreground">Loading regions...</p>
@@ -174,12 +174,12 @@ export const RegionView = ({
               <p className="text-muted-foreground">No regions found</p>
             </div>
           ) : (
-            paginatedRegions.map((region) => (
-              <Card
-                key={region.key}
-                className="p-4 hover:shadow-md cursor-pointer transition-all group"
-                onClick={() => onRegionSelect(region.key)}
-              >
+                    paginatedRegions.map((region) => (
+                      <Card
+                        key={region.key}
+                        className={`p-4 hover:shadow-md cursor-pointer transition-all group ${hideSearchAndAlphabet ? "mx-0" : ""}`}
+                        onClick={() => onRegionSelect(region.key)}
+                      >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
@@ -206,7 +206,7 @@ export const RegionView = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 px-4 pb-4">
+        <div className={`flex items-center justify-center gap-2 ${hideSearchAndAlphabet ? "px-0" : "px-4"} pb-4 flex-shrink-0`}>
           <Button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}

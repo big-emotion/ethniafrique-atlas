@@ -19,9 +19,14 @@ export const metadata: Metadata = {
   description:
     "Comprehensive multilingual encyclopedia of African ethnic groups across all 55 countries. Explore demographics, cultures, and languages.",
   authors: [{ name: "African Ethnicities Dictionary" }],
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   openGraph: {
     title: "African Ethnicities Dictionary",
-    description: "Comprehensive multilingual encyclopedia of African ethnic groups",
+    description:
+      "Comprehensive multilingual encyclopedia of African ethnic groups",
     type: "website",
     images: ["https://lovable.dev/opengraph-image-p98pqg.png"],
   },
@@ -47,4 +52,3 @@ export default function RootLayout({
     </html>
   );
 }
-

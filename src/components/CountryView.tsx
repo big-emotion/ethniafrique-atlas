@@ -100,7 +100,11 @@ export const CountryView = ({
   };
 
   return (
-    <div className="space-y-4">
+    <div
+      className={`space-y-4 ${
+        hideSearchAndAlphabet ? "h-full flex flex-col" : ""
+      }`}
+    >
       {/* Navigation alphabétique */}
       {!hideSearchAndAlphabet && (
         <>
@@ -151,8 +155,16 @@ export const CountryView = ({
       )}
 
       {/* Liste des pays */}
-      <ScrollArea className="h-[calc(100vh-24rem)]">
-        <div className="space-y-2 px-4 pb-4">
+      <ScrollArea
+        className={
+          hideSearchAndAlphabet ? "flex-1 min-h-0" : "h-[calc(100vh-24rem)]"
+        }
+      >
+        <div
+          className={`space-y-2 ${
+            hideSearchAndAlphabet ? "px-0" : "px-4"
+          } pb-4`}
+        >
           {loading ? (
             <div className="flex items-center justify-center h-64">
               <p className="text-muted-foreground">Loading countries...</p>
@@ -196,7 +208,11 @@ export const CountryView = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 px-4 pb-4">
+        <div
+          className={`flex items-center justify-center gap-2 ${
+            hideSearchAndAlphabet ? "px-0" : "px-4"
+          } pb-4 flex-shrink-0`}
+        >
           <Button
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}

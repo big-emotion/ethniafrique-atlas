@@ -37,6 +37,7 @@ export const translations = {
     close: "Close",
     ethnicitySummary: (name: string, population: string, percent: string, region: string, countries: string, count: number) =>
       `The ${name} gather approximately ${population} people, representing ${percent}% of the African population, mainly in ${region}. They are found mainly in ${countries}, distributed across ${count} ${count === 1 ? "country" : "countries"}.`,
+    madeWithEmotion: "Made with emotion for Africa",
   },
   fr: {
     title: "Dictionnaire des Ethnies d'Afrique",
@@ -74,6 +75,7 @@ export const translations = {
     close: "Fermer",
     ethnicitySummary: (name: string, population: string, percent: string, region: string, countries: string, count: number) =>
       `Les ${name} rassemblent environ ${population} de personnes, soit ${percent}% de la population africaine, principalement en ${region}. On les retrouve surtout dans ${countries}, répartis sur ${count} ${count === 1 ? "pays" : "pays"}.`,
+    madeWithEmotion: "Fait avec émotion pour l'Afrique",
   },
   es: {
     title: "Diccionario de Etnias Africanas",
@@ -110,6 +112,7 @@ export const translations = {
     close: "Cerrar",
     ethnicitySummary: (name: string, population: string, percent: string, region: string, countries: string, count: number) =>
       `Los ${name} reúnen aproximadamente ${population} de personas, representando el ${percent}% de la población africana, principalmente en ${region}. Se encuentran principalmente en ${countries}, distribuidos en ${count} ${count === 1 ? "país" : "países"}.`,
+    madeWithEmotion: "Hecho con emoción para África",
   },
   pt: {
     title: "Dicionário das Etnias Africanas",
@@ -146,6 +149,7 @@ export const translations = {
     close: "Fechar",
     ethnicitySummary: (name: string, population: string, percent: string, region: string, countries: string, count: number) =>
       `Os ${name} reúnem aproximadamente ${population} de pessoas, representando ${percent}% da população africana, principalmente em ${region}. Encontram-se principalmente em ${countries}, distribuídos em ${count} ${count === 1 ? "país" : "países"}.`,
+    madeWithEmotion: "Feito com emoção para a África",
   },
 };
 

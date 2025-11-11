@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useMemo, useEffect } from 'react';
-import { Language } from '@/types/ethnicity';
-import { getTranslation } from '@/lib/translations';
-import { getAllEthnicities } from '@/lib/datasetLoader';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useMemo, useEffect } from "react";
+import { Language } from "@/types/ethnicity";
+import { getTranslation } from "@/lib/translations";
+import { getAllEthnicities } from "@/lib/datasetLoader";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface EthnicityViewProps {
   language: Language;
@@ -17,34 +17,42 @@ interface EthnicityViewProps {
   hideSearchAndAlphabet?: boolean;
 }
 
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphabet = false }: EthnicityViewProps) => {
+export const EthnicityView = ({
+  language,
+  onEthnicitySelect,
+  hideSearchAndAlphabet = false,
+}: EthnicityViewProps) => {
   const t = getTranslation(language);
   const [search, setSearch] = useState<string>("");
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [ethnicGroups, setEthnicGroups] = useState<Array<{
-    name: string;
-    totalPopulation: number;
-    percentageInAfrica: number;
-    countryCount: number;
-  }>>([]);
+  const [ethnicGroups, setEthnicGroups] = useState<
+    Array<{
+      name: string;
+      totalPopulation: number;
+      percentageInAfrica: number;
+      countryCount: number;
+    }>
+  >([]);
   const [loading, setLoading] = useState(true);
 
   const itemsPerPage = 10;
 
   useEffect(() => {
-    getAllEthnicities().then(data => {
+    getAllEthnicities().then((data) => {
       setEthnicGroups(data);
       setLoading(false);
     });
   }, []);
 
   const filteredGroups = useMemo(() => {
-    return ethnicGroups.filter(group => {
-      const matchesSearch = group.name.toLowerCase().includes(search.toLowerCase());
-      
+    return ethnicGroups.filter((group) => {
+      const matchesSearch = group.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
       if (selectedLetter) {
         // Gérer les noms qui commencent par des guillemets ou caractères spéciaux
         let firstChar = group.name.trim().charAt(0);
@@ -54,7 +62,7 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
         const firstLetter = firstChar.toUpperCase();
         return matchesSearch && firstLetter === selectedLetter;
       }
-      
+
       return matchesSearch;
     });
   }, [ethnicGroups, search, selectedLetter]);
@@ -72,7 +80,7 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
 
   const availableLetters = useMemo(() => {
     const letters = new Set<string>();
-    ethnicGroups.forEach(group => {
+    ethnicGroups.forEach((group) => {
       let firstChar = group.name.trim().charAt(0);
       if (firstChar === '"') {
         firstChar = group.name.trim().charAt(1);
@@ -86,8 +94,15 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
   }, [ethnicGroups]);
 
   const formatNumber = (num: number): string => {
-    return new Intl.NumberFormat(language === 'en' ? 'en-US' : language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : 'pt-PT')
-      .format(Math.round(num));
+    return new Intl.NumberFormat(
+      language === "en"
+        ? "en-US"
+        : language === "fr"
+        ? "fr-FR"
+        : language === "es"
+        ? "es-ES"
+        : "pt-PT"
+    ).format(Math.round(num));
   };
 
   const formatPercent = (pct: number): string => {
@@ -95,7 +110,11 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
   };
 
   return (
-    <div className="space-y-4">
+    <div
+      className={`space-y-4 ${
+        hideSearchAndAlphabet ? "h-full flex flex-col" : ""
+      }`}
+    >
       {/* Navigation alphabétique */}
       {!hideSearchAndAlphabet && (
         <>
@@ -109,13 +128,20 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
               >
                 Tous
               </Button>
-              {ALPHABET.map(letter => (
+              {ALPHABET.map((letter) => (
                 <Button
                   key={letter}
                   variant={selectedLetter === letter ? "default" : "outline"}
                   size="sm"
-                  className={`h-8 w-8 p-0 text-xs ${availableLetters.includes(letter) ? '' : 'opacity-30 cursor-not-allowed'}`}
-                  onClick={() => availableLetters.includes(letter) && setSelectedLetter(letter)}
+                  className={`h-8 w-8 p-0 text-xs ${
+                    availableLetters.includes(letter)
+                      ? ""
+                      : "opacity-30 cursor-not-allowed"
+                  }`}
+                  onClick={() =>
+                    availableLetters.includes(letter) &&
+                    setSelectedLetter(letter)
+                  }
                   disabled={!availableLetters.includes(letter)}
                 >
                   {letter}
@@ -139,8 +165,16 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
       )}
 
       {/* Liste des ethnies */}
-      <ScrollArea className="h-[calc(100vh-24rem)]">
-        <div className="space-y-2 px-4 pb-4">
+      <ScrollArea
+        className={
+          hideSearchAndAlphabet ? "flex-1 min-h-0" : "h-[calc(100vh-24rem)]"
+        }
+      >
+        <div
+          className={`space-y-2 ${
+            hideSearchAndAlphabet ? "px-0" : "px-4"
+          } pb-4`}
+        >
           {loading ? (
             <div className="flex items-center justify-center h-64">
               <p className="text-muted-foreground">Loading ethnicities...</p>
@@ -150,7 +184,7 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
               <p className="text-muted-foreground">No ethnicities found</p>
             </div>
           ) : (
-            paginatedGroups.map(group => (
+            paginatedGroups.map((group) => (
               <Card
                 key={group.name}
                 className="p-4 hover:shadow-md cursor-pointer transition-all group"
@@ -163,16 +197,31 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
                     </h3>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">{t.population}:</span>
-                        <span className="font-medium">{formatNumber(group.totalPopulation)}</span>
+                        <span className="text-muted-foreground">
+                          {t.population}:
+                        </span>
+                        <span className="font-medium">
+                          {formatNumber(group.totalPopulation)}
+                        </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">{t.inAfrica}:</span>
-                        <span className="font-medium">{formatPercent(group.percentageInAfrica)}</span>
+                        <span className="text-muted-foreground">
+                          {t.inAfrica}:
+                        </span>
+                        <span className="font-medium">
+                          {formatPercent(group.percentageInAfrica)}
+                        </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">{t.country}:</span>
-                        <span className="font-medium">{group.countryCount} {group.countryCount === 1 ? t.country.toLowerCase() : t.countries.toLowerCase()}</span>
+                        <span className="text-muted-foreground">
+                          {t.country}:
+                        </span>
+                        <span className="font-medium">
+                          {group.countryCount}{" "}
+                          {group.countryCount === 1
+                            ? t.country.toLowerCase()
+                            : t.countries.toLowerCase()}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -185,9 +234,13 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 px-4 pb-4">
+        <div
+          className={`flex items-center justify-center gap-2 ${
+            hideSearchAndAlphabet ? "px-0" : "px-4"
+          } pb-4 flex-shrink-0`}
+        >
           <Button
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
             variant="outline"
             size="sm"
@@ -198,7 +251,7 @@ export const EthnicityView = ({ language, onEthnicitySelect, hideSearchAndAlphab
             {currentPage} / {totalPages}
           </span>
           <Button
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
             variant="outline"
             size="sm"
