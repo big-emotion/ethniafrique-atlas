@@ -11,7 +11,7 @@ Page "À propos" disponible sur `/about` ou `/{lang}/about` (ex. `/fr/about`, `/
 - À propos / Contexte: `/{lang}/about` (ex. `/fr/about`, `/en/about`)
 - Contribuer: `/{lang}/contribute` - Documentation API, téléchargement de données, contribution GitHub
 - Signaler une erreur: `/{lang}/report-error` - Formulaire pour signaler des erreurs dans les données
-- Dépôt GitHub: https://github.com/big-emotion/ethniafrique-atlas
+- Dépôt GitHub: https://github.com/big-emotion/ethniafrica
 
 ## Fonctionnalités
 
@@ -225,7 +225,7 @@ public/dataset/
 Les contributions sont bienvenues: fichiers CSV, corrections, nouvelles sources, UI/UX, refacto, etc.
 
 - **Page dédiée** : `/{lang}/contribute` - Toutes les informations pour contribuer
-- **Dépôt GitHub** : https://github.com/big-emotion/ethniafrique-atlas
+- **Dépôt GitHub** : https://github.com/big-emotion/ethniafrica
 - **Documentation API** : `/docs/api` - Pour utiliser les données programmatiquement
 - **Téléchargement de données** : `/api/download?format=csv` ou `/api/download?format=excel`
 
