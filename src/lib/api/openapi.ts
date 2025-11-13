@@ -15,8 +15,14 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
-        description: "Serveur de développement",
+        url:
+          process.env.NEXT_PUBLIC_SITE_URL ||
+          (process.env.VERCEL_URL
+            ? `https://${process.env.VERCEL_URL}`
+            : "http://localhost:3000"),
+        description: process.env.VERCEL_URL
+          ? "Serveur de production"
+          : "Serveur de développement",
       },
     ],
     tags: [
