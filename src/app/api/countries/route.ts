@@ -1,0 +1,58 @@
+import { NextResponse } from "next/server";
+import { getAllCountries } from "@/lib/api/datasetLoader.server";
+
+/**
+ * @swagger
+ * /api/countries:
+ *   get:
+ *     summary: Liste tous les pays
+ *     description: Retourne la liste de tous les pays d'Afrique avec leurs données
+ *     tags: [Countries]
+ *     responses:
+ *       200:
+ *         description: Liste des pays
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 countries:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                         example: "Maroc"
+ *                       region:
+ *                         type: string
+ *                         example: "afrique_du_nord"
+ *                       regionName:
+ *                         type: string
+ *                         example: "Afrique du Nord"
+ *                       data:
+ *                         type: object
+ *                         properties:
+ *                           population:
+ *                             type: number
+ *                           percentageInRegion:
+ *                             type: number
+ *                           percentageInAfrica:
+ *                             type: number
+ *                           ethnicityCount:
+ *                             type: number
+ *       500:
+ *         description: Erreur serveur
+ */
+export async function GET() {
+  try {
+    const countries = await getAllCountries();
+    return NextResponse.json({ countries });
+  } catch (error) {
+    console.error("Error fetching countries:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch countries" },
+      { status: 500 }
+    );
+  }
+}

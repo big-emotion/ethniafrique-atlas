@@ -1,0 +1,115 @@
+import swaggerJsdoc from "swagger-jsdoc";
+
+const options: swaggerJsdoc.Options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Ethniafrique Atlas API",
+      version: "1.0.0",
+      description:
+        "API publique pour accéder aux données démographiques et ethniques de l'Afrique. Cette API fournit des informations sur les régions, pays, ethnies et statistiques démographiques du continent africain.",
+      contact: {
+        name: "Ethniafrique Atlas",
+        url: "https://github.com/big-emotion/ethniafrique-atlas",
+      },
+    },
+    servers: [
+      {
+        url: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
+        description: "Serveur de développement",
+      },
+    ],
+    tags: [
+      {
+        name: "Statistics",
+        description: "Statistiques globales",
+      },
+      {
+        name: "Regions",
+        description: "Opérations sur les régions",
+      },
+      {
+        name: "Countries",
+        description: "Opérations sur les pays",
+      },
+      {
+        name: "Ethnicities",
+        description: "Opérations sur les ethnies",
+      },
+    ],
+    components: {
+      schemas: {
+        RegionData: {
+          type: "object",
+          properties: {
+            name: {
+              type: "string",
+              example: "Afrique du Nord",
+            },
+            totalPopulation: {
+              type: "number",
+              example: 274113455,
+            },
+            countries: {
+              type: "object",
+              additionalProperties: {
+                type: "object",
+                properties: {
+                  name: {
+                    type: "string",
+                  },
+                  population: {
+                    type: "number",
+                  },
+                  percentageInRegion: {
+                    type: "number",
+                  },
+                  percentageInAfrica: {
+                    type: "number",
+                  },
+                  ethnicityCount: {
+                    type: "number",
+                  },
+                },
+              },
+            },
+            ethnicities: {
+              type: "object",
+              additionalProperties: {
+                type: "object",
+                properties: {
+                  name: {
+                    type: "string",
+                  },
+                  totalPopulationInRegion: {
+                    type: "number",
+                  },
+                  percentageInRegion: {
+                    type: "number",
+                  },
+                  percentageInAfrica: {
+                    type: "number",
+                  },
+                },
+              },
+            },
+          },
+        },
+        Error: {
+          type: "object",
+          properties: {
+            error: {
+              type: "string",
+              example: "Resource not found",
+            },
+          },
+        },
+      },
+    },
+  },
+  apis: [
+    "./src/app/api/**/*.ts", // Chemin vers les fichiers avec les annotations Swagger
+  ],
+};
+
+export const swaggerSpec = swaggerJsdoc(options);

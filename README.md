@@ -50,6 +50,7 @@ Page "À propos" disponible sur `/about` ou `/{lang}/about` (ex. `/fr/about`, `/
 - Next.js (App Router) + TypeScript
 - Tailwind CSS + shadcn/ui
 - TanStack Query (React Query)
+- Swagger/OpenAPI pour la documentation API
 
 ## Démarrer en local
 
@@ -64,6 +65,81 @@ npm run dev
 ```
 
 L’application démarre sur http://localhost:3000.
+
+## API publique
+
+L'application expose une API REST publique pour accéder aux données démographiques et ethniques de l'Afrique.
+
+### Documentation interactive
+
+- **Swagger UI** : `/api/docs` - Interface interactive pour explorer et tester l'API
+- **OpenAPI Spec** : `/api/docs` (JSON) - Spécification OpenAPI au format JSON
+
+### Endpoints disponibles
+
+#### Statistiques
+
+- `GET /api/stats` - Statistiques globales (population totale de l'Afrique)
+
+#### Régions
+
+- `GET /api/regions` - Liste toutes les régions
+- `GET /api/regions/{key}` - Détails d'une région spécifique
+- `GET /api/regions/{key}/countries` - Pays d'une région
+
+#### Pays
+
+- `GET /api/countries` - Liste tous les pays
+- `GET /api/countries/{name}` - Détails d'un pays (avec ethnies)
+
+#### Ethnies
+
+- `GET /api/ethnicities` - Liste toutes les ethnies
+- `GET /api/ethnicities/{name}` - Détails d'une ethnie globale
+
+### Exemples d'utilisation
+
+```bash
+# Statistiques globales
+curl http://localhost:3000/api/stats
+
+# Liste des régions
+curl http://localhost:3000/api/regions
+
+# Détails d'une région
+curl http://localhost:3000/api/regions/afrique_du_nord
+
+# Pays d'une région
+curl http://localhost:3000/api/regions/afrique_du_nord/countries
+
+# Liste des pays
+curl http://localhost:3000/api/countries
+
+# Détails d'un pays (encoder les caractères spéciaux)
+curl http://localhost:3000/api/countries/Maroc
+curl "http://localhost:3000/api/countries/Côte%20d'Ivoire"
+
+# Liste des ethnies
+curl http://localhost:3000/api/ethnicities
+
+# Détails d'une ethnie
+curl http://localhost:3000/api/ethnicities/Arabes
+```
+
+### Format des réponses
+
+Toutes les réponses sont au format JSON avec les codes HTTP standards :
+
+- `200` - Succès
+- `404` - Ressource non trouvée
+- `500` - Erreur serveur
+
+### Encodage des paramètres
+
+Les noms de pays et d'ethnies avec caractères spéciaux doivent être encodés en URL :
+
+- `Côte d'Ivoire` → `Côte%20d'Ivoire`
+- `São Tomé-et-Principe` → `São%20Tomé-et-Principe`
 
 ## Contact
 

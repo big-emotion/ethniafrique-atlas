@@ -64,6 +64,7 @@ export const RegionDetailView = ({
   const itemsPerPage = 10;
 
   useEffect(() => {
+    setCountryPage(1); // Réinitialiser la pagination à chaque changement de région
     const loadData = async () => {
       const regionData = await getRegion(regionKey);
       setRegion(regionData);
@@ -77,10 +78,10 @@ export const RegionDetailView = ({
       language === "en"
         ? "en-US"
         : language === "fr"
-        ? "fr-FR"
-        : language === "es"
-        ? "es-ES"
-        : "pt-PT"
+          ? "fr-FR"
+          : language === "es"
+            ? "es-ES"
+            : "pt-PT"
     ).format(Math.round(num));
   };
 

@@ -63,6 +63,7 @@ export const CountryDetailView = ({
   const itemsPerPage = 10;
 
   useEffect(() => {
+    setCurrentPage(1); // Réinitialiser la pagination à chaque changement de pays
     getCountryDetails(regionKey, countryName).then((data) => {
       setCountryData(data);
       setLoading(false);
@@ -74,10 +75,10 @@ export const CountryDetailView = ({
       language === "en"
         ? "en-US"
         : language === "fr"
-        ? "fr-FR"
-        : language === "es"
-        ? "es-ES"
-        : "pt-PT"
+          ? "fr-FR"
+          : language === "es"
+            ? "es-ES"
+            : "pt-PT"
     ).format(Math.round(num));
   };
 
