@@ -1,6 +1,8 @@
-# Dictionnaire des Ethnies d’Afrique
+# Dictionnaire des Ethnies d'Afrique
 
-Une application web open source pour explorer les peuples d’Afrique par région, pays et groupe ethnique, avec des statistiques de population claires et une interface pensée pour desktop et mobile.
+Une application web open source pour explorer les peuples d'Afrique par région, pays et groupe ethnique, avec des statistiques de population claires et une interface pensée pour desktop et mobile.
+
+**Version actuelle : v1.1.0**
 
 Page "À propos" disponible sur `/about` ou `/{lang}/about` (ex. `/fr/about`, `/en/about`).
 
@@ -238,6 +240,19 @@ Merci de:
 - Carte interactive des zones de présence
 - Fiches enrichies: sous‑ethnies, histoire, culture, religions et croyances, royaumes et personnalités, langues, sciences et arts
 - Ajout progressif de contenus en langues africaines
+
+## Changelog
+
+### v1.1.0 (2025-01-XX)
+
+- **Documentation API améliorée** : Interface Swagger UI plus ergonomique avec liens rapides, introduction et design cohérent
+- **Configuration OpenAPI dynamique** : Support automatique des URLs de production (Vercel) et développement
+- **Optimisation Typeform** : Amélioration du temps de chargement avec preconnect et stratégie afterInteractive
+- **Améliorations UX** : Meilleure organisation de la page de documentation API
+
+### v1.0.0
+
+- Version initiale avec toutes les fonctionnalités de base
 
 ## Licence
 
