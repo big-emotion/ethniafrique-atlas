@@ -337,7 +337,7 @@ export default function ContributePage() {
           </div>
           <Script
             src="//embed.typeform.com/next/embed.js"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
         </section>
       </div>

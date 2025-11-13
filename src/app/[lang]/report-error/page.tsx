@@ -178,7 +178,7 @@ export default function ReportErrorPage() {
           </div>
           <Script
             src="//embed.typeform.com/next/embed.js"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
         </section>
       </div>
