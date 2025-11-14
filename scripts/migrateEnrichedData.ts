@@ -71,6 +71,48 @@ function limitAncientNames(names: string | string[]): string {
   return namesArray.slice(0, 3).join(", ");
 }
 
+/**
+ * Formate une erreur pour l'affichage
+ */
+function formatError(error: unknown): string {
+  if (error instanceof Error) {
+    // Erreur Supabase avec propriétés supplémentaires
+    const supabaseError = error as Error & {
+      code?: string;
+      details?: string;
+      hint?: string;
+      message?: string;
+    };
+
+    let message = supabaseError.message || error.message;
+
+    if (supabaseError.code) {
+      message += ` (code: ${supabaseError.code})`;
+    }
+
+    if (supabaseError.details) {
+      message += ` - ${supabaseError.details}`;
+    }
+
+    if (supabaseError.hint) {
+      message += ` (hint: ${supabaseError.hint})`;
+    }
+
+    return message;
+  }
+
+  // Si c'est un objet, essayer de le sérialiser
+  if (typeof error === "object" && error !== null) {
+    try {
+      return JSON.stringify(error);
+    } catch {
+      return String(error);
+    }
+  }
+
+  return String(error);
+}
+
 async function main() {
   console.log("🚀 Starting enriched data migration to Supabase...\n");
 
@@ -202,7 +244,7 @@ async function main() {
           stats.regions++;
         }
       } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : String(error);
+        const message = formatError(error);
         console.error(`  ✗ Error with region "${regionKey}":`, message);
         stats.errors++;
       }
@@ -300,7 +342,7 @@ async function main() {
           stats.countries++;
         }
       } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : String(error);
+        const message = formatError(error);
         console.error(
           `  ✗ Error creating country "${matchedData.countryName}":`,
           message
@@ -360,7 +402,7 @@ async function main() {
           stats.languages++;
         }
       } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : String(error);
+        const message = formatError(error);
         console.error(
           `  ✗ Error creating language "${languageName}":`,
           message
@@ -384,28 +426,37 @@ async function main() {
 
     for (const sourceTitle of allSources) {
       try {
+        // Vérifier d'abord si la source existe déjà
+        const { data: existing } = await supabase
+          .from("sources")
+          .select("id")
+          .eq("title", sourceTitle)
+          .maybeSingle();
+
+        if (existing) {
+          sourceIdMap.set(sourceTitle, existing.id);
+          continue;
+        }
+
+        // Créer la source si elle n'existe pas
         const { data, error } = await supabase
           .from("sources")
-          .upsert(
-            {
-              title: sourceTitle,
-            },
-            {
-              onConflict: "title",
-            }
-          )
+          .insert({
+            title: sourceTitle,
+          })
           .select("id")
           .single();
 
         if (error) {
+          // Si erreur de doublon, réessayer de récupérer
           if (error.code === "23505") {
-            const { data: existing } = await supabase
+            const { data: existingAfterError } = await supabase
               .from("sources")
               .select("id")
               .eq("title", sourceTitle)
               .single();
-            if (existing) {
-              sourceIdMap.set(sourceTitle, existing.id);
+            if (existingAfterError) {
+              sourceIdMap.set(sourceTitle, existingAfterError.id);
             }
           } else {
             throw error;
@@ -415,7 +466,7 @@ async function main() {
           stats.sources++;
         }
       } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : String(error);
+        const message = formatError(error);
         console.error(`  ✗ Error creating source "${sourceTitle}":`, message);
         stats.errors++;
       }

@@ -32,10 +32,15 @@ Ce guide explique comment déployer la nouvelle version avec les données enrich
    -- Exécuter le contenu de supabase/migrations/002_add_enriched_fields.sql
    ```
 
+   ```sql
+   -- Migration 003 : Contrainte UNIQUE sur sources.title
+   -- Exécuter le contenu de supabase/migrations/003_add_unique_constraint_sources_title.sql
+   ```
+
    **Via Supabase Dashboard** :
    - Aller dans SQL Editor
    - Copier/coller le contenu de chaque fichier de migration
-   - Exécuter dans l'ordre (001 puis 002)
+   - Exécuter dans l'ordre (001, 002, puis 003)
 
    **Via Supabase CLI** (si configuré) :
 
@@ -154,6 +159,10 @@ tsx scripts/verifyDeployment.ts
    - Exécuter `002_add_enriched_fields.sql` en production
    - Vérifier que les colonnes sont ajoutées
 
+3. **Appliquer la migration 003**
+   - Exécuter `003_add_unique_constraint_sources_title.sql` en production
+   - Cette migration ajoute la contrainte UNIQUE sur `sources.title` nécessaire pour les upserts
+
 #### 2.3 Migration des données enrichies en production
 
 1. **Préparer l'environnement**
@@ -200,6 +209,7 @@ tsx scripts/verifyDeployment.ts
 - [ ] Base de données staging créée
 - [ ] Migration 001 appliquée
 - [ ] Migration 002 appliquée
+- [ ] Migration 003 appliquée
 - [ ] Vérification des migrations (`tsx scripts/verifyDeployment.ts`)
 - [ ] Variables d'environnement staging configurées
 - [ ] Données enrichies migrées
@@ -212,6 +222,7 @@ tsx scripts/verifyDeployment.ts
 - [ ] Backup de la base de données production effectué
 - [ ] Migration 001 vérifiée/appliquée
 - [ ] Migration 002 appliquée
+- [ ] Migration 003 appliquée
 - [ ] Vérification des migrations (`tsx scripts/verifyDeployment.ts`)
 - [ ] Variables d'environnement production vérifiées
 - [ ] Données enrichies migrées
