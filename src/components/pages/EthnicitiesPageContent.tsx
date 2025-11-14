@@ -61,9 +61,8 @@ export function EthnicitiesPageContent() {
     // Mettre à jour l'URL sans navigation
     const url = new URL(window.location.href);
     url.searchParams.set("country", countryKey);
-    if (selectedEthnicity) {
-      url.searchParams.set("ethnicity", selectedEthnicity);
-    }
+    // Ne pas garder l'ethnicity quand on sélectionne un pays depuis la vue détaillée
+    // L'ethnicity sera réinitialisée si on sélectionne un autre élément de la liste
     router.replace(url.pathname + url.search, { scroll: false });
   };
 
@@ -137,6 +136,7 @@ export function EthnicitiesPageContent() {
             </div>
           ) : (
             <EthnicityView
+              key={pathname}
               language={language}
               onEthnicitySelect={handleEthnicitySelect}
               hideSearchAndAlphabet={false}
@@ -226,6 +226,7 @@ export function EthnicitiesPageContent() {
           <div className="lg:col-span-3">
             <Card className="shadow-soft">
               <EthnicityView
+                key={pathname}
                 language={language}
                 onEthnicitySelect={handleEthnicitySelect}
                 selectedEthnicityKey={selectedEthnicity}

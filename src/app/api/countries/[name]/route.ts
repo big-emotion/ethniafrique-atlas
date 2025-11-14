@@ -70,9 +70,12 @@ export async function GET(
 
     // Si pas trouvé, essayer comme nom direct (rétrocompatibilité temporaire)
     if (!countryDetails) {
-      const regionKey = await getCountryRegion(decodedName);
-      if (regionKey) {
-        countryDetails = await getCountryDetails(regionKey, decodedName);
+      const regionInfo = await getCountryRegion(decodedName);
+      if (regionInfo) {
+        countryDetails = await getCountryDetails(
+          regionInfo.regionKey,
+          decodedName
+        );
       }
     }
 

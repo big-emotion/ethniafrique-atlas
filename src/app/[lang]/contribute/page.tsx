@@ -16,6 +16,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { ContributionForm } from "@/components/ContributionForm";
 
 export default function ContributePage() {
   const params = useParams();
@@ -262,6 +263,11 @@ export default function ContributePage() {
           <h2 className="text-2xl font-display font-bold">{t.intro.title}</h2>
           <p>{t.intro.text1}</p>
           <p>{t.intro.text2}</p>
+        </section>
+
+        {/* Section Contribution Form */}
+        <section className="space-y-4">
+          <ContributionForm language={language} />
         </section>
 
         {/* Section API Documentation */}

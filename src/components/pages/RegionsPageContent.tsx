@@ -168,6 +168,7 @@ export function RegionsPageContent() {
             </div>
           ) : (
             <RegionView
+              key={pathname}
               language={language}
               onRegionSelect={(regionKey) => {
                 handleRegionSelect(regionKey);
@@ -267,6 +268,7 @@ export function RegionsPageContent() {
           <div className="lg:col-span-3">
             <Card className="shadow-soft">
               <RegionView
+                key={pathname}
                 language={language}
                 onRegionSelect={handleRegionSelect}
                 selectedRegionKey={selectedRegion}

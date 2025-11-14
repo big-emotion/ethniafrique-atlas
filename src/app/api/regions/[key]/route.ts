@@ -14,7 +14,7 @@ import { jsonWithCors, corsOptionsResponse } from "@/lib/api/cors";
  *         required: true
  *         schema:
  *           type: string
- *         description: Clé de la région (ex: afrique_du_nord, afrique_de_l_ouest)
+ *         description: Clé de la région (ex. afrique_du_nord, afrique_de_l_ouest)
  *     responses:
  *       200:
  *         description: Détails de la région

@@ -1,8 +1,10 @@
 import { readFileSync } from "fs";
 import { join } from "path";
+import { unstable_cache } from "next/cache";
 import {
   DatasetIndex,
   RegionData,
+  CountryData,
   EthnicityInCountry,
   EthnicityGlobalData,
 } from "@/types/ethnicity";
@@ -12,6 +14,27 @@ import {
   getCountryKey,
   getEthnicityKey,
 } from "@/lib/entityKeys";
+import {
+  getAllRegions as getAllRegionsFromSupabase,
+  getRegionByCode as getRegionByCodeFromSupabase,
+  getTotalPopulationAfrica as getTotalPopulationAfricaFromSupabase,
+} from "@/lib/supabase/queries/regions";
+import {
+  getAllCountries as getAllCountriesFromSupabase,
+  getCountryBySlug as getCountryBySlugFromSupabase,
+  getCountriesByRegionCode as getCountriesByRegionCodeFromSupabase,
+} from "@/lib/supabase/queries/countries";
+import {
+  getAllEthnicities as getAllEthnicitiesFromSupabase,
+  getEthnicityBySlug as getEthnicityBySlugFromSupabase,
+} from "@/lib/supabase/queries/ethnicities";
+import {
+  getPresencesByCountry as getPresencesByCountryFromSupabase,
+  getPresencesByEthnicity as getPresencesByEthnicityFromSupabase,
+} from "@/lib/supabase/queries/presences";
+
+// Flag pour choisir entre fichiers et Supabase
+const USE_SUPABASE = process.env.USE_SUPABASE === "true";
 
 let cachedIndex: DatasetIndex | null = null;
 
@@ -25,8 +48,12 @@ function getDatasetPath(): string {
   return join(process.cwd(), "dataset", "result");
 }
 
-// Charger l'index.json
+// Charger l'index.json (uniquement si USE_SUPABASE = false)
 export async function loadDatasetIndex(): Promise<DatasetIndex> {
+  if (USE_SUPABASE) {
+    throw new Error("Cannot load dataset index when USE_SUPABASE is enabled");
+  }
+
   if (cachedIndex) {
     return cachedIndex;
   }
@@ -43,22 +70,90 @@ export async function loadDatasetIndex(): Promise<DatasetIndex> {
   }
 }
 
+// Cache TTL: 24 heures (86400 secondes)
+const CACHE_TTL = 86400;
+
 // Obtenir la population totale de l'Afrique
-export async function getTotalPopulationAfrica(): Promise<number> {
+async function _getTotalPopulationAfrica(): Promise<number> {
+  if (USE_SUPABASE) {
+    return await getTotalPopulationAfricaFromSupabase();
+  }
+
   const index = await loadDatasetIndex();
   return index.totalPopulationAfrica;
 }
 
+export const getTotalPopulationAfrica = unstable_cache(
+  _getTotalPopulationAfrica,
+  ["total-population-africa"],
+  {
+    revalidate: CACHE_TTL,
+    tags: ["population", "africa"],
+  }
+);
+
 // Obtenir toutes les régions
-export async function getRegions(): Promise<
+async function _getRegions(): Promise<
   Array<{ key: string; data: RegionData }>
 > {
+  if (USE_SUPABASE) {
+    const regions = await getAllRegionsFromSupabase();
+    return regions.map((region) => ({
+      key: region.code,
+      data: {
+        name: region.name_fr,
+        totalPopulation: region.total_population,
+        countries: {}, // Will be loaded separately if needed
+        ethnicities: {}, // Will be loaded separately if needed
+      },
+    }));
+  }
+
   const index = await loadDatasetIndex();
   return Object.entries(index.regions).map(([key, data]) => ({ key, data }));
 }
 
+export const getRegions = unstable_cache(_getRegions, ["all-regions"], {
+  revalidate: CACHE_TTL,
+  tags: ["regions"],
+});
+
 // Obtenir une région spécifique
 export async function getRegion(regionKey: string): Promise<RegionData | null> {
+  if (USE_SUPABASE) {
+    const region = await getRegionByCodeFromSupabase(regionKey);
+    if (!region) return null;
+
+    // Load countries and ethnicities for this region
+    const countries = await getCountriesByRegionCodeFromSupabase(regionKey);
+    const countriesMap: Record<
+      string,
+      {
+        name: string;
+        population: number;
+        percentageInRegion: number;
+        percentageInAfrica: number;
+        ethnicityCount: number;
+      }
+    > = {};
+    for (const country of countries) {
+      countriesMap[country.name_fr] = {
+        name: country.name_fr,
+        population: country.population_2025,
+        percentageInRegion: country.percentage_in_region || 0,
+        percentageInAfrica: country.percentage_in_africa || 0,
+        ethnicityCount: 0, // Will be calculated if needed
+      };
+    }
+
+    return {
+      name: region.name_fr,
+      totalPopulation: region.total_population,
+      countries: countriesMap as Record<string, CountryData>,
+      ethnicities: {}, // Can be loaded separately if needed
+    };
+  }
+
   const index = await loadDatasetIndex();
   return index.regions[regionKey] || null;
 }
@@ -74,6 +169,18 @@ export async function getCountriesInRegion(regionKey: string): Promise<
     };
   }>
 > {
+  if (USE_SUPABASE) {
+    const countries = await getCountriesByRegionCodeFromSupabase(regionKey);
+    return countries.map((country) => ({
+      name: country.name_fr,
+      data: {
+        population: country.population_2025,
+        percentageInRegion: country.percentage_in_region || 0,
+        percentageInAfrica: country.percentage_in_africa || 0,
+      },
+    }));
+  }
+
   const region = await getRegion(regionKey);
   if (!region) return [];
 
@@ -99,21 +206,16 @@ function parseCSVLine(line: string): string[] {
         current += '"';
         i++; // Skip le prochain guillemet
       } else {
-        // Toggle du mode guillemets
         inQuotes = !inQuotes;
       }
     } else if (char === "," && !inQuotes) {
-      // Virgule en dehors des guillemets = séparateur
       values.push(current.trim());
       current = "";
     } else {
       current += char;
     }
   }
-
-  // Ajouter la dernière valeur
   values.push(current.trim());
-
   return values;
 }
 
@@ -122,6 +224,24 @@ export async function getEthnicitiesInCountry(
   regionKey: string,
   countryName: string
 ): Promise<EthnicityInCountry[]> {
+  if (USE_SUPABASE) {
+    // Find country by name
+    const countrySlug = getCountryKey(countryName) || countryName;
+    const country = await getCountryBySlugFromSupabase(countrySlug);
+    if (!country) return [];
+
+    const presences = await getPresencesByCountryFromSupabase(country.id);
+    return presences.map((presence) => ({
+      Ethnicity_or_Subgroup: presence.ethnicity.name_fr,
+      "pourcentage dans la population du pays":
+        presence.percentage_in_country?.toString() || "0",
+      "population de l'ethnie estimée dans le pays":
+        presence.population.toString(),
+      "pourcentage dans la population totale d'Afrique":
+        presence.percentage_in_africa?.toString() || "0",
+    }));
+  }
+
   try {
     const csvPath = join(
       getDatasetPath(),
@@ -170,6 +290,33 @@ export async function getCountryDetails(
     percentageInAfrica: number;
   }>;
 } | null> {
+  if (USE_SUPABASE) {
+    const countrySlug = getCountryKey(countryName) || countryName;
+    const country = await getCountryBySlugFromSupabase(countrySlug);
+    if (!country) return null;
+
+    const region = await getRegionByCodeFromSupabase(regionKey);
+    if (!region) return null;
+
+    const presences = await getPresencesByCountryFromSupabase(country.id);
+    const ethnicities = presences.map((presence) => ({
+      name: presence.ethnicity.name_fr,
+      population: presence.population,
+      percentageInCountry: presence.percentage_in_country || 0,
+      percentageInRegion: presence.percentage_in_region || 0,
+      percentageInAfrica: presence.percentage_in_africa || 0,
+    }));
+
+    return {
+      name: country.name_fr,
+      population: country.population_2025,
+      percentageInRegion: country.percentage_in_region || 0,
+      percentageInAfrica: country.percentage_in_africa || 0,
+      region: region.name_fr,
+      ethnicities: ethnicities.sort((a, b) => b.population - a.population),
+    };
+  }
+
   const region = await getRegion(regionKey);
   if (!region) return null;
 
@@ -206,47 +353,111 @@ export async function getCountryDetails(
 export async function getEthnicityGlobalDetails(
   ethnicityName: string
 ): Promise<EthnicityGlobalData | null> {
+  if (USE_SUPABASE) {
+    const ethnicitySlug = getEthnicityKey(ethnicityName) || ethnicityName;
+    const ethnicity = await getEthnicityBySlugFromSupabase(ethnicitySlug);
+    if (!ethnicity) return null;
+
+    const presences = await getPresencesByEthnicityFromSupabase(ethnicity.id);
+    const countries = presences.map((presence) => ({
+      country: presence.country.name_fr,
+      region: presence.region.name_fr,
+      population: presence.population,
+      percentageInCountry: presence.percentage_in_country || 0,
+      percentageInRegion: presence.percentage_in_region || 0,
+      percentageInAfrica: presence.percentage_in_africa || 0,
+    }));
+
+    // Calculate regions summary
+    const regionsMap = new Map<
+      string,
+      { totalPopulation: number; ethnicityPopulation: number }
+    >();
+    for (const presence of presences) {
+      const regionName = presence.region.name_fr;
+      const existing = regionsMap.get(regionName) || {
+        totalPopulation: 0,
+        ethnicityPopulation: 0,
+      };
+      existing.ethnicityPopulation += presence.population;
+      // Get region total population (we need to fetch it)
+      const region = await getRegionByCodeFromSupabase(presence.region.code);
+      if (region) {
+        existing.totalPopulation = region.total_population;
+      }
+      regionsMap.set(regionName, existing);
+    }
+
+    const regions = Array.from(regionsMap.entries()).map(([name, data]) => ({
+      name,
+      totalPopulation: data.totalPopulation,
+      ethnicityPopulation: data.ethnicityPopulation,
+      percentageInRegion:
+        data.totalPopulation > 0
+          ? (data.ethnicityPopulation / data.totalPopulation) * 100
+          : 0,
+    }));
+
+    return {
+      name: ethnicity.name_fr,
+      totalPopulation: ethnicity.total_population || 0,
+      percentageInAfrica: ethnicity.percentage_in_africa || 0,
+      countries: countries.sort((a, b) => b.population - a.population),
+      regions,
+    };
+  }
+
   const index = await loadDatasetIndex();
-
   let totalPopulation = 0;
-  let totalPercentageAfrica = 0;
-  const countriesData: EthnicityGlobalData["countries"] = [];
+  const countriesMap = new Map<
+    string,
+    {
+      country: string;
+      region: string;
+      population: number;
+      percentageInCountry: number;
+      percentageInRegion: number;
+      percentageInAfrica: number;
+    }
+  >();
 
-  // Parcourir toutes les régions
+  // Parcourir toutes les régions pour trouver l'ethnie
   for (const [regionKey, region] of Object.entries(index.regions)) {
     // Vérifier si l'ethnie existe dans cette région
     const ethnicityInRegion = region.ethnicities[ethnicityName];
     if (!ethnicityInRegion) continue;
 
-    totalPercentageAfrica += ethnicityInRegion.percentageInAfrica;
-
-    // Parcourir tous les pays de la région pour trouver ceux qui ont cette ethnie
+    // Parcourir les pays de cette région
     for (const [countryName, countryData] of Object.entries(region.countries)) {
-      const ethnicities = await getEthnicitiesInCountry(regionKey, countryName);
-      const ethnicityData = ethnicities.find(
-        (e) => e.Ethnicity_or_Subgroup === ethnicityName
+      const ethnicitiesData = await getEthnicitiesInCountry(
+        regionKey,
+        countryName
+      );
+      const ethnicityData = ethnicitiesData.find(
+        (eth) => eth.Ethnicity_or_Subgroup === ethnicityName
       );
 
       if (ethnicityData) {
-        const pop =
+        const population =
           parseFloat(
             ethnicityData["population de l'ethnie estimée dans le pays"]
           ) || 0;
-        totalPopulation += pop;
+        totalPopulation += population;
 
         const percentageInCountry =
           parseFloat(ethnicityData["pourcentage dans la population du pays"]) ||
           0;
-        const percentageInRegion = (pop / region.totalPopulation) * 100;
+        const percentageInRegion =
+          (population / ethnicityInRegion.totalPopulationInRegion) * 100;
         const percentageInAfrica =
           parseFloat(
             ethnicityData["pourcentage dans la population totale d'Afrique"]
           ) || 0;
 
-        countriesData.push({
+        countriesMap.set(`${regionKey}-${countryName}`, {
           country: countryName,
           region: region.name,
-          population: pop,
+          population,
           percentageInCountry,
           percentageInRegion,
           percentageInAfrica,
@@ -255,107 +466,45 @@ export async function getEthnicityGlobalDetails(
     }
   }
 
-  if (countriesData.length === 0) return null;
+  if (countriesMap.size === 0) return null;
 
-  // Calculer les informations par région pour le pourcentage correct
-  // Utiliser les données déjà calculées dans l'index pour garantir la cohérence
-  const regions = [];
-
+  // Calculate regions summary
+  const regionsMap = new Map<
+    string,
+    { totalPopulation: number; ethnicityPopulation: number }
+  >();
   for (const [regionKey, region] of Object.entries(index.regions)) {
     const ethnicityInRegion = region.ethnicities[ethnicityName];
-    if (!ethnicityInRegion) continue;
-
-    // Utiliser les valeurs déjà calculées dans l'index
-    // totalPopulationInRegion est la population de l'ethnie dans cette région
-    // percentageInRegion est déjà calculé correctement dans l'index
-    const ethnicityPopInRegion = ethnicityInRegion.totalPopulationInRegion || 0;
-
-    if (ethnicityPopInRegion > 0) {
-      // Recalculer le pourcentage pour être sûr qu'il est correct
-      const percentageInRegion =
-        (ethnicityPopInRegion / region.totalPopulation) * 100;
-
-      regions.push({
-        name: region.name,
+    if (ethnicityInRegion) {
+      regionsMap.set(region.name, {
         totalPopulation: region.totalPopulation,
-        ethnicityPopulation: ethnicityPopInRegion,
-        percentageInRegion: percentageInRegion,
+        ethnicityPopulation: ethnicityInRegion.totalPopulationInRegion,
       });
     }
   }
 
+  const regions = Array.from(regionsMap.entries()).map(([name, data]) => ({
+    name,
+    totalPopulation: data.totalPopulation,
+    ethnicityPopulation: data.ethnicityPopulation,
+    percentageInRegion:
+      data.totalPopulation > 0
+        ? (data.ethnicityPopulation / data.totalPopulation) * 100
+        : 0,
+  }));
+
   return {
     name: ethnicityName,
     totalPopulation,
-    percentageInAfrica: totalPercentageAfrica,
-    countries: countriesData.sort((a, b) => b.population - a.population),
-    regions: regions.sort(
-      (a, b) => b.ethnicityPopulation - a.ethnicityPopulation
+    percentageInAfrica: (totalPopulation / index.totalPopulationAfrica) * 100,
+    countries: Array.from(countriesMap.values()).sort(
+      (a, b) => b.population - a.population
     ),
+    regions,
   };
 }
 
-// Obtenir la région d'un pays (par nom ou clé)
-export async function getCountryRegion(
-  countryNameOrKey: string
-): Promise<string | null> {
-  const index = await loadDatasetIndex();
-
-  // Essayer d'abord comme nom direct
-  for (const [regionKey, region] of Object.entries(index.regions)) {
-    if (region.countries[countryNameOrKey]) {
-      return regionKey;
-    }
-  }
-
-  // Si pas trouvé, essayer comme clé
-  const countryName = getCountryName(countryNameOrKey);
-  if (countryName) {
-    for (const [regionKey, region] of Object.entries(index.regions)) {
-      if (region.countries[countryName]) {
-        return regionKey;
-      }
-    }
-  }
-
-  return null;
-}
-
-// Obtenir les détails d'un pays par sa clé
-export async function getCountryDetailsByKey(countryKey: string): Promise<{
-  name: string;
-  population: number;
-  percentageInRegion: number;
-  percentageInAfrica: number;
-  region: string;
-  ethnicities: Array<{
-    name: string;
-    population: number;
-    percentageInCountry: number;
-    percentageInRegion: number;
-    percentageInAfrica: number;
-  }>;
-} | null> {
-  const countryName = getCountryName(countryKey);
-  if (!countryName) return null;
-
-  const regionKey = await getCountryRegion(countryName);
-  if (!regionKey) return null;
-
-  return getCountryDetails(regionKey, countryName);
-}
-
-// Obtenir les détails d'une ethnie par sa clé
-export async function getEthnicityGlobalDetailsByKey(
-  ethnicityKey: string
-): Promise<EthnicityGlobalData | null> {
-  const ethnicityName = getEthnicityName(ethnicityKey);
-  if (!ethnicityName) return null;
-
-  return getEthnicityGlobalDetails(ethnicityName);
-}
-
-// Obtenir toutes les ethnies d'une région
+// Obtenir les ethnies d'une région
 export async function getEthnicitiesInRegion(regionKey: string) {
   const region = await getRegion(regionKey);
   if (!region) return [];
@@ -363,13 +512,15 @@ export async function getEthnicitiesInRegion(regionKey: string) {
   return Object.entries(region.ethnicities)
     .map(([name, data]) => ({
       name,
-      ...data,
+      totalPopulationInRegion: data.totalPopulationInRegion,
+      percentageInRegion: data.percentageInRegion,
+      percentageInAfrica: data.percentageInAfrica,
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
 // Obtenir tous les pays
-export async function getAllCountries(): Promise<
+async function _getAllCountries(): Promise<
   Array<{
     name: string;
     key: string;
@@ -383,6 +534,31 @@ export async function getAllCountries(): Promise<
     };
   }>
 > {
+  if (USE_SUPABASE) {
+    const countries = await getAllCountriesFromSupabase();
+    const regions = await getAllRegionsFromSupabase();
+    const regionMap = new Map(regions.map((r) => [r.id, r]));
+
+    const result = [];
+    for (const country of countries) {
+      const region = regionMap.get(country.region_id);
+      const presences = await getPresencesByCountryFromSupabase(country.id);
+      result.push({
+        name: country.name_fr,
+        key: country.slug,
+        region: region?.code || "",
+        regionName: region?.name_fr || "",
+        data: {
+          population: country.population_2025,
+          percentageInRegion: country.percentage_in_region || 0,
+          percentageInAfrica: country.percentage_in_africa || 0,
+          ethnicityCount: presences.length,
+        },
+      });
+    }
+    return result;
+  }
+
   const index = await loadDatasetIndex();
   const countries: Array<{
     name: string;
@@ -418,8 +594,17 @@ export async function getAllCountries(): Promise<
   return countries.sort((a, b) => a.name.localeCompare(b.name));
 }
 
+export const getAllCountries = unstable_cache(
+  _getAllCountries,
+  ["all-countries"],
+  {
+    revalidate: CACHE_TTL,
+    tags: ["countries"],
+  }
+);
+
 // Obtenir toutes les ethnies
-export async function getAllEthnicities(): Promise<
+async function _getAllEthnicities(): Promise<
   Array<{
     name: string;
     key: string;
@@ -428,59 +613,196 @@ export async function getAllEthnicities(): Promise<
     countryCount: number;
   }>
 > {
+  if (USE_SUPABASE) {
+    const ethnicities = await getAllEthnicitiesFromSupabase();
+    const result = [];
+    for (const ethnicity of ethnicities) {
+      const presences = await getPresencesByEthnicityFromSupabase(ethnicity.id);
+      const uniqueCountries = new Set(presences.map((p) => p.country.id));
+      result.push({
+        name: ethnicity.name_fr,
+        key: ethnicity.slug,
+        totalPopulation: ethnicity.total_population || 0,
+        percentageInAfrica: ethnicity.percentage_in_africa || 0,
+        countryCount: uniqueCountries.size,
+      });
+    }
+    return result;
+  }
+
   const index = await loadDatasetIndex();
   const ethnicitiesMap = new Map<
     string,
     {
+      name: string;
       totalPopulation: number;
-      percentageInAfrica: number;
-      countries: Set<string>;
+      countryCount: number;
     }
   >();
 
-  // Parcourir toutes les régions et tous les pays pour trouver les ethnies réelles
   for (const [regionKey, region] of Object.entries(index.regions)) {
-    for (const countryName of Object.keys(region.countries)) {
-      const ethnicities = await getEthnicitiesInCountry(regionKey, countryName);
-
-      for (const ethnicity of ethnicities) {
-        const ethName = ethnicity.Ethnicity_or_Subgroup;
-
-        if (!ethnicitiesMap.has(ethName)) {
-          ethnicitiesMap.set(ethName, {
-            totalPopulation: 0,
-            percentageInAfrica: 0,
-            countries: new Set(),
-          });
-        }
-
-        const eth = ethnicitiesMap.get(ethName)!;
-        const pop =
-          parseFloat(
-            ethnicity["population de l'ethnie estimée dans le pays"]
-          ) || 0;
-        const pctAfrica =
-          parseFloat(
-            ethnicity["pourcentage dans la population totale d'Afrique"]
-          ) || 0;
-
-        eth.totalPopulation += pop;
-        eth.percentageInAfrica += pctAfrica;
-        eth.countries.add(countryName);
+    for (const [ethnicityName, ethnicityData] of Object.entries(
+      region.ethnicities
+    )) {
+      const existing = ethnicitiesMap.get(ethnicityName);
+      if (existing) {
+        existing.totalPopulation += ethnicityData.totalPopulationInRegion;
+      } else {
+        ethnicitiesMap.set(ethnicityName, {
+          name: ethnicityName,
+          totalPopulation: ethnicityData.totalPopulationInRegion,
+          countryCount: 0,
+        });
       }
     }
   }
 
-  return Array.from(ethnicitiesMap.entries())
-    .map(([name, data]) => {
-      const key = getEthnicityKey(name) || name;
+  // Compter les pays pour chaque ethnie
+  for (const [regionKey, region] of Object.entries(index.regions)) {
+    for (const [countryName] of Object.entries(region.countries)) {
+      const ethnicitiesData = await getEthnicitiesInCountry(
+        regionKey,
+        countryName
+      );
+      for (const eth of ethnicitiesData) {
+        const ethnicityName = eth.Ethnicity_or_Subgroup;
+        const existing = ethnicitiesMap.get(ethnicityName);
+        if (existing) {
+          existing.countryCount++;
+        }
+      }
+    }
+  }
+
+  const { getEthnicityKey } = await import("@/lib/entityKeys");
+  const totalPopulationAfrica = index.totalPopulationAfrica;
+
+  return Array.from(ethnicitiesMap.values())
+    .map((eth) => {
+      const key = getEthnicityKey(eth.name) || eth.name;
       return {
-        name,
+        name: eth.name,
         key,
-        totalPopulation: data.totalPopulation,
-        percentageInAfrica: data.percentageInAfrica,
-        countryCount: data.countries.size,
+        totalPopulation: eth.totalPopulation,
+        percentageInAfrica: (eth.totalPopulation / totalPopulationAfrica) * 100,
+        countryCount: eth.countryCount,
       };
     })
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => b.totalPopulation - a.totalPopulation);
+}
+
+export const getAllEthnicities = unstable_cache(
+  _getAllEthnicities,
+  ["all-ethnicities"],
+  {
+    revalidate: CACHE_TTL,
+    tags: ["ethnicities"],
+  }
+);
+
+// Obtenir la région d'un pays
+export async function getCountryRegion(
+  countryNameOrKey: string
+): Promise<{ regionKey: string; regionName: string } | null> {
+  if (USE_SUPABASE) {
+    const countrySlug = getCountryKey(countryNameOrKey) || countryNameOrKey;
+    const country = await getCountryBySlugFromSupabase(countrySlug);
+    if (!country) return null;
+
+    // Get region from country.region_id
+    const regions = await getAllRegionsFromSupabase();
+    const region = regions.find((r) => r.id === country.region_id);
+    if (!region) return null;
+
+    return {
+      regionKey: region.code,
+      regionName: region.name_fr,
+    };
+  }
+
+  const index = await loadDatasetIndex();
+  for (const [regionKey, region] of Object.entries(index.regions)) {
+    if (region.countries[countryNameOrKey]) {
+      return { regionKey, regionName: region.name };
+    }
+    // Try with key
+    const countryKey = getCountryKey(countryNameOrKey);
+    if (countryKey) {
+      for (const [countryName] of Object.entries(region.countries)) {
+        if (getCountryKey(countryName) === countryKey) {
+          return { regionKey, regionName: region.name };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Obtenir les détails d'un pays par clé
+export async function getCountryDetailsByKey(countryKey: string): Promise<{
+  name: string;
+  population: number;
+  percentageInRegion: number;
+  percentageInAfrica: number;
+  region: string;
+  ethnicities: Array<{
+    name: string;
+    population: number;
+    percentageInCountry: number;
+    percentageInRegion: number;
+    percentageInAfrica: number;
+  }>;
+} | null> {
+  if (USE_SUPABASE) {
+    const country = await getCountryBySlugFromSupabase(countryKey);
+    if (!country) return null;
+
+    // Get region from country.region_id
+    const regions = await getAllRegionsFromSupabase();
+    const region = regions.find((r) => r.id === country.region_id);
+    if (!region) return null;
+
+    const presences = await getPresencesByCountryFromSupabase(country.id);
+    const ethnicities = presences.map((presence) => ({
+      name: presence.ethnicity.name_fr,
+      population: presence.population,
+      percentageInCountry: presence.percentage_in_country || 0,
+      percentageInRegion: presence.percentage_in_region || 0,
+      percentageInAfrica: presence.percentage_in_africa || 0,
+    }));
+
+    return {
+      name: country.name_fr,
+      population: country.population_2025,
+      percentageInRegion: country.percentage_in_region || 0,
+      percentageInAfrica: country.percentage_in_africa || 0,
+      region: region.name_fr,
+      ethnicities: ethnicities.sort((a, b) => b.population - a.population),
+    };
+  }
+
+  const countryName = getCountryName(countryKey);
+  if (!countryName) return null;
+
+  const countryRegion = await getCountryRegion(countryName);
+  if (!countryRegion) return null;
+
+  return await getCountryDetails(countryRegion.regionKey, countryName);
+}
+
+// Obtenir les détails d'une ethnie par clé
+export async function getEthnicityGlobalDetailsByKey(
+  ethnicityKey: string
+): Promise<EthnicityGlobalData | null> {
+  if (USE_SUPABASE) {
+    const ethnicity = await getEthnicityBySlugFromSupabase(ethnicityKey);
+    if (!ethnicity) return null;
+
+    return await getEthnicityGlobalDetails(ethnicity.name_fr);
+  }
+
+  const ethnicityName = getEthnicityName(ethnicityKey);
+  if (!ethnicityName) return null;
+
+  return await getEthnicityGlobalDetails(ethnicityName);
 }

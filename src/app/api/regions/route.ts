@@ -32,7 +32,15 @@ import { jsonWithCors, corsOptionsResponse } from "@/lib/api/cors";
 export async function GET() {
   try {
     const regions = await getRegions();
-    return jsonWithCors({ regions });
+    const response = jsonWithCors({ regions });
+    // Add Cache-Control headers
+    if (response instanceof Response) {
+      response.headers.set(
+        "Cache-Control",
+        "public, max-age=86400, s-maxage=86400"
+      );
+    }
+    return response;
   } catch (error) {
     console.error("Error fetching regions:", error);
     return jsonWithCors({ error: "Failed to fetch regions" }, { status: 500 });

@@ -12,7 +12,13 @@ import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+  Loader2,
+} from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { normalizeString, getNormalizedFirstLetter } from "@/lib/normalize";
 
@@ -55,27 +61,62 @@ export const CountryView = ({
 
   useEffect(() => {
     const controller = new AbortController();
+    setLoading(true);
 
     const loadCountries = async () => {
-      try {
-        const response = await fetch("/api/countries", {
-          signal: controller.signal,
-        });
+      // Check cache first
+      const { getCachedData, setCachedData, CACHE_KEYS } = await import(
+        "@/lib/cache/clientCache"
+      );
+      const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-        if (!response.ok) {
-          throw new Error("Failed to load countries");
-        }
+      const cachedData = getCachedData<
+        Array<{
+          name: string;
+          key: string;
+          region: string;
+          regionName: string;
+          data: {
+            population: number;
+            ethnicityCount: number;
+          };
+        }>
+      >(CACHE_KEYS.COUNTRIES, CACHE_TTL);
 
-        const payload = await response.json();
-        setCountries(payload.countries);
-      } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") {
-          return;
-        }
-        console.error("Error fetching countries:", error);
-      } finally {
+      if (cachedData) {
+        setCountries(cachedData);
         setLoading(false);
+        return;
       }
+
+      // Délai minimum pour garantir la visibilité du loader
+      const minLoadingTime = Promise.all([
+        new Promise((resolve) => setTimeout(resolve, 300)), // 300ms minimum
+        (async () => {
+          try {
+            const response = await fetch("/api/countries", {
+              signal: controller.signal,
+            });
+
+            if (!response.ok) {
+              throw new Error("Failed to load countries");
+            }
+
+            const payload = await response.json();
+            setCountries(payload.countries);
+            // Cache the data
+            setCachedData(CACHE_KEYS.COUNTRIES, payload.countries, CACHE_TTL);
+          } catch (error) {
+            if (error instanceof DOMException && error.name === "AbortError") {
+              return;
+            }
+            console.error("Error fetching countries:", error);
+          }
+        })(),
+      ]);
+
+      await minLoadingTime;
+      setLoading(false);
     };
 
     loadCountries();
@@ -83,7 +124,7 @@ export const CountryView = ({
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [language]);
 
   const filteredCountries = useMemo(() => {
     const normalizedSearch = normalizeString(search);
@@ -206,8 +247,17 @@ export const CountryView = ({
           } pb-4`}
         >
           {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <p className="text-muted-foreground">Loading countries...</p>
+            <div className="flex flex-col items-center justify-center min-h-[400px] gap-3 py-8">
+              <Loader2 className="h-10 w-10 animate-spin text-primary" />
+              <p className="text-muted-foreground text-sm font-medium">
+                {language === "en"
+                  ? "Loading countries..."
+                  : language === "fr"
+                    ? "Chargement des pays..."
+                    : language === "es"
+                      ? "Cargando países..."
+                      : "Carregando países..."}
+              </p>
             </div>
           ) : paginatedCountries.length === 0 ? (
             <div className="flex items-center justify-center h-64">
@@ -262,8 +312,17 @@ export const CountryView = ({
             } pb-4`}
           >
             {loading ? (
-              <div className="flex items-center justify-center h-64">
-                <p className="text-muted-foreground">Loading countries...</p>
+              <div className="flex flex-col items-center justify-center min-h-[400px] gap-3 py-8">
+                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                <p className="text-muted-foreground text-sm font-medium">
+                  {language === "en"
+                    ? "Loading countries..."
+                    : language === "fr"
+                      ? "Chargement des pays..."
+                      : language === "es"
+                        ? "Cargando países..."
+                        : "Carregando países..."}
+                </p>
               </div>
             ) : paginatedCountries.length === 0 ? (
               <div className="flex items-center justify-center h-64">

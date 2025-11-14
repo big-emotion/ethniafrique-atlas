@@ -48,38 +48,84 @@ export default function Home() {
 
   // Load statistics from API
   useEffect(() => {
-    // Load total population
-    getTotalPopulationAfrica().then(setTotalPopulation).catch(console.error);
+    const loadStatistics = async () => {
+      const { getCachedData, setCachedData, CACHE_KEYS } = await import(
+        "@/lib/cache/clientCache"
+      );
+      const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-    // Load total regions
-    fetch("/api/regions")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.regions) {
-          setTotalRegions(data.regions.length);
-        }
-      })
-      .catch(console.error);
+      // Load total population
+      const cachedPopulation = getCachedData<number>(
+        CACHE_KEYS.TOTAL_POPULATION,
+        CACHE_TTL
+      );
+      if (cachedPopulation !== null) {
+        setTotalPopulation(cachedPopulation);
+      } else {
+        getTotalPopulationAfrica()
+          .then((pop) => {
+            setTotalPopulation(pop);
+            setCachedData(CACHE_KEYS.TOTAL_POPULATION, pop, CACHE_TTL);
+          })
+          .catch(console.error);
+      }
 
-    // Load total countries
-    fetch("/api/countries")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.countries) {
-          setTotalCountries(data.countries.length);
-        }
-      })
-      .catch(console.error);
+      // Load total regions
+      const cachedRegions = getCachedData<Array<unknown>>(
+        CACHE_KEYS.REGIONS,
+        CACHE_TTL
+      );
+      if (cachedRegions) {
+        setTotalRegions(cachedRegions.length);
+      } else {
+        fetch("/api/regions")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.regions) {
+              setTotalRegions(data.regions.length);
+            }
+          })
+          .catch(console.error);
+      }
 
-    // Load total ethnicities
-    fetch("/api/ethnicities")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.ethnicities) {
-          setTotalEthnicities(data.ethnicities.length);
-        }
-      })
-      .catch(console.error);
+      // Load total countries
+      const cachedCountries = getCachedData<Array<unknown>>(
+        CACHE_KEYS.COUNTRIES,
+        CACHE_TTL
+      );
+      if (cachedCountries) {
+        setTotalCountries(cachedCountries.length);
+      } else {
+        fetch("/api/countries")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.countries) {
+              setTotalCountries(data.countries.length);
+            }
+          })
+          .catch(console.error);
+      }
+
+      // Load total ethnicities
+      const cachedEthnicities = getCachedData<Array<unknown>>(
+        CACHE_KEYS.ETHNICITIES,
+        CACHE_TTL
+      );
+      if (cachedEthnicities) {
+        setTotalEthnicities(cachedEthnicities.length);
+      } else {
+        fetch("/api/ethnicities")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.ethnicities) {
+              setTotalEthnicities(data.ethnicities.length);
+            }
+          })
+          .catch(console.error);
+      }
+    };
+
+    loadStatistics();
   }, []);
 
   const handleSearchResult = (result: {

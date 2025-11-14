@@ -8,7 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Globe, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Search,
+  Globe,
+  ChevronLeft,
+  ChevronRight,
+  Loader2,
+} from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { normalizeString, getNormalizedFirstLetter } from "@/lib/normalize";
 
@@ -47,46 +53,76 @@ export const RegionView = ({
 
   useEffect(() => {
     const controller = new AbortController();
+    setLoading(true);
 
     const loadRegions = async () => {
-      try {
-        const response = await fetch("/api/regions", {
-          signal: controller.signal,
-        });
+      // Check cache first
+      const { getCachedData, setCachedData, CACHE_KEYS } = await import(
+        "@/lib/cache/clientCache"
+      );
+      const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-        if (!response.ok) {
-          throw new Error("Failed to load regions");
-        }
+      const cachedData = getCachedData<
+        Array<{
+          key: string;
+          name: string;
+          totalPopulation: number;
+          countryCount: number;
+        }>
+      >(CACHE_KEYS.REGIONS, CACHE_TTL);
 
-        const payload = await response.json();
-        setRegions(
-          payload.regions.map(
-            ({
-              key,
-              data: regionData,
-            }: {
-              key: string;
-              data: {
-                name: string;
-                totalPopulation: number;
-                countries: Record<string, unknown>;
-              };
-            }) => ({
-              key,
-              name: regionData.name,
-              totalPopulation: regionData.totalPopulation,
-              countryCount: Object.keys(regionData.countries).length,
-            })
-          )
-        );
-      } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") {
-          return;
-        }
-        console.error("Error fetching regions:", error);
-      } finally {
+      if (cachedData) {
+        setRegions(cachedData);
         setLoading(false);
+        return;
       }
+
+      // Délai minimum pour garantir la visibilité du loader
+      const minLoadingTime = Promise.all([
+        new Promise((resolve) => setTimeout(resolve, 300)), // 300ms minimum
+        (async () => {
+          try {
+            const response = await fetch("/api/regions", {
+              signal: controller.signal,
+            });
+
+            if (!response.ok) {
+              throw new Error("Failed to load regions");
+            }
+
+            const payload = await response.json();
+            const regionsData = payload.regions.map(
+              ({
+                key,
+                data: regionData,
+              }: {
+                key: string;
+                data: {
+                  name: string;
+                  totalPopulation: number;
+                  countries: Record<string, unknown>;
+                };
+              }) => ({
+                key,
+                name: regionData.name,
+                totalPopulation: regionData.totalPopulation,
+                countryCount: Object.keys(regionData.countries).length,
+              })
+            );
+            setRegions(regionsData);
+            // Cache the data
+            setCachedData(CACHE_KEYS.REGIONS, regionsData, CACHE_TTL);
+          } catch (error) {
+            if (error instanceof DOMException && error.name === "AbortError") {
+              return;
+            }
+            console.error("Error fetching regions:", error);
+          }
+        })(),
+      ]);
+
+      await minLoadingTime;
+      setLoading(false);
     };
 
     loadRegions();
@@ -94,7 +130,7 @@ export const RegionView = ({
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [language]);
 
   const filteredRegions = useMemo(() => {
     const normalizedSearch = normalizeString(search);
@@ -154,8 +190,17 @@ export const RegionView = ({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-muted-foreground">Loading regions...</p>
+      <div className="flex flex-col items-center justify-center min-h-[400px] gap-3 py-8">
+        <Loader2 className="h-10 w-10 animate-spin text-primary" />
+        <p className="text-muted-foreground text-sm font-medium">
+          {language === "en"
+            ? "Loading regions..."
+            : language === "fr"
+              ? "Chargement des régions..."
+              : language === "es"
+                ? "Cargando regiones..."
+                : "Carregando regiões..."}
+        </p>
       </div>
     );
   }
@@ -224,8 +269,17 @@ export const RegionView = ({
           } pb-4`}
         >
           {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <p className="text-muted-foreground">Loading regions...</p>
+            <div className="flex flex-col items-center justify-center min-h-[400px] gap-3 py-8">
+              <Loader2 className="h-10 w-10 animate-spin text-primary" />
+              <p className="text-muted-foreground text-sm font-medium">
+                {language === "en"
+                  ? "Loading regions..."
+                  : language === "fr"
+                    ? "Chargement des régions..."
+                    : language === "es"
+                      ? "Cargando regiones..."
+                      : "Carregando regiões..."}
+              </p>
             </div>
           ) : paginatedRegions.length === 0 ? (
             <div className="flex items-center justify-center h-64">
@@ -272,8 +326,17 @@ export const RegionView = ({
             } pb-4`}
           >
             {loading ? (
-              <div className="flex items-center justify-center h-64">
-                <p className="text-muted-foreground">Loading regions...</p>
+              <div className="flex flex-col items-center justify-center min-h-[400px] gap-3 py-8">
+                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                <p className="text-muted-foreground text-sm font-medium">
+                  {language === "en"
+                    ? "Loading regions..."
+                    : language === "fr"
+                      ? "Chargement des régions..."
+                      : language === "es"
+                        ? "Cargando regiones..."
+                        : "Carregando regiões..."}
+                </p>
               </div>
             ) : paginatedRegions.length === 0 ? (
               <div className="flex items-center justify-center h-64">

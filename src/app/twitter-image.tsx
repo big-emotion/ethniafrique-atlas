@@ -81,7 +81,7 @@ export default async function TwitterImage() {
         ) : null}
         <div style={{ fontSize: 64, fontWeight: 800 }}>{t.title}</div>
         <div style={{ fontSize: 28, opacity: 0.9 }}>{t.subtitle}</div>
-        <div style={{ marginTop: 24 }}>
+        <div style={{ marginTop: 24, display: "flex" }}>
           <Footer />
         </div>
       </div>

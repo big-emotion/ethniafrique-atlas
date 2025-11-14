@@ -47,7 +47,15 @@ import { jsonWithCors, corsOptionsResponse } from "@/lib/api/cors";
 export async function GET() {
   try {
     const countries = await getAllCountries();
-    return jsonWithCors({ countries });
+    const response = jsonWithCors({ countries });
+    // Add Cache-Control headers
+    if (response instanceof Response) {
+      response.headers.set(
+        "Cache-Control",
+        "public, max-age=86400, s-maxage=86400"
+      );
+    }
+    return response;
   } catch (error) {
     console.error("Error fetching countries:", error);
     return jsonWithCors(

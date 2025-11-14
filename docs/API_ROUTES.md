@@ -298,9 +298,164 @@ curl http://localhost:3000/api/download?format=excel -o data.xlsx
 
 > Les annotations Swagger sont maintenues dans les fichiers Route Handlers (`src/app/api/**/route.ts`). La génération de la spec est centralisée dans `src/lib/api/openapi.ts`.
 
-### 9. CORS
+### 9. Contributions (API publique)
+
+#### 9.1 Soumettre une contribution
+
+`POST /api/contributions`
+
+- **Description** : Permet aux utilisateurs de soumettre des contributions pour ajouter ou modifier des groupes ethniques.
+- **Authentification** : Aucune (publique)
+- **Body (JSON)**
+  ```json
+  {
+    "type": "new_ethnicity" | "update_ethnicity",
+    "proposed_payload": {
+      "name_fr": "Nom en français",
+      "name_en": "Name in English",
+      "total_population": 1000000,
+      "parent_id": "uuid-ou-null"
+    },
+    "contributor_name": "Nom du contributeur (optionnel)",
+    "contributor_email": "email@example.com (optionnel)",
+    "notes": "Notes additionnelles (optionnel)"
+  }
+  ```
+- **Réponse 200**
+  ```json
+  {
+    "success": true,
+    "message": "Contribution submitted successfully",
+    "id": "uuid-de-la-contribution"
+  }
+  ```
+- **Erreurs**
+  - `400` : `{"error": "Invalid input", "details": [...]}`
+  - `500` : `{"error": "Failed to submit contribution"}`
+
+#### 9.2 Récupérer les entités pour le formulaire
+
+`GET /api/contributions/entities/regions`
+`GET /api/contributions/entities/countries`
+`GET /api/contributions/entities/ethnicities`
+
+- **Description** : Récupère la liste des régions, pays ou ethnies pour les formulaires de contribution.
+- **Authentification** : Aucune (publique)
+- **Réponse 200** (exemple pour ethnicities)
+  ```json
+  {
+    "ethnicities": [
+      {
+        "id": "uuid",
+        "slug": "akan",
+        "name_fr": "Akan",
+        "parent_id": null
+      }
+    ]
+  }
+  ```
+
+---
+
+### 10. Interface Admin (API protégée)
+
+> **Note** : Ces routes nécessitent une authentification admin. Voir la section "Interface Admin" du README.
+
+#### 10.1 Login admin
+
+`POST /api/admin/login`
+
+- **Description** : Authentification admin avec username/password.
+- **Body (JSON)**
+  ```json
+  {
+    "username": "admin",
+    "password": "password"
+  }
+  ```
+- **Réponse 200**
+  - Cookie de session `admin_session` défini (httpOnly, secure)
+  ```json
+  {
+    "success": true,
+    "message": "Login successful"
+  }
+  ```
+- **Erreurs**
+  - `400` : `{"error": "Username and password are required"}`
+  - `401` : `{"error": "Invalid credentials"}`
+
+#### 10.2 Logout admin
+
+`POST /api/admin/logout`
+
+- **Description** : Déconnexion admin (supprime le cookie de session).
+- **Authentification** : Cookie de session requis
+- **Réponse 200**
+  ```json
+  {
+    "success": true,
+    "message": "Logout successful"
+  }
+  ```
+
+#### 10.3 Lister les contributions en attente
+
+`GET /api/admin/contributions`
+
+- **Description** : Récupère toutes les contributions avec le statut "pending".
+- **Authentification** : Cookie de session admin requis
+- **Réponse 200**
+  ```json
+  [
+    {
+      "id": "uuid",
+      "type": "new_ethnicity",
+      "proposed_payload": {...},
+      "status": "pending",
+      "created_at": "2025-01-XX...",
+      "contributor_name": "...",
+      "contributor_email": "...",
+      "notes": "..."
+    }
+  ]
+  ```
+- **Erreurs**
+  - `401` : `{"error": "Unauthorized"}`
+  - `500` : `{"error": "Failed to fetch contributions"}`
+
+#### 10.4 Modérer une contribution
+
+`PATCH /api/admin/contributions/{id}`
+
+- **Description** : Accepter ou rejeter une contribution.
+- **Authentification** : Cookie de session admin requis
+- **Body (JSON)**
+  ```json
+  {
+    "action": "approve" | "reject",
+    "moderator_notes": "Notes du modérateur (optionnel)"
+  }
+  ```
+- **Réponse 200**
+  ```json
+  {
+    "success": true,
+    "message": "Contribution approved/rejected"
+  }
+  ```
+- **Erreurs**
+  - `400` : `{"error": "Invalid action. Must be 'approve' or 'reject'"}`
+  - `401` : `{"error": "Unauthorized"}`
+  - `404` : `{"error": "Contribution not found"}`
+  - `500` : `{"error": "Failed to update contribution"}`
+
+---
+
+### 11. CORS
 
 - `Access-Control-Allow-Origin` : `CORS_ALLOWED_ORIGIN` (si défini) sinon `*`
-- `Access-Control-Allow-Methods` : `GET, OPTIONS`
+- `Access-Control-Allow-Methods` : `GET, OPTIONS, POST, PATCH` (selon la route)
 - `Access-Control-Allow-Headers` : `Content-Type, Authorization`
+- `Access-Control-Allow-Credentials` : `true` (pour les cookies de session admin)
 - Réponse `OPTIONS` : statut `204` avec les mêmes en-têtes

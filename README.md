@@ -58,6 +58,7 @@ Page "À propos" disponible sur `/about` ou `/{lang}/about` (ex. `/fr/about`, `/
 - Tailwind CSS + shadcn/ui
 - TanStack Query (React Query)
 - Swagger/OpenAPI pour la documentation API
+- Supabase (PostgreSQL) pour le backend et les contributions
 
 ## Démarrer en local
 
@@ -65,13 +66,31 @@ Prérequis: Node.js 18+ et npm.
 
 ```bash
 npm install
+# Copier le fichier d'environnement
+cp env.dist .env.local
+# Configurer les variables d'environnement dans .env.local
+# (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY, etc.)
+
+# Si vous utilisez les fichiers statiques (USE_SUPABASE=false)
 # Générer les données à partir des CSV sources
 npm run parse-dataset
+
 # Lancer le serveur de développement
 npm run dev
 ```
 
-L’application démarre sur http://localhost:3000.
+L'application démarre sur http://localhost:3000.
+
+### Variables d'environnement
+
+Copiez `env.dist` vers `.env.local` et configurez :
+
+- `NEXT_PUBLIC_SUPABASE_URL` : URL de votre projet Supabase
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` : Clé anonyme Supabase
+- `SUPABASE_SERVICE_ROLE_KEY` : Clé de service Supabase (pour les opérations admin)
+- `USE_SUPABASE` : `true` pour utiliser Supabase, `false` pour les fichiers statiques
+- `ADMIN_USERNAME` : Nom d'utilisateur pour l'interface admin
+- `ADMIN_PASSWORD` : Mot de passe pour l'interface admin
 
 ## API publique
 
@@ -179,7 +198,7 @@ Page dédiée à la contribution au projet avec :
 - **Documentation API** : Lien vers la documentation interactive Swagger UI
 - **Téléchargement de données** : Boutons pour télécharger toutes les données en CSV (ZIP) ou Excel
 - **Contribution GitHub** : Lien vers le dépôt pour contribuer au code
-- **Formulaire de contact** : Formulaire Typeform pour proposer des contributions
+- **Formulaire de contribution** : Formulaire pour ajouter ou modifier des groupes ethniques (JSON ou formulaire direct)
 
 ### Page "Signaler une erreur" (`/{lang}/report-error`)
 
@@ -241,7 +260,35 @@ Merci de:
 - Fiches enrichies: sous‑ethnies, histoire, culture, religions et croyances, royaumes et personnalités, langues, sciences et arts
 - Ajout progressif de contenus en langues africaines
 
+## Interface Admin
+
+L'application dispose d'une interface d'administration pour modérer les contributions :
+
+- **Page de login** : `/admin/login` - Authentification par username/password
+- **Gestion des contributions** : `/admin/contributions` - Liste et modération des contributions en attente
+- **Sécurité** : Authentification par session avec cookies httpOnly et sécurisés
+
+### Configuration admin
+
+Configurez les variables d'environnement dans `.env.local` :
+
+```env
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=your_secure_password_here
+```
+
 ## Changelog
+
+### v1.2.0 (2025-01-XX)
+
+- **Backend Supabase** : Intégration complète de Supabase pour le stockage des données
+- **Système de contributions** : Formulaire de contribution pour ajouter/modifier des groupes ethniques
+- **Interface admin** : Page d'administration sécurisée pour modérer les contributions
+- **Authentification admin** : Système d'authentification par username/password avec sessions sécurisées
+- **Cache optimisé** : Mise en cache côté client (localStorage) et serveur pour améliorer les performances
+- **Navigation hiérarchique** : Navigation améliorée avec sélection et surbrillance des éléments
+- **Traductions** : Système de traduction pour les noms d'entités (régions, pays, ethnies)
+- **Clés normalisées** : URLs utilisant des clés normalisées pour une meilleure compatibilité
 
 ### v1.1.0 (2025-01-XX)
 

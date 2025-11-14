@@ -36,7 +36,15 @@ import { jsonWithCors, corsOptionsResponse } from "@/lib/api/cors";
 export async function GET() {
   try {
     const ethnicities = await getAllEthnicities();
-    return jsonWithCors({ ethnicities });
+    const response = jsonWithCors({ ethnicities });
+    // Add Cache-Control headers
+    if (response instanceof Response) {
+      response.headers.set(
+        "Cache-Control",
+        "public, max-age=86400, s-maxage=86400"
+      );
+    }
+    return response;
   } catch (error) {
     console.error("Error fetching ethnicities:", error);
     return jsonWithCors(

@@ -7,7 +7,13 @@ import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronLeft, ChevronRight, Users } from "lucide-react";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  Users,
+  Loader2,
+} from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { normalizeString, getNormalizedFirstLetter } from "@/lib/normalize";
 
@@ -47,27 +53,63 @@ export const EthnicityView = ({
 
   useEffect(() => {
     const controller = new AbortController();
+    setLoading(true);
 
     const loadEthnicities = async () => {
-      try {
-        const response = await fetch("/api/ethnicities", {
-          signal: controller.signal,
-        });
+      // Check cache first
+      const { getCachedData, setCachedData, CACHE_KEYS } = await import(
+        "@/lib/cache/clientCache"
+      );
+      const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-        if (!response.ok) {
-          throw new Error("Failed to load ethnicities");
-        }
+      const cachedData = getCachedData<
+        Array<{
+          name: string;
+          key: string;
+          totalPopulation: number;
+          percentageInAfrica: number;
+          countryCount: number;
+        }>
+      >(CACHE_KEYS.ETHNICITIES, CACHE_TTL);
 
-        const payload = await response.json();
-        setEthnicGroups(payload.ethnicities);
-      } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") {
-          return;
-        }
-        console.error("Error fetching ethnicities:", error);
-      } finally {
+      if (cachedData) {
+        setEthnicGroups(cachedData);
         setLoading(false);
+        return;
       }
+
+      // Délai minimum pour garantir la visibilité du loader
+      const minLoadingTime = Promise.all([
+        new Promise((resolve) => setTimeout(resolve, 300)), // 300ms minimum
+        (async () => {
+          try {
+            const response = await fetch("/api/ethnicities", {
+              signal: controller.signal,
+            });
+
+            if (!response.ok) {
+              throw new Error("Failed to load ethnicities");
+            }
+
+            const payload = await response.json();
+            setEthnicGroups(payload.ethnicities);
+            // Cache the data
+            setCachedData(
+              CACHE_KEYS.ETHNICITIES,
+              payload.ethnicities,
+              CACHE_TTL
+            );
+          } catch (error) {
+            if (error instanceof DOMException && error.name === "AbortError") {
+              return;
+            }
+            console.error("Error fetching ethnicities:", error);
+          }
+        })(),
+      ]);
+
+      await minLoadingTime;
+      setLoading(false);
     };
 
     loadEthnicities();
@@ -75,7 +117,7 @@ export const EthnicityView = ({
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [language]);
 
   const filteredGroups = useMemo(() => {
     const normalizedSearch = normalizeString(search);
@@ -200,8 +242,17 @@ export const EthnicityView = ({
           } pb-4`}
         >
           {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <p className="text-muted-foreground">Loading ethnicities...</p>
+            <div className="flex flex-col items-center justify-center min-h-[400px] gap-3 py-8">
+              <Loader2 className="h-10 w-10 animate-spin text-primary" />
+              <p className="text-muted-foreground text-sm font-medium">
+                {language === "en"
+                  ? "Loading ethnicities..."
+                  : language === "fr"
+                    ? "Chargement des ethnies..."
+                    : language === "es"
+                      ? "Cargando etnias..."
+                      : "Carregando etnias..."}
+              </p>
             </div>
           ) : paginatedGroups.length === 0 ? (
             <div className="flex items-center justify-center h-64">
@@ -258,8 +309,17 @@ export const EthnicityView = ({
             } pb-4`}
           >
             {loading ? (
-              <div className="flex items-center justify-center h-64">
-                <p className="text-muted-foreground">Loading ethnicities...</p>
+              <div className="flex flex-col items-center justify-center min-h-[400px] gap-3 py-8">
+                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                <p className="text-muted-foreground text-sm font-medium">
+                  {language === "en"
+                    ? "Loading ethnicities..."
+                    : language === "fr"
+                      ? "Chargement des ethnies..."
+                      : language === "es"
+                        ? "Cargando etnias..."
+                        : "Carregando etnias..."}
+                </p>
               </div>
             ) : paginatedGroups.length === 0 ? (
               <div className="flex items-center justify-center h-64">

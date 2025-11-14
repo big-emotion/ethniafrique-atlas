@@ -60,6 +60,7 @@ export function CountriesPageContent() {
     // Mettre à jour l'URL sans navigation
     const url = new URL(window.location.href);
     url.searchParams.set("country", countryKey);
+    url.searchParams.delete("ethnicity"); // Supprimer le paramètre ethnicity
     router.replace(url.pathname + url.search, { scroll: false });
   };
 
@@ -144,6 +145,7 @@ export function CountriesPageContent() {
             </div>
           ) : (
             <CountryView
+              key={pathname}
               language={language}
               onCountrySelect={(country, regionKey) => {
                 handleCountrySelect(country, regionKey);
@@ -232,6 +234,7 @@ export function CountriesPageContent() {
           <div className="lg:col-span-3">
             <Card className="shadow-soft">
               <CountryView
+                key={pathname}
                 language={language}
                 onCountrySelect={handleCountrySelect}
                 selectedCountryKey={selectedCountry}
