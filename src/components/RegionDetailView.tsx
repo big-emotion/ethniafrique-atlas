@@ -2,7 +2,12 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Language } from "@/types/ethnicity";
-import { getTranslation } from "@/lib/translations";
+import {
+  getTranslation,
+  getRegionName,
+  getCountryName,
+} from "@/lib/translations";
+import { getCountryKey } from "@/lib/entityKeys";
 import { getRegion } from "@/lib/datasetLoader";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -24,7 +29,7 @@ import { ShareButton } from "@/components/ShareButton";
 interface RegionDetailViewProps {
   regionKey: string;
   language: Language;
-  onCountrySelect?: (country: string, regionKey: string) => void;
+  onCountrySelect?: (countryKey: string, regionKey: string) => void;
 }
 
 type SortField =
@@ -185,12 +190,12 @@ export const RegionDetailView = ({
           <div className="flex items-center gap-2">
             <Globe className="h-6 w-6 text-primary" />
             <h2 className="text-3xl font-display font-bold text-foreground">
-              {region.name}
+              {getRegionName(regionKey, language)}
             </h2>
           </div>
           <ShareButton
             type="region"
-            name={region.name}
+            name={regionKey}
             language={language}
             regionKey={regionKey}
           />
@@ -236,43 +241,48 @@ export const RegionDetailView = ({
         {isMobile ? (
           // Vue mobile : liste
           <div className="space-y-3">
-            {paginatedCountries.map((country) => (
-              <div
-                key={country.name}
-                className="p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors"
-                onClick={() => onCountrySelect?.(country.name, regionKey)}
-              >
-                <div className="space-y-2">
-                  <div className="font-semibold text-base">{country.name}</div>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div>
-                      <span className="text-muted-foreground">
-                        {t.population}:{" "}
-                      </span>
-                      <span className="font-medium">
-                        {formatNumber(country.population)}
-                      </span>
+            {paginatedCountries.map((country) => {
+              const countryKey = getCountryKey(country.name) || country.name;
+              return (
+                <div
+                  key={country.name}
+                  className="p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors"
+                  onClick={() => onCountrySelect?.(countryKey, regionKey)}
+                >
+                  <div className="space-y-2">
+                    <div className="font-semibold text-base">
+                      {getCountryName(countryKey, language)}
                     </div>
-                    <div>
-                      <span className="text-muted-foreground">
-                        % {t.region}:{" "}
-                      </span>
-                      <span className="font-medium">
-                        {formatPercent(country.percentageInRegion)}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">
-                        % {t.inAfrica}:{" "}
-                      </span>
-                      <span className="font-medium">
-                        {formatPercent(country.percentageInAfrica)}
-                      </span>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">
+                          {t.population}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {formatNumber(country.population)}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">
+                          % {t.region}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {formatPercent(country.percentageInRegion)}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">
+                          % {t.inAfrica}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {formatPercent(country.percentageInAfrica)}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           // Vue desktop : tableau
@@ -327,26 +337,30 @@ export const RegionDetailView = ({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {paginatedCountries.map((country) => (
-                  <TableRow
-                    key={country.name}
-                    className="cursor-pointer hover:bg-muted/50"
-                    onClick={() => onCountrySelect?.(country.name, regionKey)}
-                  >
-                    <TableCell className="font-medium">
-                      {country.name}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {formatNumber(country.population)}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {formatPercent(country.percentageInRegion)}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {formatPercent(country.percentageInAfrica)}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {paginatedCountries.map((country) => {
+                  const countryKey =
+                    getCountryKey(country.name) || country.name;
+                  return (
+                    <TableRow
+                      key={country.name}
+                      className="cursor-pointer hover:bg-muted/50"
+                      onClick={() => onCountrySelect?.(countryKey, regionKey)}
+                    >
+                      <TableCell className="font-medium">
+                        {getCountryName(countryKey, language)}
+                      </TableCell>
+                      <TableCell className="text-right tabular-nums">
+                        {formatNumber(country.population)}
+                      </TableCell>
+                      <TableCell className="text-right tabular-nums">
+                        {formatPercent(country.percentageInRegion)}
+                      </TableCell>
+                      <TableCell className="text-right tabular-nums">
+                        {formatPercent(country.percentageInAfrica)}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </div>

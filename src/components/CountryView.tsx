@@ -2,7 +2,12 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Language } from "@/types/ethnicity";
-import { getTranslation } from "@/lib/translations";
+import {
+  getTranslation,
+  getCountryName,
+  getRegionName,
+} from "@/lib/translations";
+import { getCountryKey } from "@/lib/entityKeys";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
@@ -13,7 +18,7 @@ import { normalizeString, getNormalizedFirstLetter } from "@/lib/normalize";
 
 interface CountryViewProps {
   language: Language;
-  onCountrySelect: (country: string, regionKey: string) => void;
+  onCountrySelect: (countryKey: string, regionKey: string) => void;
   hideSearchAndAlphabet?: boolean;
 }
 
@@ -32,6 +37,7 @@ export const CountryView = ({
   const [countries, setCountries] = useState<
     Array<{
       name: string;
+      key: string;
       region: string;
       regionName: string;
       data: {
@@ -80,18 +86,20 @@ export const CountryView = ({
   const filteredCountries = useMemo(() => {
     const normalizedSearch = normalizeString(search);
     return countries.filter((country) => {
+      const countryName = getCountryName(country.key, language);
+      const regionName = getRegionName(country.region, language);
       const matchesSearch =
-        normalizeString(country.name).includes(normalizedSearch) ||
-        normalizeString(country.regionName).includes(normalizedSearch);
+        normalizeString(countryName).includes(normalizedSearch) ||
+        normalizeString(regionName).includes(normalizedSearch);
 
       if (selectedLetter) {
-        const normalizedFirstLetter = getNormalizedFirstLetter(country.name);
+        const normalizedFirstLetter = getNormalizedFirstLetter(countryName);
         return matchesSearch && normalizedFirstLetter === selectedLetter;
       }
 
       return matchesSearch;
     });
-  }, [countries, search, selectedLetter]);
+  }, [countries, search, selectedLetter, language]);
 
   const paginatedCountries = useMemo(() => {
     if (isMobile) {
@@ -111,13 +119,14 @@ export const CountryView = ({
   const availableLetters = useMemo(() => {
     const letters = new Set<string>();
     countries.forEach((country) => {
-      const normalizedFirstLetter = getNormalizedFirstLetter(country.name);
+      const countryName = getCountryName(country.key, language);
+      const normalizedFirstLetter = getNormalizedFirstLetter(countryName);
       if (/[A-Z]/.test(normalizedFirstLetter)) {
         letters.add(normalizedFirstLetter);
       }
     });
     return Array.from(letters).sort();
-  }, [countries]);
+  }, [countries, language]);
 
   const formatNumber = (num: number): string => {
     return new Intl.NumberFormat(
@@ -203,33 +212,36 @@ export const CountryView = ({
               <p className="text-muted-foreground">No countries found</p>
             </div>
           ) : (
-            paginatedCountries.map((country) => (
-              <Card
-                key={country.name}
-                className="p-4 hover:shadow-md cursor-pointer transition-all group mx-0"
-                onClick={() => onCountrySelect(country.name, country.region)}
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <MapPin className="h-5 w-5 text-primary" />
-                      <h3 className="font-semibold text-base group-hover:text-primary transition-colors">
-                        {country.name}
-                      </h3>
-                    </div>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <div>
-                        Population: {formatNumber(country.data.population)}
+            paginatedCountries.map((country) => {
+              const countryName = getCountryName(country.key, language);
+              return (
+                <Card
+                  key={country.key}
+                  className="p-4 hover:shadow-md cursor-pointer transition-all group mx-0"
+                  onClick={() => onCountrySelect(country.key, country.region)}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <MapPin className="h-5 w-5 text-primary" />
+                        <h3 className="font-semibold text-base group-hover:text-primary transition-colors">
+                          {countryName}
+                        </h3>
                       </div>
-                      <div>
-                        {country.data.ethnicityCount}{" "}
-                        {t.ethnicGroups.toLowerCase()}
+                      <div className="space-y-1 text-sm text-muted-foreground">
+                        <div>
+                          Population: {formatNumber(country.data.population)}
+                        </div>
+                        <div>
+                          {country.data.ethnicityCount}{" "}
+                          {t.ethnicGroups.toLowerCase()}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Card>
-            ))
+                </Card>
+              );
+            })
           )}
         </div>
       ) : (
@@ -252,35 +264,38 @@ export const CountryView = ({
                 <p className="text-muted-foreground">No countries found</p>
               </div>
             ) : (
-              paginatedCountries.map((country) => (
-                <Card
-                  key={country.name}
-                  className={`p-4 hover:shadow-md cursor-pointer transition-all group ${
-                    hideSearchAndAlphabet ? "mx-0" : ""
-                  }`}
-                  onClick={() => onCountrySelect(country.name, country.region)}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <MapPin className="h-5 w-5 text-primary" />
-                        <h3 className="font-semibold text-base group-hover:text-primary transition-colors">
-                          {country.name}
-                        </h3>
-                      </div>
-                      <div className="space-y-1 text-sm text-muted-foreground">
-                        <div>
-                          Population: {formatNumber(country.data.population)}
+              paginatedCountries.map((country) => {
+                const countryName = getCountryName(country.key, language);
+                return (
+                  <Card
+                    key={country.key}
+                    className={`p-4 hover:shadow-md cursor-pointer transition-all group ${
+                      hideSearchAndAlphabet ? "mx-0" : ""
+                    }`}
+                    onClick={() => onCountrySelect(country.key, country.region)}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <MapPin className="h-5 w-5 text-primary" />
+                          <h3 className="font-semibold text-base group-hover:text-primary transition-colors">
+                            {countryName}
+                          </h3>
                         </div>
-                        <div>
-                          {country.data.ethnicityCount}{" "}
-                          {t.ethnicGroups.toLowerCase()}
+                        <div className="space-y-1 text-sm text-muted-foreground">
+                          <div>
+                            Population: {formatNumber(country.data.population)}
+                          </div>
+                          <div>
+                            {country.data.ethnicityCount}{" "}
+                            {t.ethnicGroups.toLowerCase()}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Card>
-              ))
+                  </Card>
+                );
+              })
             )}
           </div>
         </ScrollArea>

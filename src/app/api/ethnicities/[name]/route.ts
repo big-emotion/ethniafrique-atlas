@@ -1,4 +1,7 @@
-import { getEthnicityGlobalDetails } from "@/lib/api/datasetLoader.server";
+import {
+  getEthnicityGlobalDetails,
+  getEthnicityGlobalDetailsByKey,
+} from "@/lib/api/datasetLoader.server";
 import { jsonWithCors, corsOptionsResponse } from "@/lib/api/cors";
 
 /**
@@ -58,7 +61,14 @@ export async function GET(
   try {
     const { name } = await params;
     const decodedName = decodeURIComponent(name);
-    const ethnicityDetails = await getEthnicityGlobalDetails(decodedName);
+
+    // Essayer d'abord comme clé normalisée
+    let ethnicityDetails = await getEthnicityGlobalDetailsByKey(decodedName);
+
+    // Si pas trouvé, essayer comme nom direct (rétrocompatibilité temporaire)
+    if (!ethnicityDetails) {
+      ethnicityDetails = await getEthnicityGlobalDetails(decodedName);
+    }
 
     if (!ethnicityDetails) {
       return jsonWithCors({ error: "Ethnicity not found" }, { status: 404 });

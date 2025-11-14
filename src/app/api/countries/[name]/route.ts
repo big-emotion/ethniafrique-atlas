@@ -1,5 +1,6 @@
 import {
   getCountryDetails,
+  getCountryDetailsByKey,
   getCountryRegion,
 } from "@/lib/api/datasetLoader.server";
 import { jsonWithCors, corsOptionsResponse } from "@/lib/api/cors";
@@ -64,14 +65,17 @@ export async function GET(
     const { name } = await params;
     const decodedName = decodeURIComponent(name);
 
-    // Trouver la région du pays
-    const regionKey = await getCountryRegion(decodedName);
-    if (!regionKey) {
-      return jsonWithCors({ error: "Country not found" }, { status: 404 });
+    // Essayer d'abord comme clé normalisée
+    let countryDetails = await getCountryDetailsByKey(decodedName);
+
+    // Si pas trouvé, essayer comme nom direct (rétrocompatibilité temporaire)
+    if (!countryDetails) {
+      const regionKey = await getCountryRegion(decodedName);
+      if (regionKey) {
+        countryDetails = await getCountryDetails(regionKey, decodedName);
+      }
     }
 
-    // Obtenir les détails complets
-    const countryDetails = await getCountryDetails(regionKey, decodedName);
     if (!countryDetails) {
       return jsonWithCors({ error: "Country not found" }, { status: 404 });
     }

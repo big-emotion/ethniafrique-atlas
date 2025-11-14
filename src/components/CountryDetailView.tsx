@@ -2,7 +2,8 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Language } from "@/types/ethnicity";
-import { getTranslation } from "@/lib/translations";
+import { getTranslation, getEthnicityName } from "@/lib/translations";
+import { getCountryKey, getEthnicityKey } from "@/lib/entityKeys";
 import { getCountryDetails } from "@/lib/datasetLoader";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -25,7 +26,7 @@ interface CountryDetailViewProps {
   regionKey: string;
   countryName: string;
   language: Language;
-  onEthnicitySelect?: (ethnicity: string) => void;
+  onEthnicitySelect?: (ethnicityKey: string) => void;
 }
 
 type SortField =
@@ -182,7 +183,7 @@ export const CountryDetailView = ({
           </div>
           <ShareButton
             type="country"
-            name={countryData.name}
+            name={getCountryKey(countryData.name) || countryData.name}
             language={language}
             regionKey={regionKey}
           />
@@ -242,45 +243,49 @@ export const CountryDetailView = ({
         {isMobile ? (
           // Vue mobile : liste
           <div className="space-y-3">
-            {paginatedEthnicities.map((ethnicity) => (
-              <div
-                key={ethnicity.name}
-                className="p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors"
-                onClick={() => onEthnicitySelect?.(ethnicity.name)}
-              >
-                <div className="space-y-2">
-                  <div className="font-semibold text-base">
-                    {ethnicity.name}
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div>
-                      <span className="text-muted-foreground">
-                        {t.population}:{" "}
-                      </span>
-                      <span className="font-medium">
-                        {formatNumber(ethnicity.population)}
-                      </span>
+            {paginatedEthnicities.map((ethnicity) => {
+              const ethnicityKey =
+                getEthnicityKey(ethnicity.name) || ethnicity.name;
+              return (
+                <div
+                  key={ethnicity.name}
+                  className="p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors"
+                  onClick={() => onEthnicitySelect?.(ethnicityKey)}
+                >
+                  <div className="space-y-2">
+                    <div className="font-semibold text-base">
+                      {getEthnicityName(ethnicityKey, language)}
                     </div>
-                    <div>
-                      <span className="text-muted-foreground">
-                        % {t.inCountry}:{" "}
-                      </span>
-                      <span className="font-medium">
-                        {formatPercent(ethnicity.percentageInCountry)}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">
-                        % {t.region}:{" "}
-                      </span>
-                      <span className="font-medium">
-                        {formatPercent(ethnicity.percentageInRegion)}
-                      </span>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">
+                          {t.population}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {formatNumber(ethnicity.population)}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">
+                          % {t.inCountry}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {formatPercent(ethnicity.percentageInCountry)}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">
+                          % {t.region}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {formatPercent(ethnicity.percentageInRegion)}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           // Vue desktop : tableau
@@ -335,26 +340,30 @@ export const CountryDetailView = ({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {paginatedEthnicities.map((ethnicity, index) => (
-                  <TableRow
-                    key={ethnicity.name}
-                    className="cursor-pointer hover:bg-muted/50"
-                    onClick={() => onEthnicitySelect?.(ethnicity.name)}
-                  >
-                    <TableCell className="font-medium">
-                      {ethnicity.name}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {formatNumber(ethnicity.population)}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {formatPercent(ethnicity.percentageInCountry)}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {formatPercent(ethnicity.percentageInRegion)}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {paginatedEthnicities.map((ethnicity, index) => {
+                  const ethnicityKey =
+                    getEthnicityKey(ethnicity.name) || ethnicity.name;
+                  return (
+                    <TableRow
+                      key={ethnicity.name}
+                      className="cursor-pointer hover:bg-muted/50"
+                      onClick={() => onEthnicitySelect?.(ethnicityKey)}
+                    >
+                      <TableCell className="font-medium">
+                        {getEthnicityName(ethnicityKey, language)}
+                      </TableCell>
+                      <TableCell className="text-right tabular-nums">
+                        {formatNumber(ethnicity.population)}
+                      </TableCell>
+                      <TableCell className="text-right tabular-nums">
+                        {formatPercent(ethnicity.percentageInCountry)}
+                      </TableCell>
+                      <TableCell className="text-right tabular-nums">
+                        {formatPercent(ethnicity.percentageInRegion)}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </div>

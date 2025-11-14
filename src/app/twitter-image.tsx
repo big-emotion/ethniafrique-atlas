@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import fs from "node:fs";
 import path from "node:path";
+import { getTranslation } from "@/lib/translations";
 
 export const size = {
   width: 1200,
@@ -10,7 +11,34 @@ export const size = {
 export const contentType = "image/png";
 export const runtime = "nodejs";
 
+// Footer component for OG images
+function Footer() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ethniafrica.com";
+  const domain = siteUrl.replace(/^https?:\/\//, "");
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        fontSize: 22,
+        opacity: 0.9,
+      }}
+    >
+      <div>{domain}</div>
+      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <div style={{ fontWeight: 900, color: "#FBBF24" }}>BIG</div>
+        <div style={{ fontWeight: 900 }}>EMOTION</div>
+      </div>
+    </div>
+  );
+}
+
 export default async function TwitterImage() {
+  // Use English translations as default for OG images
+  const t = getTranslation("en");
+
   // Load africa.png from the local filesystem to avoid build-time fetches.
   let africaSrc: string | undefined = undefined;
   try {
@@ -51,32 +79,13 @@ export default async function TwitterImage() {
             }}
           />
         ) : null}
-        <div style={{ fontSize: 64, fontWeight: 800 }}>
-          African Ethnicities Dictionary
-        </div>
-        <div style={{ fontSize: 28, opacity: 0.9 }}>
-          Multilingual • Regions • Countries • Ethnic Groups
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            fontSize: 22,
-            opacity: 0.9,
-            marginTop: 24,
-          }}
-        >
-          <div>ethniafrique-atlas.vercel.app</div>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <div style={{ fontWeight: 900, color: "#FBBF24" }}>BIG</div>
-            <div style={{ fontWeight: 900 }}>EMOTION</div>
-          </div>
+        <div style={{ fontSize: 64, fontWeight: 800 }}>{t.title}</div>
+        <div style={{ fontSize: 28, opacity: 0.9 }}>{t.subtitle}</div>
+        <div style={{ marginTop: 24 }}>
+          <Footer />
         </div>
       </div>
     ),
-    { ...size },
+    { ...size }
   );
 }
-
-

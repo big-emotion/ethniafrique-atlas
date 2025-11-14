@@ -23,6 +23,7 @@ interface PageLayoutProps {
   onSearchResult?: (result: {
     type: "ethnicity" | "country";
     name: string;
+    key: string;
     region?: string;
     regionName?: string;
   }) => void;
@@ -47,19 +48,20 @@ export const PageLayout = ({
   const handleSearchResult = (result: {
     type: "ethnicity" | "country";
     name: string;
+    key: string;
     region?: string;
     regionName?: string;
   }) => {
     if (onSearchResult) {
       onSearchResult(result);
     } else {
-      // Default behavior: redirect to appropriate page
+      // Default behavior: redirect to appropriate page using normalized keys
       if (result.type === "country") {
         const route = getLocalizedRoute(language, "countries");
-        router.push(`${route}?country=${encodeURIComponent(result.name)}`);
+        router.push(`${route}/${result.key}`);
       } else if (result.type === "ethnicity") {
         const route = getLocalizedRoute(language, "ethnicities");
-        router.push(`${route}?ethnicity=${encodeURIComponent(result.name)}`);
+        router.push(`${route}/${result.key}`);
       }
     }
     setIsSearchOpen(false);

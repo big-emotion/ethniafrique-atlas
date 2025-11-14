@@ -22,9 +22,9 @@ export interface EthnicityGroup {
   countries: string[];
 }
 
-export type Language = 'en' | 'fr' | 'es' | 'pt';
+export type Language = "en" | "fr" | "es" | "pt";
 
-export type ViewMode = 'region' | 'country' | 'ethnicity';
+export type ViewMode = "region" | "country" | "ethnicity";
 
 // Types pour la nouvelle structure dataset
 export interface RegionData {
@@ -57,9 +57,9 @@ export interface DatasetIndex {
 // Types pour les données d'ethnie par pays
 export interface EthnicityInCountry {
   Ethnicity_or_Subgroup: string;
-  'pourcentage dans la population du pays': string;
-  'population de l\'ethnie estimée dans le pays': string;
-  'pourcentage dans la population totale d\'Afrique': string;
+  "pourcentage dans la population du pays": string;
+  "population de l'ethnie estimée dans le pays": string;
+  "pourcentage dans la population totale d'Afrique": string;
 }
 
 // Types pour les données d'ethnie globale
@@ -74,5 +74,11 @@ export interface EthnicityGlobalData {
     percentageInCountry: number;
     percentageInRegion: number;
     percentageInAfrica: number;
+  }>;
+  regions?: Array<{
+    name: string;
+    totalPopulation: number;
+    ethnicityPopulation: number;
+    percentageInRegion: number;
   }>;
 }

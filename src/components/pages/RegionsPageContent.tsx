@@ -55,11 +55,12 @@ export function RegionsPageContent() {
 
   const handleCountrySelect = (country: string, regionKey?: string) => {
     const listRoute = getLocalizedRoute(language, "countries");
-    router.push(`${listRoute}/${encodeURIComponent(country)}`);
+    // country est maintenant une clé normalisée
+    router.push(`${listRoute}/${country}`);
   };
 
-  const handleEthnicitySelect = (ethnicity: string) => {
-    setSelectedEthnicity(ethnicity);
+  const handleEthnicitySelect = (ethnicityKey: string) => {
+    setSelectedEthnicity(ethnicityKey);
     setSelectedCountry(null);
     setSelectedRegion(null);
   };
@@ -76,7 +77,8 @@ export function RegionsPageContent() {
           ? "countries"
           : "ethnicities"
     );
-    router.push(`${listRoute}/${encodeURIComponent(item)}`);
+    // item est maintenant une clé normalisée
+    router.push(`${listRoute}/${item}`);
   };
 
   return (

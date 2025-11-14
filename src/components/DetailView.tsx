@@ -9,14 +9,20 @@ import { EthnicityDetailView } from "@/components/EthnicityDetailView";
 import { Card } from "@/components/ui/card";
 import { Globe } from "lucide-react";
 import { getCountryRegion } from "@/lib/datasetLoader";
+import {
+  getCountryKey,
+  getRegionKey,
+  getCountryName,
+  getEthnicityName,
+} from "@/lib/entityKeys";
 
 interface DetailViewProps {
   language: Language;
-  selectedRegion: string | null;
-  selectedCountry: string | null;
-  selectedEthnicity: string | null;
-  onEthnicitySelect?: (ethnicity: string) => void;
-  onCountrySelect?: (country: string, regionKey: string) => void;
+  selectedRegion: string | null; // Clé normalisée
+  selectedCountry: string | null; // Clé normalisée
+  selectedEthnicity: string | null; // Clé normalisée
+  onEthnicitySelect?: (ethnicityKey: string) => void;
+  onCountrySelect?: (countryKey: string, regionKey: string) => void;
 }
 
 export const DetailView = ({
@@ -32,9 +38,13 @@ export const DetailView = ({
 
   useEffect(() => {
     if (selectedCountry && !selectedRegion) {
-      getCountryRegion(selectedCountry).then(region => {
-        setCountryRegion(region);
-      });
+      // selectedCountry est maintenant une clé, on doit la convertir en nom
+      const countryName = getCountryName(selectedCountry);
+      if (countryName) {
+        getCountryRegion(countryName).then((region) => {
+          setCountryRegion(region);
+        });
+      }
     } else {
       setCountryRegion(null);
     }
@@ -63,10 +73,13 @@ export const DetailView = ({
         </div>
       );
     }
+    // Convertir la clé en nom pour CountryDetailView
+    const countryName = getCountryName(selectedCountry) || selectedCountry;
+
     return (
       <CountryDetailView
         regionKey={countryRegion}
-        countryName={selectedCountry}
+        countryName={countryName}
         language={language}
         onEthnicitySelect={onEthnicitySelect}
       />
@@ -75,21 +88,20 @@ export const DetailView = ({
 
   // Vue d'une ethnie sélectionnée
   if (selectedEthnicity) {
+    // Convertir la clé en nom pour EthnicityDetailView
+    const ethnicityName =
+      getEthnicityName(selectedEthnicity) || selectedEthnicity;
+
     return (
       <EthnicityDetailView
-        ethnicityName={selectedEthnicity}
+        ethnicityName={ethnicityName}
         language={language}
         onCountrySelect={(country, region) => {
-          // Trouver la clé de région depuis le nom
-          const regionMap: Record<string, string> = {
-            'Afrique du Nord': 'afrique_du_nord',
-            'Afrique de l\'Ouest': 'afrique_de_l_ouest',
-            'Afrique Centrale': 'afrique_centrale',
-            'Afrique de l\'Est': 'afrique_de_l_est',
-            'Afrique Australe': 'afrique_australe',
-          };
-          const regionKey = regionMap[region] || region;
-          onCountrySelect?.(country, regionKey);
+          // Convertir le nom de région en clé
+          const regionKey = getRegionKey(region) || region;
+          // Convertir le nom de pays en clé
+          const countryKey = getCountryKey(country) || country;
+          onCountrySelect?.(countryKey, regionKey);
         }}
       />
     );
@@ -101,17 +113,15 @@ export const DetailView = ({
       <Card className="p-12 text-center max-w-md">
         <Globe className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
         <h3 className="text-xl font-semibold mb-2">{t.title}</h3>
-        <p className="text-muted-foreground">
-          {t.subtitle}
-        </p>
+        <p className="text-muted-foreground">{t.subtitle}</p>
         <p className="text-sm text-muted-foreground mt-4">
           {language === "en"
             ? "Select a region, country, or ethnicity from the list to view detailed information."
             : language === "fr"
-            ? "Sélectionnez une région, un pays ou une ethnie dans la liste pour voir les informations détaillées."
-            : language === "es"
-            ? "Seleccione una región, país o etnia de la lista para ver información detallada."
-            : "Selecione uma região, país ou etnia da lista para ver informações detalhadas."}
+              ? "Sélectionnez une région, un pays ou une ethnie dans la liste pour voir les informations détaillées."
+              : language === "es"
+                ? "Seleccione una región, país o etnia de la lista para ver información detallada."
+                : "Selecione uma região, país ou etnia da lista para ver informações detalhadas."}
         </p>
       </Card>
     </div>

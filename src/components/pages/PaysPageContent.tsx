@@ -43,18 +43,18 @@ export function PaysPageContent() {
     }
   }, [searchParams]);
 
-  const handleCountrySelect = (country: string, regionKey?: string) => {
-    setSelectedCountry(country);
+  const handleCountrySelect = (countryKey: string, regionKey?: string) => {
+    setSelectedCountry(countryKey);
     setSelectedRegion(null);
     setSelectedEthnicity(null);
     // Mettre à jour l'URL sans navigation
     const url = new URL(window.location.href);
-    url.searchParams.set("country", country);
+    url.searchParams.set("country", countryKey);
     router.replace(url.pathname + url.search, { scroll: false });
   };
 
-  const handleEthnicitySelect = (ethnicity: string) => {
-    setSelectedEthnicity(ethnicity);
+  const handleEthnicitySelect = (ethnicityKey: string) => {
+    setSelectedEthnicity(ethnicityKey);
     setSelectedCountry(null);
     setSelectedRegion(null);
   };
@@ -71,7 +71,8 @@ export function PaysPageContent() {
           ? "countries"
           : "ethnicities"
     );
-    router.push(`${listRoute}/${encodeURIComponent(item)}`);
+    // item est maintenant une clé normalisée
+    router.push(`${listRoute}/${item}`);
   };
 
   return (

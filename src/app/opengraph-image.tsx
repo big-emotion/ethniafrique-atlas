@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import fs from "node:fs";
 import path from "node:path";
+import { getTranslation } from "@/lib/translations";
 
 export const size = {
   width: 1200,
@@ -10,10 +11,35 @@ export const size = {
 export const contentType = "image/png";
 export const runtime = "nodejs";
 
+// Footer component for OG images
+function Footer() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ethniafrica.com";
+  const domain = siteUrl.replace(/^https?:\/\//, "");
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        fontSize: 22,
+        opacity: 0.9,
+      }}
+    >
+      <div>{domain}</div>
+      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <div style={{ fontWeight: 900, color: "#FBBF24" }}>BIG</div>
+        <div style={{ fontWeight: 900 }}>EMOTION</div>
+      </div>
+    </div>
+  );
+}
+
 export default async function OgImage() {
-  const title = "African Ethnicities Dictionary";
-  const subtitle =
-    "Explore ethnic groups across 55 African countries • Multilingual • Open Source";
+  // Use English translations as default for OG images
+  const t = getTranslation("en");
+  const title = t.title;
+  const subtitle = t.subtitle;
 
   // Load africa.png from the local filesystem to avoid build-time fetches.
   let africaSrc: string | undefined = undefined;
@@ -64,9 +90,7 @@ export default async function OgImage() {
               background: "#FBBF24",
             }}
           />
-          <div style={{ fontSize: 20, opacity: 0.9 }}>
-            Dictionnaire des Ethnies d’Afrique
-          </div>
+          <div style={{ fontSize: 20, opacity: 0.9 }}>{t.title}</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <div
@@ -80,21 +104,7 @@ export default async function OgImage() {
           </div>
           <div style={{ fontSize: 28, opacity: 0.9 }}>{subtitle}</div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            fontSize: 22,
-            opacity: 0.9,
-          }}
-        >
-          <div>ethniafrique-atlas.vercel.app</div>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <div style={{ fontWeight: 900, color: "#FBBF24" }}>BIG</div>
-            <div style={{ fontWeight: 900 }}>EMOTION</div>
-          </div>
-        </div>
+        <Footer />
       </div>
     ),
     {

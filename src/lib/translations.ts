@@ -1,4 +1,10 @@
 import { Language } from "@/types/ethnicity";
+import { entityTranslations } from "./entityTranslations";
+import {
+  getRegionName as getRegionNameFromKey,
+  getCountryName as getCountryNameFromKey,
+  getEthnicityName as getEthnicityNameFromKey,
+} from "./entityKeys";
 
 export const translations = {
   en: {
@@ -194,3 +200,46 @@ export const translations = {
 };
 
 export const getTranslation = (lang: Language) => translations[lang];
+
+// Helper functions to get translated entity names
+export function getRegionName(regionKey: string, language: Language): string {
+  const translation =
+    entityTranslations.regions[
+      regionKey as keyof typeof entityTranslations.regions
+    ];
+  if (!translation) {
+    // Fallback: try to get from entityKeys
+    const name = getRegionNameFromKey(regionKey);
+    return name || regionKey;
+  }
+  return translation[language] || translation.fr;
+}
+
+export function getCountryName(countryKey: string, language: Language): string {
+  const translation =
+    entityTranslations.countries[
+      countryKey as keyof typeof entityTranslations.countries
+    ];
+  if (!translation) {
+    // Fallback: try to get from entityKeys
+    const name = getCountryNameFromKey(countryKey);
+    return name || countryKey;
+  }
+  return translation[language] || translation.fr;
+}
+
+export function getEthnicityName(
+  ethnicityKey: string,
+  language: Language
+): string {
+  const translation =
+    entityTranslations.ethnicities[
+      ethnicityKey as keyof typeof entityTranslations.ethnicities
+    ];
+  if (!translation) {
+    // Fallback: try to get from entityKeys
+    const name = getEthnicityNameFromKey(ethnicityKey);
+    return name || ethnicityKey;
+  }
+  return translation[language] || translation.fr;
+}

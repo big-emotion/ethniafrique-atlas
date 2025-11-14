@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Language } from "@/types/ethnicity";
-import { getTranslation } from "@/lib/translations";
+import { getTranslation, getRegionName } from "@/lib/translations";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -97,18 +97,19 @@ export const RegionView = ({
   const filteredRegions = useMemo(() => {
     const normalizedSearch = normalizeString(search);
     return regions.filter((region) => {
+      const regionName = getRegionName(region.key, language);
       const matchesSearch =
-        normalizeString(region.name).includes(normalizedSearch) ||
+        normalizeString(regionName).includes(normalizedSearch) ||
         normalizeString(region.key).includes(normalizedSearch);
 
       if (selectedLetter) {
-        const normalizedFirstLetter = getNormalizedFirstLetter(region.name);
+        const normalizedFirstLetter = getNormalizedFirstLetter(regionName);
         return matchesSearch && normalizedFirstLetter === selectedLetter;
       }
 
       return matchesSearch;
     });
-  }, [regions, search, selectedLetter]);
+  }, [regions, search, selectedLetter, language]);
 
   const paginatedRegions = useMemo(() => {
     if (isMobile) {
@@ -128,13 +129,14 @@ export const RegionView = ({
   const availableLetters = useMemo(() => {
     const letters = new Set<string>();
     regions.forEach((region) => {
-      const normalizedFirstLetter = getNormalizedFirstLetter(region.name);
+      const regionName = getRegionName(region.key, language);
+      const normalizedFirstLetter = getNormalizedFirstLetter(regionName);
       if (/[A-Z]/.test(normalizedFirstLetter)) {
         letters.add(normalizedFirstLetter);
       }
     });
     return Array.from(letters).sort();
-  }, [regions]);
+  }, [regions, language]);
 
   const formatNumber = (num: number): string => {
     return new Intl.NumberFormat(
@@ -239,7 +241,7 @@ export const RegionView = ({
                     <div className="flex items-center gap-2 mb-2">
                       <Globe className="h-5 w-5 text-primary" />
                       <h3 className="font-semibold text-base group-hover:text-primary transition-colors">
-                        {region.name}
+                        {getRegionName(region.key, language)}
                       </h3>
                     </div>
                     <div className="space-y-1 text-sm text-muted-foreground">
@@ -247,7 +249,7 @@ export const RegionView = ({
                         Population: {formatNumber(region.totalPopulation)}
                       </div>
                       <div>
-                        {region.countryCount} {t.country.toLowerCase() + "s"}
+                        {region.countryCount} {t.countries.toLowerCase()}
                       </div>
                     </div>
                   </div>
@@ -289,7 +291,7 @@ export const RegionView = ({
                       <div className="flex items-center gap-2 mb-2">
                         <Globe className="h-5 w-5 text-primary" />
                         <h3 className="font-semibold text-base group-hover:text-primary transition-colors">
-                          {region.name}
+                          {getRegionName(region.key, language)}
                         </h3>
                       </div>
                       <div className="space-y-1 text-sm text-muted-foreground">
@@ -297,7 +299,7 @@ export const RegionView = ({
                           Population: {formatNumber(region.totalPopulation)}
                         </div>
                         <div>
-                          {region.countryCount} {t.country.toLowerCase() + "s"}
+                          {region.countryCount} {t.countries.toLowerCase()}
                         </div>
                       </div>
                     </div>

@@ -5,7 +5,13 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Language } from "@/types/ethnicity";
 import { getLocalizedRoute } from "@/lib/routing";
-import { translations } from "@/lib/translations";
+import {
+  translations,
+  getRegionName,
+  getCountryName,
+  getEthnicityName,
+} from "@/lib/translations";
+import { getRegionKey, getCountryKey, getEthnicityKey } from "@/lib/entityKeys";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -67,6 +73,12 @@ interface EthnicityDetailPayload {
     percentageInCountry: number;
     percentageInRegion: number;
     percentageInAfrica: number;
+  }>;
+  regions?: Array<{
+    name: string;
+    totalPopulation: number;
+    ethnicityPopulation: number;
+    percentageInRegion: number;
   }>;
 }
 
@@ -178,15 +190,18 @@ export function DetailPageClient({
   const itemTitle = useMemo(() => {
     switch (data.type) {
       case "country":
-        return data.payload.name;
+        // item est une clé normalisée, convertir en nom traduit
+        return getCountryName(item, language);
       case "region":
-        return data.payload.name;
+        // item est une clé normalisée, convertir en nom traduit
+        return getRegionName(item, language);
       case "ethnicity":
-        return data.payload.name;
+        // item est une clé normalisée, convertir en nom traduit
+        return getEthnicityName(item, language);
       default:
         return item;
     }
-  }, [data, item]);
+  }, [data, item, language]);
 
   const handleLanguageChange = (nextLang: Language) => {
     if (nextLang === language) return;
@@ -208,7 +223,12 @@ export function DetailPageClient({
               <Users className="h-5 w-5 text-primary" />
               {itemTitle}
             </CardTitle>
-            <CardDescription>{payload.region}</CardDescription>
+            <CardDescription>
+              {getRegionName(
+                getRegionKey(payload.region) || payload.region,
+                language
+              )}
+            </CardDescription>
           </CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-lg border bg-card">
@@ -259,7 +279,7 @@ export function DetailPageClient({
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2">
               <MapPin className="h-5 w-5 text-primary" />
-              {payload.name}
+              {getRegionName(item, language)}
             </CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -352,17 +372,23 @@ export function DetailPageClient({
             </tr>
           </thead>
           <tbody>
-            {payload.ethnicities.map((ethnicity) => (
-              <tr key={ethnicity.name} className="border-b last:border-none">
-                <td className="py-2 pr-4 font-medium">{ethnicity.name}</td>
-                <td className="py-2 pr-4">
-                  {formatNumber(ethnicity.population, language)}
-                </td>
-                <td className="py-2 pr-4">
-                  {formatPercentage(ethnicity.percentageInCountry, language)}%
-                </td>
-              </tr>
-            ))}
+            {payload.ethnicities.map((ethnicity) => {
+              const ethnicityKey =
+                getEthnicityKey(ethnicity.name) || ethnicity.name;
+              return (
+                <tr key={ethnicity.name} className="border-b last:border-none">
+                  <td className="py-2 pr-4 font-medium">
+                    {getEthnicityName(ethnicityKey, language)}
+                  </td>
+                  <td className="py-2 pr-4">
+                    {formatNumber(ethnicity.population, language)}
+                  </td>
+                  <td className="py-2 pr-4">
+                    {formatPercentage(ethnicity.percentageInCountry, language)}%
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </CardContent>
@@ -422,20 +448,25 @@ export function DetailPageClient({
               </tr>
             </thead>
             <tbody>
-              {countries.map((country) => (
-                <tr key={country.name} className="border-b last:border-none">
-                  <td className="py-2 pr-4 font-medium">{country.name}</td>
-                  <td className="py-2 pr-4">
-                    {formatNumber(country.population, language)}
-                  </td>
-                  <td className="py-2 pr-4">
-                    {formatPercentage(country.percentageInRegion, language)}%
-                  </td>
-                  <td className="py-2 pr-4">
-                    {formatPercentage(country.percentageInAfrica, language)}%
-                  </td>
-                </tr>
-              ))}
+              {countries.map((country) => {
+                const countryKey = getCountryKey(country.name) || country.name;
+                return (
+                  <tr key={country.name} className="border-b last:border-none">
+                    <td className="py-2 pr-4 font-medium">
+                      {getCountryName(countryKey, language)}
+                    </td>
+                    <td className="py-2 pr-4">
+                      {formatNumber(country.population, language)}
+                    </td>
+                    <td className="py-2 pr-4">
+                      {formatPercentage(country.percentageInRegion, language)}%
+                    </td>
+                    <td className="py-2 pr-4">
+                      {formatPercentage(country.percentageInAfrica, language)}%
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </CardContent>
@@ -487,20 +518,34 @@ export function DetailPageClient({
               </tr>
             </thead>
             <tbody>
-              {ethnicities.map((ethnicity) => (
-                <tr key={ethnicity.name} className="border-b last:border-none">
-                  <td className="py-2 pr-4 font-medium">{ethnicity.name}</td>
-                  <td className="py-2 pr-4">
-                    {formatNumber(ethnicity.totalPopulationInRegion, language)}
-                  </td>
-                  <td className="py-2 pr-4">
-                    {formatPercentage(ethnicity.percentageInRegion, language)}%
-                  </td>
-                  <td className="py-2 pr-4">
-                    {formatPercentage(ethnicity.percentageInAfrica, language)}%
-                  </td>
-                </tr>
-              ))}
+              {ethnicities.map((ethnicity) => {
+                const ethnicityKey =
+                  getEthnicityKey(ethnicity.name) || ethnicity.name;
+                return (
+                  <tr
+                    key={ethnicity.name}
+                    className="border-b last:border-none"
+                  >
+                    <td className="py-2 pr-4 font-medium">
+                      {getEthnicityName(ethnicityKey, language)}
+                    </td>
+                    <td className="py-2 pr-4">
+                      {formatNumber(
+                        ethnicity.totalPopulationInRegion,
+                        language
+                      )}
+                    </td>
+                    <td className="py-2 pr-4">
+                      {formatPercentage(ethnicity.percentageInRegion, language)}
+                      %
+                    </td>
+                    <td className="py-2 pr-4">
+                      {formatPercentage(ethnicity.percentageInAfrica, language)}
+                      %
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </CardContent>
@@ -528,23 +573,32 @@ export function DetailPageClient({
             </tr>
           </thead>
           <tbody>
-            {payload.countries.map((country) => (
-              <tr
-                key={`${country.country}-${country.region}`}
-                className="border-b last:border-none"
-              >
-                <td className="py-2 pr-4 font-medium">{country.country}</td>
-                <td className="py-2 pr-4">
-                  <Badge variant="secondary">{country.region}</Badge>
-                </td>
-                <td className="py-2 pr-4">
-                  {formatNumber(country.population, language)}
-                </td>
-                <td className="py-2 pr-4">
-                  {formatPercentage(country.percentageInCountry, language)}%
-                </td>
-              </tr>
-            ))}
+            {payload.countries.map((country) => {
+              const countryKey =
+                getCountryKey(country.country) || country.country;
+              const regionKey = getRegionKey(country.region) || country.region;
+              return (
+                <tr
+                  key={`${country.country}-${country.region}`}
+                  className="border-b last:border-none"
+                >
+                  <td className="py-2 pr-4 font-medium">
+                    {getCountryName(countryKey, language)}
+                  </td>
+                  <td className="py-2 pr-4">
+                    <Badge variant="secondary">
+                      {getRegionName(regionKey, language)}
+                    </Badge>
+                  </td>
+                  <td className="py-2 pr-4">
+                    {formatNumber(country.population, language)}
+                  </td>
+                  <td className="py-2 pr-4">
+                    {formatPercentage(country.percentageInCountry, language)}%
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </CardContent>

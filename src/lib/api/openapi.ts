@@ -10,7 +10,7 @@ const options: swaggerJsdoc.Options = {
         "API publique pour accéder aux données démographiques et ethniques de l'Afrique. Cette API fournit des informations sur les régions, pays, ethnies et statistiques démographiques du continent africain.",
       contact: {
         name: "Ethniafrique Atlas",
-        url: "https://github.com/big-emotion/ethniafrique-atlas",
+        url: "https://github.com/big-emotion/ethniafrica",
       },
     },
     servers: [

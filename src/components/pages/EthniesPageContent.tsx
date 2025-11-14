@@ -41,19 +41,20 @@ export function EthniesPageContent() {
     }
   }, [searchParams]);
 
-  const handleEthnicitySelect = (ethnicity: string) => {
-    setSelectedEthnicity(ethnicity);
+  const handleEthnicitySelect = (ethnicityKey: string) => {
+    setSelectedEthnicity(ethnicityKey);
     setSelectedCountry(null);
     setSelectedRegion(null);
     // Mettre à jour l'URL sans navigation
     const url = new URL(window.location.href);
-    url.searchParams.set("ethnicity", ethnicity);
+    url.searchParams.set("ethnicity", ethnicityKey);
     router.replace(url.pathname + url.search, { scroll: false });
   };
 
-  const handleCountrySelect = (country: string, regionKey?: string) => {
+  const handleCountrySelect = (countryKey: string, regionKey?: string) => {
     const listRoute = getLocalizedRoute(language, "countries");
-    router.push(`${listRoute}/${encodeURIComponent(country)}`);
+    // countryKey est maintenant une clé normalisée
+    router.push(`${listRoute}/${countryKey}`);
   };
 
   const handleViewFullPage = (
@@ -68,7 +69,8 @@ export function EthniesPageContent() {
           ? "countries"
           : "ethnicities"
     );
-    router.push(`${listRoute}/${encodeURIComponent(item)}`);
+    // item est maintenant une clé normalisée
+    router.push(`${listRoute}/${item}`);
   };
 
   return (

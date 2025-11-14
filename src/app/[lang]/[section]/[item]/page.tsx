@@ -1,8 +1,12 @@
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { Language } from "@/types/ethnicity";
 import { getLocalizedRoute } from "@/lib/routing";
 import { DetailPageClient } from "@/components/pages/DetailPageClient";
+import {
+  getCountryDetailsByKey,
+  getRegion,
+  getEthnicityGlobalDetailsByKey,
+} from "@/lib/api/datasetLoader.server";
 
 type SectionType = "country" | "region" | "ethnicity";
 
@@ -44,36 +48,6 @@ function resolveSection(lang: Language, section: string): SectionType | null {
     (type) => mapping[type] === section
   );
   return match ?? null;
-}
-
-async function getBaseUrl(): Promise<string> {
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL;
-  }
-  const headersList = await headers();
-  const protocol =
-    headersList.get("x-forwarded-proto") ??
-    headersList.get("x-forwarded-protocol") ??
-    "http";
-  const host = headersList.get("host");
-  return `${protocol}://${host}`;
-}
-
-async function fetchFromApi<T>(path: string): Promise<T> {
-  const baseUrl = await getBaseUrl();
-  const response = await fetch(`${baseUrl}${path}`, {
-    next: { revalidate: 60 },
-  });
-
-  if (response.status === 404) {
-    notFound();
-  }
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${path}`);
-  }
-
-  return response.json() as Promise<T>;
 }
 
 interface CountryDetailPayload {
@@ -125,6 +99,12 @@ interface EthnicityDetailPayload {
     percentageInRegion: number;
     percentageInAfrica: number;
   }>;
+  regions?: Array<{
+    name: string;
+    totalPopulation: number;
+    ethnicityPopulation: number;
+    percentageInRegion: number;
+  }>;
 }
 
 type DetailData =
@@ -160,27 +140,51 @@ export default async function LocalizedDetailPage({
   }
 
   let detailData: DetailData;
-  const encodedItem = encodeURIComponent(item);
+  const decodedItem = decodeURIComponent(item);
 
   switch (sectionType) {
     case "country": {
-      const payload = await fetchFromApi<CountryDetailPayload>(
-        `/api/countries/${encodedItem}`
-      );
+      // decodedItem est maintenant une clé normalisée (ex: "afriqueDuSud")
+      const countryDetails = await getCountryDetailsByKey(decodedItem);
+      if (!countryDetails) {
+        notFound();
+      }
+
+      const payload: CountryDetailPayload = countryDetails;
       detailData = { type: "country", payload };
       break;
     }
     case "region": {
-      const payload = await fetchFromApi<RegionDetailPayload>(
-        `/api/regions/${encodedItem}`
-      );
+      // decodedItem est une clé de région (ex: "afrique_australe")
+      const region = await getRegion(decodedItem);
+      if (!region) {
+        notFound();
+      }
+
+      const payload: RegionDetailPayload = {
+        name: region.name,
+        totalPopulation: region.totalPopulation,
+        countries: region.countries,
+        ethnicities: region.ethnicities,
+      };
       detailData = { type: "region", payload };
       break;
     }
     case "ethnicity": {
-      const payload = await fetchFromApi<EthnicityDetailPayload>(
-        `/api/ethnicities/${encodedItem}`
-      );
+      // decodedItem est maintenant une clé normalisée (ex: "adjaApparentes")
+      const ethnicityDetails =
+        await getEthnicityGlobalDetailsByKey(decodedItem);
+      if (!ethnicityDetails) {
+        notFound();
+      }
+
+      const payload: EthnicityDetailPayload = {
+        name: ethnicityDetails.name,
+        totalPopulation: ethnicityDetails.totalPopulation,
+        percentageInAfrica: ethnicityDetails.percentageInAfrica,
+        countries: ethnicityDetails.countries,
+        regions: ethnicityDetails.regions,
+      };
       detailData = { type: "ethnicity", payload };
       break;
     }

@@ -13,13 +13,19 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Language } from "@/types/ethnicity";
-import { getTranslation } from "@/lib/translations";
+import {
+  getTranslation,
+  getCountryName,
+  getRegionName,
+  getEthnicityName,
+} from "@/lib/translations";
 import { getAllCountries, getAllEthnicities } from "@/lib/datasetLoader";
 import { normalizeString } from "@/lib/normalize";
 
 interface SearchResult {
   type: "ethnicity" | "country";
-  name: string;
+  name: string; // Nom traduit pour affichage
+  key: string; // Clé normalisée pour navigation
   region?: string;
   regionName?: string;
   data?: {
@@ -47,6 +53,7 @@ export const SearchModal = ({
   const [countries, setCountries] = useState<
     Array<{
       name: string;
+      key: string;
       region: string;
       regionName: string;
       data: {
@@ -58,6 +65,7 @@ export const SearchModal = ({
   const [ethnicities, setEthnicities] = useState<
     Array<{
       name: string;
+      key: string;
       totalPopulation: number;
       percentageInAfrica: number;
       countryCount: number;
@@ -89,8 +97,10 @@ export const SearchModal = ({
 
     // Rechercher dans les pays
     countries.forEach((country) => {
-      const normalizedCountryName = normalizeString(country.name);
-      const normalizedRegionName = normalizeString(country.regionName);
+      const countryName = getCountryName(country.key, language);
+      const regionName = getRegionName(country.region, language);
+      const normalizedCountryName = normalizeString(countryName);
+      const normalizedRegionName = normalizeString(regionName);
 
       if (
         normalizedCountryName.includes(query) ||
@@ -98,9 +108,10 @@ export const SearchModal = ({
       ) {
         results.push({
           type: "country",
-          name: country.name,
+          name: countryName,
+          key: country.key,
           region: country.region,
-          regionName: country.regionName,
+          regionName: regionName,
           data: {
             population: country.data.population,
             countryCount: country.data.ethnicityCount,
@@ -111,12 +122,14 @@ export const SearchModal = ({
 
     // Rechercher dans les ethnies
     ethnicities.forEach((ethnicity) => {
-      const normalizedEthnicityName = normalizeString(ethnicity.name);
+      const ethnicityName = getEthnicityName(ethnicity.key, language);
+      const normalizedEthnicityName = normalizeString(ethnicityName);
 
       if (normalizedEthnicityName.includes(query)) {
         results.push({
           type: "ethnicity",
-          name: ethnicity.name,
+          name: ethnicityName,
+          key: ethnicity.key,
           data: {
             population: ethnicity.totalPopulation,
             percentageInAfrica: ethnicity.percentageInAfrica,
@@ -133,17 +146,17 @@ export const SearchModal = ({
       }
       return a.name.localeCompare(b.name);
     });
-  }, [searchQuery, countries, ethnicities]);
+  }, [searchQuery, countries, ethnicities, language]);
 
   const formatNumber = (num: number): string => {
     return new Intl.NumberFormat(
       language === "en"
         ? "en-US"
         : language === "fr"
-        ? "fr-FR"
-        : language === "es"
-        ? "es-ES"
-        : "pt-PT"
+          ? "fr-FR"
+          : language === "es"
+            ? "es-ES"
+            : "pt-PT"
     ).format(Math.round(num));
   };
 
@@ -157,10 +170,10 @@ export const SearchModal = ({
     language === "en"
       ? "Search"
       : language === "fr"
-      ? "Recherche"
-      : language === "es"
-      ? "Búsqueda"
-      : "Pesquisa";
+        ? "Recherche"
+        : language === "es"
+          ? "Búsqueda"
+          : "Pesquisa";
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -180,10 +193,10 @@ export const SearchModal = ({
                 language === "en"
                   ? "Search for an ethnicity or country..."
                   : language === "fr"
-                  ? "Rechercher une ethnie ou un pays..."
-                  : language === "es"
-                  ? "Buscar una etnia o país..."
-                  : "Pesquisar uma etnia ou país..."
+                    ? "Rechercher une ethnie ou un pays..."
+                    : language === "es"
+                      ? "Buscar una etnia o país..."
+                      : "Pesquisar uma etnia ou país..."
               }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -206,24 +219,24 @@ export const SearchModal = ({
                   ? language === "en"
                     ? "No results found"
                     : language === "fr"
-                    ? "Aucun résultat trouvé"
-                    : language === "es"
-                    ? "No se encontraron resultados"
-                    : "Nenhum resultado encontrado"
+                      ? "Aucun résultat trouvé"
+                      : language === "es"
+                        ? "No se encontraron resultados"
+                        : "Nenhum resultado encontrado"
                   : language === "en"
-                  ? "Start typing to search..."
-                  : language === "fr"
-                  ? "Commencez à taper pour rechercher..."
-                  : language === "es"
-                  ? "Comience a escribir para buscar..."
-                  : "Comece a digitar para pesquisar..."}
+                    ? "Start typing to search..."
+                    : language === "fr"
+                      ? "Commencez à taper pour rechercher..."
+                      : language === "es"
+                        ? "Comience a escribir para buscar..."
+                        : "Comece a digitar para pesquisar..."}
               </p>
             </div>
           ) : (
             <div className="space-y-2">
               {results.map((result, index) => (
                 <Card
-                  key={`${result.type}-${result.name}-${index}`}
+                  key={`${result.type}-${result.key}-${index}`}
                   className="p-4 hover:shadow-md cursor-pointer transition-all"
                   onClick={() => handleResultClick(result)}
                 >

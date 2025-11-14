@@ -245,18 +245,40 @@ export async function getEthnicityGlobalDetails(
 
   if (countriesData.length === 0) return null;
 
-  // Calculer la population totale dans chaque région
-  const regionPopulations = new Map<string, number>();
-  countriesData.forEach((item) => {
-    const current = regionPopulations.get(item.region) || 0;
-    regionPopulations.set(item.region, current + item.population);
-  });
+  // Calculer les informations par région pour le pourcentage correct
+  // Utiliser les données déjà calculées dans l'index pour garantir la cohérence
+  const regions = [];
+
+  for (const [regionKey, region] of Object.entries(index.regions)) {
+    const ethnicityInRegion = region.ethnicities[ethnicityName];
+    if (!ethnicityInRegion) continue;
+
+    // Utiliser les valeurs déjà calculées dans l'index
+    // totalPopulationInRegion est la population de l'ethnie dans cette région
+    const ethnicityPopInRegion = ethnicityInRegion.totalPopulationInRegion || 0;
+
+    if (ethnicityPopInRegion > 0) {
+      // Recalculer le pourcentage pour être sûr qu'il est correct
+      const percentageInRegion =
+        (ethnicityPopInRegion / region.totalPopulation) * 100;
+
+      regions.push({
+        name: region.name,
+        totalPopulation: region.totalPopulation,
+        ethnicityPopulation: ethnicityPopInRegion,
+        percentageInRegion: percentageInRegion,
+      });
+    }
+  }
 
   return {
     name: ethnicityName,
     totalPopulation,
     percentageInAfrica: totalPercentageAfrica,
     countries: countriesData.sort((a, b) => b.population - a.population),
+    regions: regions.sort(
+      (a, b) => b.ethnicityPopulation - a.ethnicityPopulation
+    ),
   };
 }
 
@@ -292,6 +314,7 @@ export async function getEthnicitiesInRegion(regionKey: string) {
 export async function getAllCountries(): Promise<
   Array<{
     name: string;
+    key: string;
     region: string;
     regionName: string;
     data: {
@@ -303,8 +326,10 @@ export async function getAllCountries(): Promise<
   }>
 > {
   const index = await loadDatasetIndex();
+  const { getCountryKey } = await import("@/lib/entityKeys");
   const countries: Array<{
     name: string;
+    key: string;
     region: string;
     regionName: string;
     data: {
@@ -317,8 +342,10 @@ export async function getAllCountries(): Promise<
 
   for (const [regionKey, region] of Object.entries(index.regions)) {
     for (const [countryName, countryData] of Object.entries(region.countries)) {
+      const countryKey = getCountryKey(countryName) || countryName;
       countries.push({
         name: countryName,
+        key: countryKey,
         region: regionKey,
         regionName: region.name,
         data: {
@@ -338,12 +365,14 @@ export async function getAllCountries(): Promise<
 export async function getAllEthnicities(): Promise<
   Array<{
     name: string;
+    key: string;
     totalPopulation: number;
     percentageInAfrica: number;
     countryCount: number;
   }>
 > {
   const index = await loadDatasetIndex();
+  const { getEthnicityKey } = await import("@/lib/entityKeys");
   const ethnicitiesMap = new Map<
     string,
     {
@@ -387,11 +416,15 @@ export async function getAllEthnicities(): Promise<
   }
 
   return Array.from(ethnicitiesMap.entries())
-    .map(([name, data]) => ({
-      name,
-      totalPopulation: data.totalPopulation,
-      percentageInAfrica: data.percentageInAfrica,
-      countryCount: data.countries.size,
-    }))
+    .map(([name, data]) => {
+      const key = getEthnicityKey(name) || name;
+      return {
+        name,
+        key,
+        totalPopulation: data.totalPopulation,
+        percentageInAfrica: data.percentageInAfrica,
+        countryCount: data.countries.size,
+      };
+    })
     .sort((a, b) => a.name.localeCompare(b.name));
 }

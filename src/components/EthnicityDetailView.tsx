@@ -2,7 +2,12 @@
 
 import { useState, useMemo, useEffect, useCallback } from "react";
 import { Language, EthnicityGlobalData } from "@/types/ethnicity";
-import { getTranslation } from "@/lib/translations";
+import {
+  getTranslation,
+  getCountryName,
+  getRegionName,
+} from "@/lib/translations";
+import { getEthnicityKey, getCountryKey, getRegionKey } from "@/lib/entityKeys";
 import { getEthnicityGlobalDetails } from "@/lib/datasetLoader";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,7 +20,7 @@ import { ShareButton } from "@/components/ShareButton";
 interface EthnicityDetailViewProps {
   ethnicityName: string;
   language: Language;
-  onCountrySelect?: (country: string, region: string) => void;
+  onCountrySelect?: (countryKey: string, regionKey: string) => void;
 }
 
 export const EthnicityDetailView = ({
@@ -42,10 +47,10 @@ export const EthnicityDetailView = ({
         language === "en"
           ? "en-US"
           : language === "fr"
-          ? "fr-FR"
-          : language === "es"
-          ? "es-ES"
-          : "pt-PT"
+            ? "fr-FR"
+            : language === "es"
+              ? "es-ES"
+              : "pt-PT"
       ).format(Math.round(num));
     },
     [language]
@@ -66,6 +71,23 @@ export const EthnicityDetailView = ({
     });
 
     return regions;
+  }, [ethnicityData]);
+
+  // Obtenir les informations des régions avec population totale et pourcentage correct
+  const regionInfo = useMemo(() => {
+    if (!ethnicityData || !ethnicityData.regions) {
+      // Fallback: calculer depuis les données disponibles
+      const infoMap = new Map<
+        string,
+        { population: number; totalPopulation: number }
+      >();
+
+      // On doit charger les données de région pour obtenir totalPopulation
+      // Pour l'instant, on utilise les données déjà calculées si disponibles
+      return null;
+    }
+
+    return ethnicityData.regions;
   }, [ethnicityData]);
 
   // Grouper les pays par région
@@ -102,7 +124,12 @@ export const EthnicityDetailView = ({
     const mainRegionEntry = Array.from(regionPopulations.entries()).sort(
       (a, b) => b[1] - a[1]
     )[0];
-    const mainRegion = mainRegionEntry ? mainRegionEntry[0] : "";
+    const mainRegionKey = mainRegionEntry
+      ? getRegionKey(mainRegionEntry[0]) || mainRegionEntry[0]
+      : "";
+    const mainRegion = mainRegionKey
+      ? getRegionName(mainRegionKey, language)
+      : "";
 
     // Trouver les pays principaux (les 2-3 premiers par population)
     const sortedCountries = [...ethnicityData.countries].sort(
@@ -124,9 +151,13 @@ export const EthnicityDetailView = ({
         const formatted = popInMillions
           .toFixed(1)
           .replace(".", decimalSeparator);
-        return `${country.country} (${formatted} M)`;
+        const countryKey = getCountryKey(country.country) || country.country;
+        const countryName = getCountryName(countryKey, language);
+        return `${countryName} (${formatted} M)`;
       } else {
-        return `${country.country} (${formatNumber(country.population)})`;
+        const countryKey = getCountryKey(country.country) || country.country;
+        const countryName = getCountryName(countryKey, language);
+        return `${countryName} (${formatNumber(country.population)})`;
       }
     };
 
@@ -135,10 +166,10 @@ export const EthnicityDetailView = ({
       language === "en"
         ? "and"
         : language === "es"
-        ? "y"
-        : language === "pt"
-        ? "e"
-        : "et";
+          ? "y"
+          : language === "pt"
+            ? "e"
+            : "et";
 
     let countriesList = "";
     if (topCountries.length === 1) {
@@ -165,26 +196,26 @@ export const EthnicityDetailView = ({
       language === "en"
         ? "million"
         : language === "es"
-        ? "millón"
-        : language === "pt"
-        ? "milhão"
-        : "million";
+          ? "millón"
+          : language === "pt"
+            ? "milhão"
+            : "million";
     const millionsWord =
       language === "en"
         ? "millions"
         : language === "es"
-        ? "millones"
-        : language === "pt"
-        ? "milhões"
-        : "millions";
+          ? "millones"
+          : language === "pt"
+            ? "milhões"
+            : "millions";
     const personnesWord =
       language === "en"
         ? "people"
         : language === "es"
-        ? "personas"
-        : language === "pt"
-        ? "pessoas"
-        : "personnes";
+          ? "personas"
+          : language === "pt"
+            ? "pessoas"
+            : "personnes";
 
     const populationFormatted =
       popInMillions >= 1
@@ -216,10 +247,10 @@ export const EthnicityDetailView = ({
           {language === "en"
             ? "Loading ethnicity data..."
             : language === "fr"
-            ? "Chargement des données de l'ethnie..."
-            : language === "es"
-            ? "Cargando datos de la etnia..."
-            : "Carregando dados da etnia..."}
+              ? "Chargement des données de l'ethnie..."
+              : language === "es"
+                ? "Cargando datos de la etnia..."
+                : "Carregando dados da etnia..."}
         </p>
       </div>
     );
@@ -227,191 +258,232 @@ export const EthnicityDetailView = ({
 
   const content = (
     <div className="space-y-6 p-4 md:p-6 w-full">
-        {/* En-tête de l'ethnie */}
-        <div>
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">
-                  <Users className="inline-block h-6 w-6 md:h-8 md:w-8 mr-2 text-primary" />
-                  {ethnicityData.name}
-                </h2>
-                <ShareButton 
-                  type="ethnicity" 
-                  name={ethnicityData.name} 
-                  language={language}
-                />
-              </div>
-              {summary && (
-                <p className="text-sm md:text-base text-muted-foreground md:max-w-md leading-relaxed">
-                  {summary}
-                </p>
-              )}
+      {/* En-tête de l'ethnie */}
+      <div>
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">
+                <Users className="inline-block h-6 w-6 md:h-8 md:w-8 mr-2 text-primary" />
+                {ethnicityData.name}
+              </h2>
+              <ShareButton
+                type="ethnicity"
+                name={getEthnicityKey(ethnicityData.name) || ethnicityData.name}
+                language={language}
+              />
             </div>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Population totale et pourcentage en Afrique */}
-        <Card className="p-4 md:p-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
-            <Globe className="h-5 w-5 text-primary" />
-            {language === "en"
-              ? "Total Population"
-              : language === "fr"
-              ? "Population Totale"
-              : language === "es"
-              ? "Población Total"
-              : "População Total"}
-          </h3>
-          <div className="space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <span className="text-sm md:text-base text-muted-foreground">
-                {t.population}:
-              </span>
-              <span className="text-lg md:text-2xl font-bold">
-                {formatNumber(ethnicityData.totalPopulation)}
-              </span>
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <span className="text-sm md:text-base text-muted-foreground">
-                % {t.inAfrica}:
-              </span>
-              <span className="text-lg md:text-2xl font-bold text-primary">
-                {formatPercent(ethnicityData.percentageInAfrica)}
-              </span>
-            </div>
-          </div>
-        </Card>
-
-        <Separator />
-
-        {/* Population par région */}
-        <Card className="p-4 md:p-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-primary" />
-            {language === "en"
-              ? "Population by Region"
-              : language === "fr"
-              ? "Population par Région"
-              : language === "es"
-              ? "Población por Región"
-              : "População por Região"}
-          </h3>
-          <div className="space-y-3">
-            {Array.from(regionPopulations.entries()).map(
-              ([regionName, population]) => {
-                const percentageInRegion =
-                  (population / ethnicityData.totalPopulation) * 100;
-                return (
-                  <div
-                    key={regionName}
-                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b last:border-0"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Badge variant="secondary" className="text-xs">
-                        {regionName}
-                      </Badge>
-                    </div>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-1">
-                      <div className="text-sm">
-                        <span className="text-muted-foreground">
-                          {t.population}:{" "}
-                        </span>
-                        <span className="font-semibold">
-                          {formatNumber(population)}
-                        </span>
-                      </div>
-                      <div className="text-sm">
-                        <span className="text-muted-foreground">
-                          % {t.region}:{" "}
-                        </span>
-                        <span className="font-semibold">
-                          {formatPercent(percentageInRegion)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
+            {summary && (
+              <p className="text-sm md:text-base text-muted-foreground md:max-w-md leading-relaxed">
+                {summary}
+              </p>
             )}
           </div>
-        </Card>
+        </div>
+      </div>
 
-        <Separator />
+      <Separator />
 
-        {/* Liste des pays */}
-        <Card className="p-4 md:p-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-primary" />
-            {t.countries} ({ethnicityData.countries.length})
-          </h3>
-          <div className="space-y-4">
-            {Array.from(countriesByRegion.entries()).map(
-              ([regionName, countries]) => (
+      {/* Population totale et pourcentage en Afrique */}
+      <Card className="p-4 md:p-6">
+        <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
+          <Globe className="h-5 w-5 text-primary" />
+          {language === "en"
+            ? "Total Population"
+            : language === "fr"
+              ? "Population Totale"
+              : language === "es"
+                ? "Población Total"
+                : "População Total"}
+        </h3>
+        <div className="space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span className="text-sm md:text-base text-muted-foreground">
+              {t.population}:
+            </span>
+            <span className="text-lg md:text-2xl font-bold">
+              {formatNumber(ethnicityData.totalPopulation)}
+            </span>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span className="text-sm md:text-base text-muted-foreground">
+              % {t.inAfrica}:
+            </span>
+            <span className="text-lg md:text-2xl font-bold text-primary">
+              {formatPercent(ethnicityData.percentageInAfrica)}
+            </span>
+          </div>
+        </div>
+      </Card>
+
+      <Separator />
+
+      {/* Population par région */}
+      <Card className="p-4 md:p-6">
+        <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
+          <TrendingUp className="h-5 w-5 text-primary" />
+          {language === "en"
+            ? "Population by Region"
+            : language === "fr"
+              ? "Population par Région"
+              : language === "es"
+                ? "Población por Región"
+                : "População por Região"}
+        </h3>
+        <div className="space-y-3">
+          {ethnicityData.regions && ethnicityData.regions.length > 0
+            ? ethnicityData.regions.map((regionInfo) => (
+                <div
+                  key={regionInfo.name}
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b last:border-0"
+                >
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="text-xs">
+                      {regionInfo.name}
+                    </Badge>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-1">
+                    <div className="text-sm">
+                      <span className="text-muted-foreground">
+                        {t.population}:{" "}
+                      </span>
+                      <span className="font-semibold">
+                        {formatNumber(regionInfo.ethnicityPopulation)}
+                      </span>
+                    </div>
+                    <div className="text-sm">
+                      <span className="text-muted-foreground">
+                        % {t.region}:{" "}
+                      </span>
+                      <span className="font-semibold">
+                        {formatPercent(regionInfo.percentageInRegion)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            : Array.from(regionPopulations.entries()).map(
+                ([regionName, population]) => {
+                  // Fallback si regions n'est pas disponible
+                  const percentageInRegion =
+                    (population / ethnicityData.totalPopulation) * 100;
+                  return (
+                    <div
+                      key={regionName}
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b last:border-0"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {regionName}
+                        </Badge>
+                      </div>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-1">
+                        <div className="text-sm">
+                          <span className="text-muted-foreground">
+                            {t.population}:{" "}
+                          </span>
+                          <span className="font-semibold">
+                            {formatNumber(population)}
+                          </span>
+                        </div>
+                        <div className="text-sm">
+                          <span className="text-muted-foreground">
+                            % {t.region}:{" "}
+                          </span>
+                          <span className="font-semibold">
+                            {formatPercent(percentageInRegion)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+              )}
+        </div>
+      </Card>
+
+      <Separator />
+
+      {/* Liste des pays */}
+      <Card className="p-4 md:p-6">
+        <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
+          <MapPin className="h-5 w-5 text-primary" />
+          {t.countries} ({ethnicityData.countries.length})
+        </h3>
+        <div className="space-y-4">
+          {Array.from(countriesByRegion.entries()).map(
+            ([regionName, countries]) => {
+              const regionKey = getRegionKey(regionName) || regionName;
+              const translatedRegionName = getRegionName(regionKey, language);
+              return (
                 <div key={regionName} className="space-y-3">
                   <h4 className="text-base md:text-lg font-medium text-muted-foreground">
-                    {regionName}
+                    {translatedRegionName}
                   </h4>
                   <div className="space-y-2 pl-2 md:pl-4">
-                    {countries.map((country) => (
-                      <div
-                        key={`${country.country}-${country.region}`}
-                        className="p-3 md:p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors"
-                        onClick={() =>
-                          onCountrySelect?.(country.country, country.region)
-                        }
-                      >
-                        <div className="flex flex-col gap-2">
-                          <div className="flex items-center justify-between">
-                            <span className="font-semibold text-base md:text-lg">
-                              {country.country}
-                            </span>
-                          </div>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-                            <div>
-                              <span className="text-muted-foreground">
-                                {t.population}:{" "}
-                              </span>
-                              <span className="font-medium">
-                                {formatNumber(country.population)}
+                    {countries.map((country) => {
+                      const countryKey =
+                        getCountryKey(country.country) || country.country;
+                      const countryName = getCountryName(countryKey, language);
+                      return (
+                        <div
+                          key={`${country.country}-${country.region}`}
+                          className="p-3 md:p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors"
+                          onClick={() =>
+                            onCountrySelect?.(countryKey, regionKey)
+                          }
+                        >
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center justify-between">
+                              <span className="font-semibold text-base md:text-lg">
+                                {countryName}
                               </span>
                             </div>
-                            <div>
-                              <span className="text-muted-foreground">
-                                % {t.inCountry}:{" "}
-                              </span>
-                              <span className="font-medium">
-                                {formatPercent(country.percentageInCountry)}
-                              </span>
-                            </div>
-                            <div>
-                              <span className="text-muted-foreground">
-                                % {t.region}:{" "}
-                              </span>
-                              <span className="font-medium">
-                                {formatPercent(country.percentageInRegion)}
-                              </span>
-                            </div>
-                            <div>
-                              <span className="text-muted-foreground">
-                                % {t.inAfrica}:{" "}
-                              </span>
-                              <span className="font-medium">
-                                {formatPercent(country.percentageInAfrica)}
-                              </span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                              <div>
+                                <span className="text-muted-foreground">
+                                  {t.population}:{" "}
+                                </span>
+                                <span className="font-medium">
+                                  {formatNumber(country.population)}
+                                </span>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">
+                                  % {t.inCountry}:{" "}
+                                </span>
+                                <span className="font-medium">
+                                  {formatPercent(country.percentageInCountry)}
+                                </span>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">
+                                  % {t.region}:{" "}
+                                </span>
+                                <span className="font-medium">
+                                  {formatPercent(country.percentageInRegion)}
+                                </span>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">
+                                  % {t.inAfrica}:{" "}
+                                </span>
+                                <span className="font-medium">
+                                  {formatPercent(country.percentageInAfrica)}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
-              )
-            )}
-          </div>
-        </Card>
+              );
+            }
+          )}
+        </div>
+      </Card>
     </div>
   );
 
@@ -419,9 +491,5 @@ export const EthnicityDetailView = ({
     return <div className="w-full">{content}</div>;
   }
 
-  return (
-    <ScrollArea className="h-[calc(100vh-12rem)]">
-      {content}
-    </ScrollArea>
-  );
+  return <ScrollArea className="h-[calc(100vh-12rem)]">{content}</ScrollArea>;
 };
