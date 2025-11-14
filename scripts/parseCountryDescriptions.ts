@@ -22,6 +22,88 @@ function normalizeName(name: string): string {
   return normalizeToKey(name.toLowerCase());
 }
 
+// Extraire un nom propre depuis une ligne (enlever dates, parenthèses, etc.)
+function extractNameFromLine(
+  line: string,
+  preferAfterColon = false
+): string | null {
+  // Enlever les emojis
+  let cleaned = line.replace(/[\u{1F300}-\u{1F9FF}]/gu, "").trim();
+
+  // Si la ligne commence par un tiret ou une puce
+  if (cleaned.match(/^[-•]\s*/)) {
+    cleaned = cleaned.replace(/^[-•]\s*/, "").trim();
+  }
+
+  // Si la ligne contient "→", prendre la partie après (ex: "→ Apparaît le terme Maghrib al-Aqsa")
+  if (cleaned.includes("→")) {
+    const parts = cleaned.split("→");
+    if (parts.length > 1) {
+      cleaned = parts[1].trim();
+      // Enlever les préfixes comme "Apparaît le terme", "Nommé", etc.
+      cleaned = cleaned
+        .replace(
+          /^(Apparaît|Apparaissent|Nommé|Nommée|Nommés|Nommées|Le terme|Les termes|Le nom|Les noms)[\s:]+/i,
+          ""
+        )
+        .trim();
+    }
+  }
+
+  // Si la ligne contient ":", prendre la partie appropriée
+  if (cleaned.includes(":")) {
+    const parts = cleaned.split(":");
+    if (preferAfterColon && parts.length > 1) {
+      cleaned = parts[1].trim();
+    } else if (!preferAfterColon && parts.length > 0) {
+      cleaned = parts[0].trim();
+    }
+  }
+
+  // Enlever les dates entre parenthèses (ex: "(IIIe siècle av. J.-C. – 46 av. J.-C.)")
+  cleaned = cleaned.replace(/\s*\([^)]*\d+[^)]*\)/g, "").trim();
+
+  // Enlever les parenthèses simples à la fin
+  cleaned = cleaned.replace(/\s*\([^)]*\)$/, "").trim();
+
+  // Enlever les guillemets
+  cleaned = cleaned.replace(/[""]/g, "").trim();
+
+  // Enlever les numéros au début (ex: "1. ", "2) ")
+  cleaned = cleaned.replace(/^\d+[.)]\s*/, "").trim();
+
+  // Enlever les préfixes comme "Nom :", "Nom officiel :", etc.
+  cleaned = cleaned
+    .replace(
+      /^(Nom|Nom officiel|État|Pays|Territoire|Le pays|Le territoire)[\s:]+/i,
+      ""
+    )
+    .trim();
+
+  // Enlever les suffixes comme "– royaumes...", "— ..."
+  cleaned = cleaned.split(/[–—]/)[0].trim();
+
+  // Si la ligne est trop longue (probablement une description), ne pas la prendre
+  if (cleaned.length > 100) {
+    return null;
+  }
+
+  // Ignorer les lignes qui sont clairement des descriptions
+  if (
+    cleaned.match(
+      /^(Le|La|Les|Un|Une|Des|Ce|Cette|Ces|Il|Elle|Ils|Elles|C'est|C'était|Le territoire|Le pays)/i
+    ) ||
+    cleaned.match(
+      /^(est|était|sont|étaient|a|ont|avait|avaient|s'appelle|se nomme|était composé|était habité)/i
+    ) ||
+    cleaned.length < 2
+  ) {
+    return null;
+  }
+
+  return cleaned.length > 0 ? cleaned : null;
+}
+
 // Parser un fichier de description texte libre
 function parseDescriptionFile(
   filePath: string,
@@ -42,21 +124,37 @@ function parseDescriptionFile(
   let currentSection: "country" | "ethnicities" | null = null;
   let currentEthnicity: ParsedEthnicityDescription | null = null;
   let collectingDescription = false;
+  let collectingAncientNames = false;
   let descriptionLines: string[] = [];
+  let ancientNamesSectionEnd = -1;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    // Détecter la section PAYS
+    // Détecter la section PAYS (format structuré)
     if (line.match(/^#+\s*PAYS/i)) {
       currentSection = "country";
       collectingDescription = false;
+      collectingAncientNames = false;
       descriptionLines = [];
       continue;
     }
 
-    // Détecter la section ETHNIES
-    if (line.match(/^#+\s*ETHNIES/i)) {
+    // Détecter la section ETHNIES (mais pas si on est en train de collecter les anciens noms)
+    // Ne pas passer en mode ethnicities si on est en train de collecter les anciens noms
+    if (
+      !collectingAncientNames &&
+      currentSection !== "ethnicities" &&
+      (line.match(/^#+\s*ETHNIES/i) ||
+        line.match(/GROUPE[S]?\s+ETHNIQUE[S]?/i) ||
+        line.match(/FAMILLE[S]?\s+ETHNIQUE[S]?/i) ||
+        (line.match(/PEUPLE[S]?/i) && !line.match(/ancien/i)) ||
+        (line.match(/^🟩\s*1\.\s*Peuples/i) && !collectingAncientNames) ||
+        (line.match(/^🟦\s*2\.\s*Peuples/i) && !collectingAncientNames) ||
+        line.match(/Résumé.*par groupes ethniques/i))
+    ) {
+      // S'assurer qu'on a fini de collecter les anciens noms
+      collectingAncientNames = false;
       currentSection = "ethnicities";
       // Sauvegarder l'ethnie en cours si elle existe
       if (currentEthnicity) {
@@ -69,34 +167,171 @@ function parseDescriptionFile(
       continue;
     }
 
+    // Si pas de section PAYS détectée, considérer que tout le début est la section pays
+    // ou si on trouve des mentions d'anciens noms/appellations
+    if (!currentSection) {
+      if (
+        i < 200 || // Augmenter la limite pour couvrir plus de lignes
+        line.match(/anciennes?\s+appellations?/i) ||
+        line.match(/anciens?\s+noms?/i) ||
+        line.match(/résumé.*anciens?\s+noms?/i) ||
+        line.match(/résumé complet des anciens noms/i)
+      ) {
+        currentSection = "country";
+      }
+    }
+
     // Dans la section PAYS
-    if (currentSection === "country") {
-      // Détecter les anciennes appellations
-      if (line.match(/^###?\s*Anciennes?\s+appellations?/i)) {
+    if (currentSection === "country" || !currentSection) {
+      // Détecter les anciennes appellations - formats variés
+      if (
+        line.match(/anciennes?\s+appellations?/i) ||
+        line.match(/anciens?\s+noms?\s+historiques?/i) ||
+        line.match(/anciens?\s+noms?\s+de\s+l['']/i) ||
+        line.match(/noms?\s+historiques?/i) ||
+        line.match(/appellations?\s+historiques?/i) ||
+        line.match(/anciens?\s+noms?/i) ||
+        line.match(/noms?\s+anciens?/i) ||
+        line.match(/résumé.*anciens?\s+noms?/i) ||
+        line.match(/résumé.*des anciens noms/i)
+      ) {
+        collectingAncientNames = true;
         collectingDescription = false;
         descriptionLines = [];
-        // Lire les lignes suivantes jusqu'à la prochaine section
-        i++;
-        while (i < lines.length && !lines[i].match(/^###/)) {
-          const appellationLine = lines[i];
-          if (appellationLine.startsWith("-")) {
-            const appellation = appellationLine
-              .replace(/^-\s*/, "")
-              .replace(/\s*\([^)]*\)$/, "")
-              .trim();
-            if (appellation && result.ancientNames.length < 3) {
-              result.ancientNames.push(appellation);
-            }
-          }
-          i++;
+        ancientNamesSectionEnd = -1;
+
+        // S'assurer qu'on est en mode country
+        if (!currentSection) {
+          currentSection = "country";
         }
-        i--; // Revenir en arrière car la boucle va incrémenter
+
+        // Chercher où se termine la section (prochaine section majeure)
+        for (let j = i + 1; j < lines.length && j < i + 150; j++) {
+          if (
+            lines[j].match(/^#+\s*ETHNIES/i) ||
+            lines[j].match(/GROUPE[S]?\s+ETHNIQUE[S]?/i) ||
+            lines[j].match(/FAMILLE[S]?\s+ETHNIQUE[S]?/i) ||
+            lines[j].match(/RÉSUMÉ.*ETHNIQUE/i) ||
+            lines[j].match(/Résumé.*par groupes ethniques/i) ||
+            lines[j].match(/^🟩\s*1\.\s*Peuples/i) ||
+            lines[j].match(/^🟦\s*2\.\s*Peuples/i) ||
+            (lines[j].match(/^#+\s*[2-9]/) && !lines[j].match(/ancien/i)) ||
+            (lines[j].match(/^#+\s*[12]/) &&
+              j > i + 10 &&
+              !lines[j].match(/ancien/i))
+          ) {
+            ancientNamesSectionEnd = j;
+            break;
+          }
+        }
         continue;
       }
 
+      // Collecter les anciens noms dans la section détectée
+      if (collectingAncientNames) {
+        // Arrêter si on a atteint la fin de la section
+        if (ancientNamesSectionEnd > 0 && i >= ancientNamesSectionEnd) {
+          collectingAncientNames = false;
+        }
+
+        // Extraire les noms de différentes façons
+        if (line && result.ancientNames.length < 3) {
+          // Ignorer les lignes qui sont clairement des titres ou des descriptions
+          if (
+            line.match(/^#+\s*/) ||
+            line.match(/^🟩|^🟦|^🟨|^🟪|^🟧|^🟫|^⬜/) ||
+            line.match(/^👉|^✔️|^🧭|^🎯/) ||
+            line.match(
+              /^(Avant|Période|L'unification|Le nom|Noms utilisés|Première entité|Nom actuel)/i
+            ) ||
+            (line.length > 150 && !line.match(/\*\*([^*]+)\*\*/))
+          ) {
+            // Ne rien faire pour ces lignes
+          }
+          // Format avec tiret ou puce contenant **Nom**
+          else if (line.match(/^[-•]\s*\*\*([^*]+)\*\*/)) {
+            const match = line.match(/^[-•]\s*\*\*([^*]+)\*\*/);
+            if (match && match[1]) {
+              const name = extractNameFromLine(match[1]);
+              if (name && !result.ancientNames.includes(name)) {
+                result.ancientNames.push(name);
+              }
+            }
+          }
+          // Format avec tiret ou puce
+          else if (line.match(/^[-•]\s*/)) {
+            const name = extractNameFromLine(line);
+            if (name && !result.ancientNames.includes(name)) {
+              result.ancientNames.push(name);
+            }
+          }
+          // Format avec numéro contenant **Nom** (ex: "1. **Nom**")
+          else if (line.match(/^\d+[.)]\s+\*\*([^*]+)\*\*/)) {
+            const match = line.match(/^\d+[.)]\s+\*\*([^*]+)\*\*/);
+            if (match && match[1]) {
+              const name = extractNameFromLine(match[1]);
+              if (name && !result.ancientNames.includes(name)) {
+                result.ancientNames.push(name);
+              }
+            }
+          }
+          // Format avec numéro (ex: "1. Nom", "2) Nom")
+          else if (line.match(/^\d+[.)]\s+/)) {
+            const name = extractNameFromLine(line);
+            if (name && !result.ancientNames.includes(name)) {
+              result.ancientNames.push(name);
+            }
+          }
+          // Format avec "→" (ex: "→ Apparaît le terme Maghrib al-Aqsa")
+          else if (line.includes("→")) {
+            const name = extractNameFromLine(line, true);
+            if (name && !result.ancientNames.includes(name)) {
+              result.ancientNames.push(name);
+            }
+          }
+          // Format avec ":" (ex: "Nom : Algérie française", "**Nom** : ...")
+          else if (line.match(/:\s*[A-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŸ]/)) {
+            const name = extractNameFromLine(line, true);
+            if (name && !result.ancientNames.includes(name)) {
+              result.ancientNames.push(name);
+            }
+          }
+          // Format avec ** (ex: "**Cabo da Boa Esperança**")
+          else if (line.match(/\*\*([^*]+)\*\*/)) {
+            const match = line.match(/\*\*([^*]+)\*\*/);
+            if (match && match[1]) {
+              const name = extractNameFromLine(match[1]);
+              if (name && !result.ancientNames.includes(name)) {
+                result.ancientNames.push(name);
+              }
+            }
+          }
+          // Ligne qui semble être un nom (commence par majuscule, pas trop long, pas de verbe)
+          else if (
+            line.match(/^[A-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŸ]/) &&
+            line.length < 100 &&
+            !line.match(
+              /\s+(est|était|sont|étaient|a|ont|avait|avaient|s'appelle|se nomme|désigne|désignent)/i
+            ) &&
+            !line.match(
+              /^(Le|La|Les|Un|Une|Des|Ce|Cette|Ces|Il|Elle|Ils|Elles|C'est|C'était|Le territoire|Le pays|Les territoires)/i
+            )
+          ) {
+            const name = extractNameFromLine(line);
+            if (name && !result.ancientNames.includes(name)) {
+              result.ancientNames.push(name);
+            }
+          }
+        }
+      }
+
       // Détecter la description du pays
-      if (line.match(/^###?\s*Description/i)) {
+      if (
+        line.match(/^###?\s*Description/i) ||
+        line.match(/RÉSUMÉ.*COMPLET/i)
+      ) {
         collectingDescription = true;
+        collectingAncientNames = false;
         descriptionLines = [];
         continue;
       }
@@ -107,8 +342,8 @@ function parseDescriptionFile(
       }
     }
 
-    // Dans la section ETHNIES
-    if (currentSection === "ethnicities") {
+    // Dans la section ETHNIES (mais pas si on est en train de collecter les anciens noms)
+    if (currentSection === "ethnicities" && !collectingAncientNames) {
       // Détecter une nouvelle ethnie (### Nom de l'ethnie)
       if (line.match(/^###\s+(.+)$/)) {
         // Sauvegarder l'ethnie précédente si elle existe
@@ -184,7 +419,12 @@ function parseDescriptionFile(
   if (!result.description && currentSection === "country") {
     // Chercher toutes les lignes après "Description" jusqu'à "ETHNIES"
     const descStart = lines.findIndex((l) => l.match(/^###?\s*Description/i));
-    const ethStart = lines.findIndex((l) => l.match(/^#+\s*ETHNIES/i));
+    const ethStart = lines.findIndex(
+      (l) =>
+        l.match(/^#+\s*ETHNIES/i) ||
+        l.match(/GROUPE[S]?\s+ETHNIQUE[S]?/i) ||
+        l.match(/FAMILLE[S]?\s+ETHNIQUE[S]?/i)
+    );
     if (descStart !== -1 && ethStart !== -1) {
       result.description = lines
         .slice(descStart + 1, ethStart)
@@ -193,6 +433,9 @@ function parseDescriptionFile(
         .trim();
     }
   }
+
+  // Limiter à 3 anciens noms maximum
+  result.ancientNames = result.ancientNames.slice(0, 3);
 
   return result;
 }

@@ -165,6 +165,28 @@ Ce script :
 
 Les scripts utilisent `ON CONFLICT` pour mettre à jour les données existantes.
 
+## Réinitialiser complètement la base de données
+
+Si vous souhaitez réinitialiser complètement la base de données avec de nouvelles données :
+
+1. **Réinitialiser la base de données** (supprime toutes les données existantes) :
+
+   ```bash
+   tsx scripts/resetDatabase.ts
+   ```
+
+   ⚠️ **ATTENTION** : Ce script supprime TOUTES les données de la base de données !
+
+2. **Puis exécuter les scripts de migration** :
+   ```bash
+   tsx scripts/parseEnrichedCountryCSV.ts
+   tsx scripts/parseCountryDescriptions.ts
+   tsx scripts/matchCSVAndDescriptions.ts
+   tsx scripts/migrateEnrichedData.ts
+   ```
+
+Cette approche est recommandée lorsque vous avez ajouté de nouveaux fichiers ou modifié significativement la structure des données.
+
 ## Notes importantes
 
 - Les anciens noms sont limités à 3 maximum (pour les pays et les ethnies)
