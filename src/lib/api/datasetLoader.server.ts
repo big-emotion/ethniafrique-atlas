@@ -427,6 +427,26 @@ async function _getAllCountries(): Promise<
   for (const country of countries) {
     const region = regionMap.get(country.region_id);
     const presences = await getPresencesByCountryFromSupabase(country.id);
+
+    // Compter comme dans getCountryDetails : groupes parents + sous-groupes orphelins
+    const parentPresences = presences.filter(
+      (presence) => !presence.ethnicity.parent_id
+    );
+    const subgroupPresences = presences.filter(
+      (presence) => presence.ethnicity.parent_id
+    );
+
+    // Identifier les sous-groupes orphelins (parent non présent dans ce pays)
+    const parentIds = new Set(parentPresences.map((p) => p.ethnicity.id));
+    const orphanSubgroups = subgroupPresences.filter(
+      (presence) =>
+        presence.ethnicity.parent_id &&
+        !parentIds.has(presence.ethnicity.parent_id)
+    );
+
+    // Compter : groupes parents + sous-groupes orphelins
+    const ethnicityCount = parentPresences.length + orphanSubgroups.length;
+
     result.push({
       name: country.name_fr,
       key: country.slug,
@@ -436,7 +456,7 @@ async function _getAllCountries(): Promise<
         population: country.population_2025,
         percentageInRegion: country.percentage_in_region || 0,
         percentageInAfrica: country.percentage_in_africa || 0,
-        ethnicityCount: presences.length,
+        ethnicityCount: ethnicityCount, // Groupes parents + sous-groupes orphelins
       },
     });
   }

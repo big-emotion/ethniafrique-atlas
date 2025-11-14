@@ -342,8 +342,7 @@ export const CountryDetailView = ({
       {/* 3. Tableau: Ethnies du pays */}
       <Card className="p-6">
         <h3 className="text-lg font-semibold mb-4">
-          {t.ethnicGroups} ({sortedEthnicities.filter((e) => e.isParent).length}
-          )
+          {t.ethnicGroups} ({sortedEthnicities.length})
         </h3>
 
         {isMobile ? (
