@@ -1,0 +1,11 @@
+Group,Sub_group,Population_2025,Percentage_in_country,Percentage_in_Africa,Language,Region,Sources,Ancient_Name,Description,Type_de_societe,Religion,Famille_linguistique,Statut_historique,Presence_regionale
+Oromo,"Borana, Guji, Arsi, Shewa Oromo",42840000,34.0,2.995804,Afaan Oromo,"Oromia (centre, sud, est)","CSA Ethiopia, Ethnologue",Royaumes Oromo (Gadaa),"Plus grand groupe éthiopien, système Gadaa",Agro‑pastorale,Islam + Christianisme + Gadaa,Cushitique,Royaumes Oromo,Kenya
+Amhara,"Amhara (Shewa, Gojjam)",34020000,27.0,2.379021,Amharic,Région Amhara,"CSA, UN Data",Empire abyssin,Héritiers de l’empire chrétien abyssin,Sédentaire agricole,Christianisme orthodoxe,Sémitique (afro‑asiatique),Empire d’Abyssinie,Diaspora mondiale
+Somali,"Issa, Darod, Hawiye",7560000,6.0,0.528671,Somali,Somali Region (Ogaden),Ethnologue,Sultanats somalis,Pasteurs nomades des plaines arides,Pastorale nomade,Islam,Cushitique,Sultanats somalis,"Somalie, Djibouti"
+Tigray,Tigrinya,7560000,6.0,0.528671,Tigrinya,Tigray,CSA Ethiopia,Royaume d’Aksoum,Ancienne civilisation Aksoumite,Sédentaire agricole,Christianisme orthodoxe,Sémitique,Empire d’Aksoum,Érythrée
+Sidama,Sidama,6300000,5.0,0.440559,Sidamo,Région Sidama,Ethnologue,Chefferies Sidama,Peuples agricoles du Sud,Sédentaire,Christianisme + traditions,Cushitique,Chefferies Sidama,Éthiopie Sud
+Gurage,"Gurage (Sebat Bet, Kistane)",5040000,4.0,0.352448,Gurage languages,Centre-Sud,Ethnologue,Royaumes Gurage,Marchands et agriculteurs,Sédentaire,Christianisme,Sémitique & Gurage,Royaumes Gurage,Diaspora éthiopienne
+Afar,Afar,2520000,2.0,0.176224,Afar,Afar Region,Ethnologue,Sultanat d’Awsa,Pasteurs nomades du désert,Pastorale,Islam,Cushitique,Sultanat Afar,"Djibouti, Érythrée"
+Harari,Harari,504000,0.4,0.035245,Harari,Harar,Local sources,Émirat de Harar,Peuple urbain ancien,Urbaine marchande,Islam,Sémitique,Émirat de Harar,Éthiopie Est
+Wolayta,Wolayta,2520000,2.0,0.176224,Wolaytta,SNNPR,Ethnologue,Royaume du Wolayta,Peuple agricole du Sud,Sédentaire,Christianisme,Omotique,Royaume du Wolayta,Sud Éthiopie
+Autres,"Konso, Hadiya, Kambata, etc.",17136000,13.6,1.198322,Divers,Partout,CSA Ethiopia,Divers royaumes,Nombreux groupes du Sud et de l’Ouest,Variable,Christianisme + Islam,Divers,Chefferies diverses,Éthiopie

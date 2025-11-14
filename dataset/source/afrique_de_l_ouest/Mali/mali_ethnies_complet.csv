@@ -1,0 +1,12 @@
+Group,Sub_group,Population_2025,Percentage_in_country,Percentage_in_Africa,Language,Region,Sources,Ancient_Name,Description,Type_de_societe,Religion,Famille_linguistique,Statut_historique,Presence_regionale
+Bambara,Bambara (Bamana),7699999,35.0,0.538461,Bamanankan,"Ségou, Bamako, Koulikoro","INSTAT Mali, Ethnologue",Empire du Mali (Manden),Groupe majoritaire agricole,Sédentaire agricole,Islam + traditions,Mande (Niger-Congo),Empire du Mali,Mali
+Fulani / Peul,"Fulbe, Toucouleur",3740000,17.0,0.261538,Fulfulde,"Mopti, Ségou, Kayes",Ethnologue,Fouta Toro & Macina,Pasteurs nomades et agro-pasteurs,Pastorale & agro-pastorale,Islam,Atlantic (Fulani),Califat du Macina,"Mali, Niger"
+Dogon,"Dogon (Arou, Dyon…)",1760000,8.0,0.123077,Dogon languages,Pays Dogon (Bandiagara),UNESCO,Chefferies Dogon,Peuple des falaises et plateaux,Sédentaire,Islam + animisme,Dogon (Niger-Congo ?),Chefferies Dogon,Mali
+Tuareg,Kel Tamasheq,1980000,9.0,0.138462,Tamasheq,"Tombouctou, Kidal",Ethnologue,Confédérations touareg,Peuples du Sahara nomades,Nomade,Islam,Berbère (afro-asiatique),Confédérations Kel,Sahara
+Soninke,Soninke (Sarakolé),1760000,8.0,0.123077,Soninke,"Kayes, frontière Mauritanie",INSTAT,Empire du Ghana (Wagadu),Peuple ancien commerçant,Sédentaire,Islam,Mande (Niger-Congo),Empire du Ghana,"Mali, Mauritanie"
+Songhai,Songhai,1320000,6.0,0.092308,Songhai,"Gao, Niger river",Ethnologue,Empire Songhai,Grands navigateurs du Niger,Sédentaire fluvial,Islam,Songhai (Nilo-saharien),Empire Songhai,"Mali, Niger"
+Malinké,Malinké / Mandinka,1540000,7.0,0.107692,Maninka,"Kita, Kangaba",INSTAT,Mandé (empire du Mali),Peuple commerçant mandé,Sédentaire,Islam,Mande,Empire du Mali,"Guinée, Sénégal"
+Bozo,Bozo (pêcheurs),660000,3.0,0.046154,Bozo,Delta intérieur du Niger,Ethnologue,Chefferies Bozo,Pêcheurs du Niger,Fluvial,Islam + traditions,Bozo (Niger-Congo),Peuples Bozo,Mali
+Bobo,Bobo,440000,2.0,0.030769,Bobo,Sikasso,Ethnologue,Peuples voltaïques,Agriculteurs du sud,Sédentaire,Islam + traditions,Gur (Niger-Congo),Chefferies Bobo,Burkina Faso
+Arabes / Maures,Arabo-berbères,220000,1.0,0.015385,Hassaniya,Nord,Ethnologue,Tribus sahariennes,Nomades du Sahara,Nomade,Islam,Sémitique/berbère,Tribus maures,Mauritanie
+Autres,Mini-groupes divers,880000,4.0,0.061538,Divers,Partout,INSTAT,Divers royaumes,Groupes minoritaires,Variable,Islam + traditions,Divers,Divers,Mali

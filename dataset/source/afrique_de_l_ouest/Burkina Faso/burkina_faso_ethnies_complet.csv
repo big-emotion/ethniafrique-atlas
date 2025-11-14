@@ -1,0 +1,12 @@
+Group,Sub_group,Population_2025,Percentage_in_country,Percentage_in_Africa,Language,Region,Sources,Ancient_Name,Description,Type_de_societe,Religion,Famille_linguistique,Statut_historique,Presence_regionale
+Mossi,"Mossi, Yonyon, Nakomsé",11500000,50.0,0.804196,Mòoré,Plateau central (Ouagadougou),"INSD Burkina, Ethnologue","Royaume mossi (Wogodogo, Yatenga)",Groupe majoritaire du Burkina Faso,Sédentaire agricole,Islam + christianisme + traditions,Gur (Voltaïque),Royaumes Mossi,"Burkina, Ghana"
+Peul / Fulani,Fulbe,2300000,10.0,0.160839,Fulfulde,"Nord, Sahel, Est","INSD, CIA",Chefferies peules,Pasteurs transhumants,Pastorale,Islam,Atlantic,Chefferies fulbe,Sahel
+Gourmantché,Gourmantché,1610000,7.0,0.112587,Gourmanchéma,Est (Fada N'Gourma),Ethnologue,Royaumes Gourma,Agriculteurs forestiers,Sédentaire,Islam + traditions,Gur,Royaumes Gourma,"Niger, Bénin"
+Bobo,Bobo,920000,4.0,0.064336,Bobo,"Houet, Ouest",Ethnologue,Chefferies Bobo,Agriculteurs du Sud-Ouest,Sédentaire,Islam + traditions,Gur,Chefferies Bobo,Mali
+Lobi,"Lobi, Birifor, Téguessié",1150000,5.0,0.08042,Lobi languages,Sud-Ouest (Gaoua),INSD,Royaumes Lobi,Groupe ancien très structuré,Sédentaire,Traditions + christianisme,Gur,Royaumes Lobi,"Côte d’Ivoire, Ghana"
+Bissa / Boussa,Bissa,690000,3.0,0.048252,Bissa,"Centre-Sud, Koupéla",Ethnologue,Royaumes Bissa,Agriculteurs du Sud,Sédentaire,Islam + traditions,Mande,Chefferies Bissa,Ghana
+Gourunsi,"Sissala, Kassena, Nankana",690000,3.0,0.048252,Gurunsi languages,Centre-Ouest,Ethnologue,Tribus Gourunsi,Peuples des plaines,Sédentaire,Traditions + christianisme,Gur,Chefferies Gourunsi,Ghana
+Dagara,Dagara,920000,4.0,0.064336,Dagara,Sud-Ouest,Ethnologue,Chefferies Dagara,Agriculteurs forestiers,Sédentaire,Christianisme + traditions,Gur,Chefferies Dagara,Ghana
+Senoufo,Senoufo,690000,3.0,0.048252,Senari,Sud-Ouest,Ethnologue,Royaumes Senoufo,Agriculteurs & forgerons,Sédentaire,Islam + traditions,Gur,Royaumes Senoufo,"Côte d’Ivoire, Mali"
+Touareg,Kel Tamasheq,230000,1.0,0.016084,Tamasheq,Nord (Sahel),Ethnologue,Confédérations touareg,Pasteurs nomades sahariens,Nomade,Islam,Berbère,Confédérations Kel,"Mali, Niger"
+Autres,Mini-groupes divers,2300000,10.0,0.160839,Divers,Burkina entier,INSD,Divers royaumes,Groupes minoritaires,Variable,Islam + christianisme,Divers,Divers,Burkina

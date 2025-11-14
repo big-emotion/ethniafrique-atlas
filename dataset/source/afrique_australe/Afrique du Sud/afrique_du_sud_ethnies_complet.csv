@@ -1,0 +1,16 @@
+Group,Sub_group,Population_2025,Percentage_in_country,Percentage_in_Africa,Language,Region,Sources,Ancient_Name,Description
+Nguni,Zulu,17000000,27.8689,1.188811,isiZulu,KwaZulu-Natal,Stats SA (langue) + estimations ONU,Aucun (précolonial),Plus grand groupe ethnique
+Nguni,Xhosa,10000000,16.3934,0.699301,isiXhosa,Eastern & Western Cape,Stats SA + linguistique,Aucun (précolonial),Langue à clics partielle
+Sotho-Tswana,Pedi,6000000,9.8361,0.41958,Sepedi,Limpopo,Stats SA + UNDP,Aucun (précolonial),Royaume Pedi historique
+Sotho-Tswana,Sotho du Sud,4500000,7.377,0.314685,Sesotho,Free State,Stats SA + UNDP,Aucun (précolonial),Liés au Lesotho
+Sotho-Tswana,Tswana,3000000,4.918,0.20979,Setswana,North West,Stats SA + Botswana Demographics,Aucun (précolonial),Présents aussi au Botswana
+Tsonga,Tsonga/Shangaan,2500000,4.0984,0.174825,Xitsonga,"Limpopo, Mpumalanga",Stats SA + ethnologue,Aucun (précolonial),Fusion Tsonga + Nguni (Shangaan)
+Venda,Venda,1500000,2.459,0.104895,Tshivenda,Limpopo (nord),Stats SA + ethnologue,Aucun (précolonial),Culture liée au Zimbabwe
+Nguni,Swazi,1800000,2.9508,0.125874,siSwati,Mpumalanga,Stats SA + Eswatini Data,Aucun (précolonial),Proches du royaume Eswatini
+Nguni,Ndebele,900000,1.4754,0.062937,isiNdebele,"Gauteng, Mpumalanga",Stats SA,Aucun (précolonial),Maisons peintes géométriques
+Nguni,Hlubi,150000,0.2459,0.01049,isiHlubi (variantes),"KZN, Eastern Cape",Études anthropologiques,Aucun (précolonial),Groupe dispersé au XIXe siècle
+Khoisan,Khoisan (San+Khoikhoi),600000,0.9836,0.041958,Langues à clics,Northern & Western Cape,Anthropologie + UN,Aucun (précolonial),Peuples autochtones les plus anciens
+Coloureds,Coloureds (total),5700000,9.3443,0.398601,Anglais/Afrikaans,Western & Northern Cape,Stats SA,Cape Colony,Métissage historique
+Whites,Afrikaners,2700000,4.4262,0.188811,Afrikaans,National (villes),Stats SA,Cape Colony / Transvaal,Descendants des colons boers
+Whites,Anglophones,1500000,2.459,0.104895,Anglais,"Villes : Johannesburg, Cape Town",Stats SA,British Cape Colony,Descendants britanniques
+Indian/Asian,Indian/Asian,1700000,2.7869,0.118881,Anglais + langues indo-pakistanaises,Durban (KZN),Stats SA,Natal Colony,Arrivés comme travailleurs sous contrat
