@@ -20,6 +20,7 @@ interface CountryViewProps {
   language: Language;
   onCountrySelect: (countryKey: string, regionKey: string) => void;
   hideSearchAndAlphabet?: boolean;
+  selectedCountryKey?: string | null;
 }
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -28,6 +29,7 @@ export const CountryView = ({
   language,
   onCountrySelect,
   hideSearchAndAlphabet = false,
+  selectedCountryKey = null,
 }: CountryViewProps) => {
   const t = getTranslation(language);
   const isMobile = useIsMobile();
@@ -217,7 +219,11 @@ export const CountryView = ({
               return (
                 <Card
                   key={country.key}
-                  className="p-4 hover:shadow-md cursor-pointer transition-all group mx-0"
+                  className={`p-4 hover:shadow-md cursor-pointer transition-all group mx-0 ${
+                    selectedCountryKey === country.key
+                      ? "bg-accent border-2 border-primary"
+                      : ""
+                  }`}
                   onClick={() => onCountrySelect(country.key, country.region)}
                 >
                   <div className="flex items-start justify-between">
@@ -271,6 +277,10 @@ export const CountryView = ({
                     key={country.key}
                     className={`p-4 hover:shadow-md cursor-pointer transition-all group ${
                       hideSearchAndAlphabet ? "mx-0" : ""
+                    } ${
+                      selectedCountryKey === country.key
+                        ? "bg-accent border-2 border-primary"
+                        : ""
                     }`}
                     onClick={() => onCountrySelect(country.key, country.region)}
                   >

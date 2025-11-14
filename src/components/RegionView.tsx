@@ -16,6 +16,7 @@ interface RegionViewProps {
   language: Language;
   onRegionSelect: (regionKey: string) => void;
   hideSearchAndAlphabet?: boolean;
+  selectedRegionKey?: string | null;
 }
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -24,6 +25,7 @@ export const RegionView = ({
   language,
   onRegionSelect,
   hideSearchAndAlphabet = false,
+  selectedRegionKey = null,
 }: RegionViewProps) => {
   const t = getTranslation(language);
   const isMobile = useIsMobile();
@@ -283,6 +285,10 @@ export const RegionView = ({
                   key={region.key}
                   className={`p-4 hover:shadow-md cursor-pointer transition-all group ${
                     hideSearchAndAlphabet ? "mx-0" : ""
+                  } ${
+                    selectedRegionKey === region.key
+                      ? "bg-accent border-2 border-primary"
+                      : ""
                   }`}
                   onClick={() => onRegionSelect(region.key)}
                 >

@@ -2218,7 +2218,11 @@ export default function AboutPage() {
   };
 
   return (
-    <PageLayout language={language} onLanguageChange={setLanguage}>
+    <PageLayout
+      language={language}
+      onLanguageChange={setLanguage}
+      hideHeader={true}
+    >
       <div className="max-w-4xl mx-auto space-y-8">
         <h1 className="text-3xl font-display font-bold">{t.title}</h1>
 

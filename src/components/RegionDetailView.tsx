@@ -30,6 +30,8 @@ interface RegionDetailViewProps {
   regionKey: string;
   language: Language;
   onCountrySelect?: (countryKey: string, regionKey: string) => void;
+  selectedCountryKey?: string | null;
+  selectedEthnicityKey?: string | null;
 }
 
 type SortField =
@@ -43,6 +45,8 @@ export const RegionDetailView = ({
   regionKey,
   language,
   onCountrySelect,
+  selectedCountryKey = null,
+  selectedEthnicityKey = null,
 }: RegionDetailViewProps) => {
   const t = getTranslation(language);
   const isMobile = useIsMobile();
@@ -246,7 +250,11 @@ export const RegionDetailView = ({
               return (
                 <div
                   key={country.name}
-                  className="p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors"
+                  className={`p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors ${
+                    selectedCountryKey === countryKey
+                      ? "bg-accent border-2 border-primary"
+                      : ""
+                  }`}
                   onClick={() => onCountrySelect?.(countryKey, regionKey)}
                 >
                   <div className="space-y-2">
@@ -343,7 +351,11 @@ export const RegionDetailView = ({
                   return (
                     <TableRow
                       key={country.name}
-                      className="cursor-pointer hover:bg-muted/50"
+                      className={`cursor-pointer hover:bg-muted/50 ${
+                        selectedCountryKey === countryKey
+                          ? "bg-accent border-l-4 border-primary"
+                          : ""
+                      }`}
                       onClick={() => onCountrySelect?.(countryKey, regionKey)}
                     >
                       <TableCell className="font-medium">

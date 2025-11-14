@@ -79,8 +79,7 @@ export function PaysPageContent() {
     <PageLayout
       language={language}
       onLanguageChange={setLanguage}
-      title={t.title}
-      subtitle={t.subtitle}
+      sectionName={t.countries}
     >
       {isMobile ? (
         // Vue mobile : liste ou vue détaillée selon la sélection

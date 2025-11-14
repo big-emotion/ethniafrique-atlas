@@ -21,12 +21,16 @@ interface EthnicityDetailViewProps {
   ethnicityName: string;
   language: Language;
   onCountrySelect?: (countryKey: string, regionKey: string) => void;
+  selectedCountryKey?: string | null;
+  selectedRegionKey?: string | null;
 }
 
 export const EthnicityDetailView = ({
   ethnicityName,
   language,
   onCountrySelect,
+  selectedCountryKey = null,
+  selectedRegionKey = null,
 }: EthnicityDetailViewProps) => {
   const t = getTranslation(language);
   const isMobile = useIsMobile();
@@ -428,7 +432,11 @@ export const EthnicityDetailView = ({
                       return (
                         <div
                           key={`${country.country}-${country.region}`}
-                          className="p-3 md:p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors"
+                          className={`p-3 md:p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors ${
+                            selectedCountryKey === countryKey
+                              ? "bg-accent border-2 border-primary"
+                              : ""
+                          }`}
                           onClick={() =>
                             onCountrySelect?.(countryKey, regionKey)
                           }

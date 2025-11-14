@@ -36,25 +36,35 @@ export function EthnicitiesPageContent() {
 
   useEffect(() => {
     const ethnicityParam = searchParams.get("ethnicity");
+    const countryParam = searchParams.get("country");
+
     if (ethnicityParam) {
       setSelectedEthnicity(ethnicityParam);
+    }
+    if (countryParam) {
+      setSelectedCountry(countryParam);
     }
   }, [searchParams]);
 
   const handleEthnicitySelect = (ethnicityKey: string) => {
     setSelectedEthnicity(ethnicityKey);
     setSelectedCountry(null);
-    setSelectedRegion(null);
     // Mettre à jour l'URL sans navigation
     const url = new URL(window.location.href);
     url.searchParams.set("ethnicity", ethnicityKey);
+    url.searchParams.delete("country");
     router.replace(url.pathname + url.search, { scroll: false });
   };
 
   const handleCountrySelect = (countryKey: string, regionKey?: string) => {
-    const listRoute = getLocalizedRoute(language, "countries");
-    // countryKey est maintenant une clé normalisée
-    router.push(`${listRoute}/${countryKey}`);
+    setSelectedCountry(countryKey);
+    // Mettre à jour l'URL sans navigation
+    const url = new URL(window.location.href);
+    url.searchParams.set("country", countryKey);
+    if (selectedEthnicity) {
+      url.searchParams.set("ethnicity", selectedEthnicity);
+    }
+    router.replace(url.pathname + url.search, { scroll: false });
   };
 
   const handleViewFullPage = (
@@ -77,8 +87,7 @@ export function EthnicitiesPageContent() {
     <PageLayout
       language={language}
       onLanguageChange={setLanguage}
-      title={t.title}
-      subtitle={t.subtitle}
+      sectionName={t.ethnicGroups}
     >
       {isMobile ? (
         // Vue mobile : liste ou vue détaillée selon la sélection
@@ -88,10 +97,21 @@ export function EthnicitiesPageContent() {
               <Button
                 variant="ghost"
                 onClick={() => {
-                  setSelectedRegion(null);
-                  setSelectedCountry(null);
-                  setSelectedEthnicity(null);
-                  router.replace(pathname);
+                  // Navigation hiérarchique : remonter d'un niveau
+                  const url = new URL(window.location.href);
+                  if (selectedCountry) {
+                    // Si on est sur un pays, revenir à l'ethnie
+                    setSelectedCountry(null);
+                    url.searchParams.delete("country");
+                    if (selectedEthnicity) {
+                      url.searchParams.set("ethnicity", selectedEthnicity);
+                    }
+                  } else {
+                    // Si on est sur une ethnie, revenir à la liste
+                    setSelectedEthnicity(null);
+                    url.searchParams.delete("ethnicity");
+                  }
+                  router.replace(url.pathname + url.search, { scroll: false });
                 }}
                 className="mb-2"
               >
@@ -135,10 +155,26 @@ export function EthnicitiesPageContent() {
                     <Button
                       variant="ghost"
                       onClick={() => {
-                        setSelectedRegion(null);
-                        setSelectedCountry(null);
-                        setSelectedEthnicity(null);
-                        router.replace(pathname);
+                        // Navigation hiérarchique : remonter d'un niveau
+                        const url = new URL(window.location.href);
+                        if (selectedCountry) {
+                          // Si on est sur un pays, revenir à l'ethnie
+                          setSelectedCountry(null);
+                          url.searchParams.delete("country");
+                          if (selectedEthnicity) {
+                            url.searchParams.set(
+                              "ethnicity",
+                              selectedEthnicity
+                            );
+                          }
+                        } else {
+                          // Si on est sur une ethnie, revenir à la liste
+                          setSelectedEthnicity(null);
+                          url.searchParams.delete("ethnicity");
+                        }
+                        router.replace(url.pathname + url.search, {
+                          scroll: false,
+                        });
                       }}
                     >
                       <ArrowLeft className="h-4 w-4 mr-2" />
@@ -150,12 +186,16 @@ export function EthnicitiesPageContent() {
                             ? "Volver"
                             : "Voltar"}
                     </Button>
-                    {selectedEthnicity && (
+                    {(selectedEthnicity || selectedCountry) && (
                       <Button
                         variant="outline"
-                        onClick={() =>
-                          handleViewFullPage("ethnicity", selectedEthnicity)
-                        }
+                        onClick={() => {
+                          if (selectedEthnicity) {
+                            handleViewFullPage("ethnicity", selectedEthnicity);
+                          } else if (selectedCountry) {
+                            handleViewFullPage("country", selectedCountry);
+                          }
+                        }}
                       >
                         {language === "en"
                           ? "View Full Page"
@@ -188,6 +228,7 @@ export function EthnicitiesPageContent() {
               <EthnicityView
                 language={language}
                 onEthnicitySelect={handleEthnicitySelect}
+                selectedEthnicityKey={selectedEthnicity}
               />
             </Card>
           </div>

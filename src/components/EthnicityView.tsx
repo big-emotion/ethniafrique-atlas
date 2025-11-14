@@ -15,6 +15,7 @@ interface EthnicityViewProps {
   language: Language;
   onEthnicitySelect: (ethnicityKey: string) => void;
   hideSearchAndAlphabet?: boolean;
+  selectedEthnicityKey?: string | null;
 }
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -23,6 +24,7 @@ export const EthnicityView = ({
   language,
   onEthnicitySelect,
   hideSearchAndAlphabet = false,
+  selectedEthnicityKey = null,
 }: EthnicityViewProps) => {
   const t = getTranslation(language);
   const isMobile = useIsMobile();
@@ -211,7 +213,11 @@ export const EthnicityView = ({
               return (
                 <Card
                   key={group.key}
-                  className="p-4 hover:shadow-md cursor-pointer transition-all group mx-0"
+                  className={`p-4 hover:shadow-md cursor-pointer transition-all group mx-0 ${
+                    selectedEthnicityKey === group.key
+                      ? "bg-accent border-2 border-primary"
+                      : ""
+                  }`}
                   onClick={() => onEthnicitySelect(group.key)}
                 >
                   <div className="flex items-start justify-between">
@@ -267,6 +273,10 @@ export const EthnicityView = ({
                     key={group.key}
                     className={`p-4 hover:shadow-md cursor-pointer transition-all group ${
                       hideSearchAndAlphabet ? "mx-0" : ""
+                    } ${
+                      selectedEthnicityKey === group.key
+                        ? "bg-accent border-2 border-primary"
+                        : ""
                     }`}
                     onClick={() => onEthnicitySelect(group.key)}
                   >

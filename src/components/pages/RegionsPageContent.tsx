@@ -38,8 +38,17 @@ export function RegionsPageContent() {
 
   useEffect(() => {
     const regionParam = searchParams.get("region");
+    const countryParam = searchParams.get("country");
+    const ethnicityParam = searchParams.get("ethnicity");
+
     if (regionParam) {
       setSelectedRegion(regionParam);
+    }
+    if (countryParam) {
+      setSelectedCountry(countryParam);
+    }
+    if (ethnicityParam) {
+      setSelectedEthnicity(ethnicityParam);
     }
   }, [searchParams]);
 
@@ -50,19 +59,36 @@ export function RegionsPageContent() {
     // Mettre à jour l'URL sans navigation
     const url = new URL(window.location.href);
     url.searchParams.set("region", regionKey);
+    url.searchParams.delete("country");
+    url.searchParams.delete("ethnicity");
     router.replace(url.pathname + url.search, { scroll: false });
   };
 
-  const handleCountrySelect = (country: string, regionKey?: string) => {
-    const listRoute = getLocalizedRoute(language, "countries");
-    // country est maintenant une clé normalisée
-    router.push(`${listRoute}/${country}`);
+  const handleCountrySelect = (countryKey: string, regionKey?: string) => {
+    setSelectedCountry(countryKey);
+    setSelectedEthnicity(null);
+    // Mettre à jour l'URL sans navigation
+    const url = new URL(window.location.href);
+    url.searchParams.set("country", countryKey);
+    if (selectedRegion) {
+      url.searchParams.set("region", selectedRegion);
+    }
+    url.searchParams.delete("ethnicity");
+    router.replace(url.pathname + url.search, { scroll: false });
   };
 
   const handleEthnicitySelect = (ethnicityKey: string) => {
     setSelectedEthnicity(ethnicityKey);
-    setSelectedCountry(null);
-    setSelectedRegion(null);
+    // Mettre à jour l'URL sans navigation
+    const url = new URL(window.location.href);
+    url.searchParams.set("ethnicity", ethnicityKey);
+    if (selectedRegion) {
+      url.searchParams.set("region", selectedRegion);
+    }
+    if (selectedCountry) {
+      url.searchParams.set("country", selectedCountry);
+    }
+    router.replace(url.pathname + url.search, { scroll: false });
   };
 
   const handleViewFullPage = (
@@ -85,8 +111,7 @@ export function RegionsPageContent() {
     <PageLayout
       language={language}
       onLanguageChange={setLanguage}
-      title={t.title}
-      subtitle={t.subtitle}
+      sectionName={t.regions}
     >
       {isMobile ? (
         // Vue mobile : liste ou vue détaillée selon la sélection
@@ -96,10 +121,28 @@ export function RegionsPageContent() {
               <Button
                 variant="ghost"
                 onClick={() => {
-                  setSelectedRegion(null);
-                  setSelectedCountry(null);
-                  setSelectedEthnicity(null);
-                  router.replace(pathname);
+                  // Navigation hiérarchique : remonter d'un niveau
+                  const url = new URL(window.location.href);
+                  if (selectedEthnicity) {
+                    // Si on est sur une ethnie, revenir au pays
+                    setSelectedEthnicity(null);
+                    url.searchParams.delete("ethnicity");
+                    if (selectedCountry) {
+                      url.searchParams.set("country", selectedCountry);
+                    }
+                  } else if (selectedCountry) {
+                    // Si on est sur un pays, revenir à la région
+                    setSelectedCountry(null);
+                    url.searchParams.delete("country");
+                    if (selectedRegion) {
+                      url.searchParams.set("region", selectedRegion);
+                    }
+                  } else {
+                    // Si on est sur une région, revenir à la liste
+                    setSelectedRegion(null);
+                    url.searchParams.delete("region");
+                  }
+                  router.replace(url.pathname + url.search, { scroll: false });
                 }}
                 className="mb-2"
               >
@@ -145,10 +188,30 @@ export function RegionsPageContent() {
                     <Button
                       variant="ghost"
                       onClick={() => {
-                        setSelectedRegion(null);
-                        setSelectedCountry(null);
-                        setSelectedEthnicity(null);
-                        router.replace(pathname);
+                        // Navigation hiérarchique : remonter d'un niveau
+                        const url = new URL(window.location.href);
+                        if (selectedEthnicity) {
+                          // Si on est sur une ethnie, revenir au pays
+                          setSelectedEthnicity(null);
+                          url.searchParams.delete("ethnicity");
+                          if (selectedCountry) {
+                            url.searchParams.set("country", selectedCountry);
+                          }
+                        } else if (selectedCountry) {
+                          // Si on est sur un pays, revenir à la région
+                          setSelectedCountry(null);
+                          url.searchParams.delete("country");
+                          if (selectedRegion) {
+                            url.searchParams.set("region", selectedRegion);
+                          }
+                        } else {
+                          // Si on est sur une région, revenir à la liste
+                          setSelectedRegion(null);
+                          url.searchParams.delete("region");
+                        }
+                        router.replace(url.pathname + url.search, {
+                          scroll: false,
+                        });
                       }}
                     >
                       <ArrowLeft className="h-4 w-4 mr-2" />
@@ -160,12 +223,20 @@ export function RegionsPageContent() {
                             ? "Volver"
                             : "Voltar"}
                     </Button>
-                    {selectedRegion && (
+                    {(selectedRegion ||
+                      selectedCountry ||
+                      selectedEthnicity) && (
                       <Button
                         variant="outline"
-                        onClick={() =>
-                          handleViewFullPage("region", selectedRegion)
-                        }
+                        onClick={() => {
+                          if (selectedEthnicity) {
+                            handleViewFullPage("ethnicity", selectedEthnicity);
+                          } else if (selectedCountry) {
+                            handleViewFullPage("country", selectedCountry);
+                          } else if (selectedRegion) {
+                            handleViewFullPage("region", selectedRegion);
+                          }
+                        }}
                       >
                         {language === "en"
                           ? "View Full Page"
@@ -198,6 +269,7 @@ export function RegionsPageContent() {
               <RegionView
                 language={language}
                 onRegionSelect={handleRegionSelect}
+                selectedRegionKey={selectedRegion}
               />
             </Card>
           </div>

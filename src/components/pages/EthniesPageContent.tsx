@@ -77,8 +77,7 @@ export function EthniesPageContent() {
     <PageLayout
       language={language}
       onLanguageChange={setLanguage}
-      title={t.title}
-      subtitle={t.subtitle}
+      sectionName={t.ethnicGroups}
     >
       {isMobile ? (
         // Vue mobile : liste ou vue détaillée selon la sélection

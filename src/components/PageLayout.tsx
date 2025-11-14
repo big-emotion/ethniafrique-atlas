@@ -20,6 +20,8 @@ interface PageLayoutProps {
   onLanguageChange: (lang: Language) => void;
   title?: string;
   subtitle?: string;
+  sectionName?: string;
+  hideHeader?: boolean;
   onSearchResult?: (result: {
     type: "ethnicity" | "country";
     name: string;
@@ -35,6 +37,8 @@ export const PageLayout = ({
   onLanguageChange,
   title,
   subtitle,
+  sectionName,
+  hideHeader = false,
   onSearchResult,
 }: PageLayoutProps) => {
   const isMobile = useIsMobile();
@@ -42,8 +46,7 @@ export const PageLayout = ({
   const t = getTranslation(language);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const displayTitle = title || t.title;
-  const displaySubtitle = subtitle || t.subtitle;
+  const displayTitle = sectionName || title || t.title;
 
   const handleSearchResult = (result: {
     type: "ethnicity" | "country";
@@ -97,43 +100,44 @@ export const PageLayout = ({
       )}
 
       {/* Header */}
-      <header
-        className={`border-b bg-card shadow-soft ${
-          isMobile ? "pt-[73px]" : "pt-20"
-        }`}
-      >
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <Image
-                  src="/africa.png"
-                  alt="Africa"
-                  width={48}
-                  height={48}
-                  className="object-contain"
-                />
-                <h1
-                  className="text-3xl md:text-4xl font-display font-bold text-foreground bg-clip-text text-transparent gradient-warm"
-                  style={{
-                    backgroundClip: "text",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  {displayTitle}
-                </h1>
+      {!hideHeader && (
+        <header
+          className={`border-b bg-card shadow-soft ${
+            isMobile ? "pt-[73px]" : "pt-20"
+          }`}
+        >
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <div className="flex items-center gap-3">
+                  <Image
+                    src="/africa.png"
+                    alt="Africa"
+                    width={48}
+                    height={48}
+                    className="object-contain"
+                  />
+                  <h1
+                    className="text-3xl md:text-4xl font-display font-bold text-foreground bg-clip-text text-transparent gradient-warm"
+                    style={{
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    {displayTitle}
+                  </h1>
+                </div>
               </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                {displaySubtitle}
-              </p>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Main Content */}
-      <main className={`container mx-auto px-4 ${isMobile ? "py-4" : "py-8"}`}>
+      <main
+        className={`container mx-auto px-4 ${hideHeader ? (isMobile ? "pt-24 pb-4" : "pt-28 pb-8") : isMobile ? "py-4" : "py-8"}`}
+      >
         {children}
       </main>
 

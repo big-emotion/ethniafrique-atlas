@@ -50,43 +50,8 @@ export const DetailView = ({
     }
   }, [selectedCountry, selectedRegion]);
 
-  // Vue d'une région sélectionnée
-  if (selectedRegion) {
-    return (
-      <RegionDetailView
-        regionKey={selectedRegion}
-        language={language}
-        onCountrySelect={onCountrySelect}
-      />
-    );
-  }
-
-  // Vue d'un pays sélectionné
-  if (selectedCountry) {
-    // Attendre que la région soit chargée
-    if (!countryRegion) {
-      return (
-        <div className="h-[calc(100vh-12rem)] flex items-center justify-center p-6">
-          <div className="text-center text-muted-foreground">
-            <p>Loading country data...</p>
-          </div>
-        </div>
-      );
-    }
-    // Convertir la clé en nom pour CountryDetailView
-    const countryName = getCountryName(selectedCountry) || selectedCountry;
-
-    return (
-      <CountryDetailView
-        regionKey={countryRegion}
-        countryName={countryName}
-        language={language}
-        onEthnicitySelect={onEthnicitySelect}
-      />
-    );
-  }
-
-  // Vue d'une ethnie sélectionnée
+  // Gérer la hiérarchie : ethnicity > country > region
+  // Vue d'une ethnie sélectionnée (priorité la plus haute)
   if (selectedEthnicity) {
     // Convertir la clé en nom pour EthnicityDetailView
     const ethnicityName =
@@ -103,6 +68,50 @@ export const DetailView = ({
           const countryKey = getCountryKey(country) || country;
           onCountrySelect?.(countryKey, regionKey);
         }}
+        selectedCountryKey={selectedCountry}
+        selectedRegionKey={selectedRegion}
+      />
+    );
+  }
+
+  // Vue d'un pays sélectionné
+  if (selectedCountry) {
+    // Si on a déjà selectedRegion, l'utiliser directement
+    // Sinon, attendre que la région soit chargée
+    const regionToUse = selectedRegion || countryRegion;
+
+    if (!regionToUse) {
+      return (
+        <div className="h-[calc(100vh-12rem)] flex items-center justify-center p-6">
+          <div className="text-center text-muted-foreground">
+            <p>Loading country data...</p>
+          </div>
+        </div>
+      );
+    }
+    // Convertir la clé en nom pour CountryDetailView
+    const countryName = getCountryName(selectedCountry) || selectedCountry;
+
+    return (
+      <CountryDetailView
+        regionKey={regionToUse}
+        countryName={countryName}
+        language={language}
+        onEthnicitySelect={onEthnicitySelect}
+        selectedEthnicityKey={selectedEthnicity}
+      />
+    );
+  }
+
+  // Vue d'une région sélectionnée
+  if (selectedRegion) {
+    return (
+      <RegionDetailView
+        regionKey={selectedRegion}
+        language={language}
+        onCountrySelect={onCountrySelect}
+        selectedCountryKey={selectedCountry}
+        selectedEthnicityKey={selectedEthnicity}
       />
     );
   }
