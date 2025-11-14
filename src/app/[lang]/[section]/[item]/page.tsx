@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Language } from "@/types/ethnicity";
+import { Language, EthnicityWithSubgroups } from "@/types/ethnicity";
 import { getLocalizedRoute } from "@/lib/routing";
 import { DetailPageClient } from "@/components/pages/DetailPageClient";
 import {
@@ -70,13 +70,7 @@ interface CountryDetailPayload {
   percentageInRegion: number;
   percentageInAfrica: number;
   region: string;
-  ethnicities: Array<{
-    name: string;
-    population: number;
-    percentageInCountry: number;
-    percentageInRegion: number;
-    percentageInAfrica: number;
-  }>;
+  ethnicities: EthnicityWithSubgroups[];
   description?: string;
   ancientNames?: Array<{ period: string; names: string[] }>; // Max 3 entrées pour le résumé
   allAncientNames?: Array<{ period: string; names: string[] }>; // Toutes les entrées pour la section détaillée

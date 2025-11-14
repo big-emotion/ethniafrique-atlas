@@ -151,23 +151,29 @@ export const CountryDetailView = ({
     });
   };
 
-  // Construire la liste plate avec groupes parents et sous-groupes expandés
-  const flattenedEthnicities = useMemo(() => {
+  // Paginer uniquement sur les groupes parents, puis ajouter leurs sous-groupes
+  const paginatedEthnicities = useMemo(() => {
+    // Calculer la pagination sur les groupes parents uniquement
+    const parentOnlyEthnicities = sortedEthnicities.filter((e) => e.isParent);
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedParents = parentOnlyEthnicities.slice(start, end);
+
+    // Construire la liste avec les groupes parents de la page + leurs sous-groupes si expandés
     const result: Array<{
       ethnicity: EthnicityWithSubgroups;
       isSubgroup: boolean;
       parentName?: string;
     }> = [];
 
-    for (const ethnicity of sortedEthnicities) {
+    for (const ethnicity of paginatedParents) {
       result.push({
         ethnicity,
-        isSubgroup: !ethnicity.isParent,
+        isSubgroup: false,
       });
 
       // Si c'est un groupe parent avec sous-groupes et qu'il est expandé, ajouter les sous-groupes
       if (
-        ethnicity.isParent &&
         ethnicity.subgroups &&
         ethnicity.subgroups.length > 0 &&
         expandedGroups.has(ethnicity.name)
@@ -187,14 +193,13 @@ export const CountryDetailView = ({
     }
 
     return result;
-  }, [sortedEthnicities, expandedGroups]);
+  }, [sortedEthnicities, expandedGroups, currentPage, itemsPerPage]);
 
-  const paginatedEthnicities = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    return flattenedEthnicities.slice(start, start + itemsPerPage);
-  }, [flattenedEthnicities, currentPage]);
-
-  const totalPages = Math.ceil(flattenedEthnicities.length / itemsPerPage);
+  // Calculer le nombre total de pages basé uniquement sur les groupes parents
+  const totalPages = useMemo(() => {
+    const parentOnlyEthnicities = sortedEthnicities.filter((e) => e.isParent);
+    return Math.ceil(parentOnlyEthnicities.length / itemsPerPage);
+  }, [sortedEthnicities, itemsPerPage]);
 
   const SortButton = ({
     field,

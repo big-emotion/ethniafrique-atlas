@@ -10,7 +10,6 @@ import {
 import { getEthnicityKey, getCountryKey, getRegionKey } from "@/lib/entityKeys";
 import { getEthnicityGlobalDetails } from "@/lib/datasetLoader";
 import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Users, TrendingUp, Globe, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -495,9 +494,5 @@ export const EthnicityDetailView = ({
     </div>
   );
 
-  if (isMobile) {
-    return <div className="w-full">{content}</div>;
-  }
-
-  return <ScrollArea className="h-[calc(100vh-12rem)]">{content}</ScrollArea>;
+  return <div className="w-full">{content}</div>;
 };

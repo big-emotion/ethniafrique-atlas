@@ -10,7 +10,6 @@ import {
 import { getCountryKey } from "@/lib/entityKeys";
 import { getRegion } from "@/lib/datasetLoader";
 import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Globe, Users, TrendingUp } from "lucide-react";
 import {
@@ -407,9 +406,5 @@ export const RegionDetailView = ({
     </div>
   );
 
-  if (isMobile) {
-    return <div className="w-full">{content}</div>;
-  }
-
-  return <ScrollArea className="h-[calc(100vh-12rem)]">{content}</ScrollArea>;
+  return <div className="w-full">{content}</div>;
 };
