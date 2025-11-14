@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Language } from "@/types/ethnicity";
 import { getTranslation } from "@/lib/translations";
 import { RegionDetailView } from "@/components/RegionDetailView";
@@ -72,13 +72,31 @@ export const DetailView = ({
     }
   }, [selectedCountry, selectedRegion]);
 
+  // Convertir la clé en nom pour EthnicityDetailView (stabilisé avec useMemo)
+  const ethnicityName = useMemo(() => {
+    if (!selectedEthnicity) return null;
+    // Essayer d'abord de convertir la clé en nom
+    const name = getEthnicityName(selectedEthnicity);
+    if (name) {
+      console.log(
+        "[DetailView] Converted key to name:",
+        selectedEthnicity,
+        "->",
+        name
+      );
+      return name;
+    }
+    // Si la conversion échoue, selectedEthnicity est peut-être déjà un nom
+    console.log(
+      "[DetailView] Using selectedEthnicity as name (not a key):",
+      selectedEthnicity
+    );
+    return selectedEthnicity;
+  }, [selectedEthnicity]);
+
   // Gérer la hiérarchie : ethnicity > country > region
   // Vue d'une ethnie sélectionnée (priorité la plus haute)
-  if (selectedEthnicity) {
-    // Convertir la clé en nom pour EthnicityDetailView
-    const ethnicityName =
-      getEthnicityName(selectedEthnicity) || selectedEthnicity;
-
+  if (selectedEthnicity && ethnicityName) {
     return (
       <EthnicityDetailView
         ethnicityName={ethnicityName}

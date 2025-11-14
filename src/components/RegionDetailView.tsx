@@ -251,7 +251,7 @@ export const RegionDetailView = ({
                   key={country.name}
                   className={`p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors ${
                     selectedCountryKey === countryKey
-                      ? "bg-accent border-2 border-primary"
+                      ? "border-2 border-primary"
                       : ""
                   }`}
                   onClick={() => onCountrySelect?.(countryKey, regionKey)}
@@ -352,7 +352,7 @@ export const RegionDetailView = ({
                       key={country.name}
                       className={`cursor-pointer hover:bg-muted/50 ${
                         selectedCountryKey === countryKey
-                          ? "bg-accent border-l-4 border-primary"
+                          ? "border-l-4 border-primary"
                           : ""
                       }`}
                       onClick={() => onCountrySelect?.(countryKey, regionKey)}

@@ -175,15 +175,30 @@ export async function getEthnicityGlobalDetails(
 ): Promise<EthnicityGlobalData | null> {
   try {
     const encodedEthnicity = encodeURIComponent(ethnicityName);
-    const response = await fetch(`/api/ethnicities/${encodedEthnicity}`);
+    const url = `/api/ethnicities/${encodedEthnicity}`;
+    console.log("[getEthnicityGlobalDetails] Fetching:", url);
+    const response = await fetch(url);
+    console.log(
+      "[getEthnicityGlobalDetails] Response status:",
+      response.status
+    );
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        `[getEthnicityGlobalDetails] Error ${response.status} for ${ethnicityName}:`,
+        errorText
+      );
       return null;
     }
     const data = await response.json();
+    console.log(
+      "[getEthnicityGlobalDetails] Data received:",
+      data ? "OK" : "NULL"
+    );
     return data;
   } catch (error) {
     console.error(
-      `Error loading ethnicity details for ${ethnicityName}:`,
+      `[getEthnicityGlobalDetails] Exception loading ethnicity details for ${ethnicityName}:`,
       error
     );
     return null;

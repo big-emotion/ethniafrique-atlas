@@ -32,6 +32,10 @@ export function CountriesPageContent() {
   useEffect(() => {
     const correctRoute = getLocalizedRoute(language, "countries");
     if (pathname !== correctRoute) {
+      // Réinitialiser la sélection lors du changement de langue
+      setSelectedCountry(null);
+      setSelectedEthnicity(null);
+      setSelectedRegion(null);
       router.replace(correctRoute);
     }
   }, [language, router, pathname]);

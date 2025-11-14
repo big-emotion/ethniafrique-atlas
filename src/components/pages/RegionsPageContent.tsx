@@ -32,6 +32,10 @@ export function RegionsPageContent() {
   useEffect(() => {
     const expected = getLocalizedRoute(language, "regions");
     if (pathname !== expected) {
+      // Réinitialiser la sélection lors du changement de langue
+      setSelectedRegion(null);
+      setSelectedCountry(null);
+      setSelectedEthnicity(null);
       router.replace(expected);
     }
   }, [language, pathname, router]);

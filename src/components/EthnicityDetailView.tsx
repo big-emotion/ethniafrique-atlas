@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import { Language, EthnicityGlobalData } from "@/types/ethnicity";
 import {
   getTranslation,
@@ -36,12 +36,62 @@ export const EthnicityDetailView = ({
   const [ethnicityData, setEthnicityData] =
     useState<EthnicityGlobalData | null>(null);
   const [loading, setLoading] = useState(true);
+  const lastLoadedEthnicityRef = useRef<string | null>(null);
 
   useEffect(() => {
-    getEthnicityGlobalDetails(ethnicityName).then((data) => {
-      setEthnicityData(data);
+    // Éviter les rechargements inutiles si l'ethnie n'a pas changé
+    if (lastLoadedEthnicityRef.current === ethnicityName) {
+      return;
+    }
+
+    if (!ethnicityName) {
+      console.log("[EthnicityDetailView] No ethnicity name provided");
       setLoading(false);
-    });
+      setEthnicityData(null);
+      return;
+    }
+
+    // Marquer cette ethnie comme en cours de chargement
+    lastLoadedEthnicityRef.current = ethnicityName;
+    setLoading(true);
+    setEthnicityData(null);
+
+    console.log("[EthnicityDetailView] Loading ethnicity:", ethnicityName);
+
+    getEthnicityGlobalDetails(ethnicityName)
+      .then((data) => {
+        console.log(
+          "[EthnicityDetailView] Received data:",
+          data ? "OK" : "NULL"
+        );
+        // Ne mettre à jour que si l'ethnie n'a pas changé pendant le chargement
+        if (lastLoadedEthnicityRef.current === ethnicityName) {
+          if (data) {
+            setEthnicityData(data);
+          } else {
+            console.warn(
+              "[EthnicityDetailView] No data returned for:",
+              ethnicityName
+            );
+            setEthnicityData(null);
+          }
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "[EthnicityDetailView] Error loading ethnicity:",
+          ethnicityName,
+          error
+        );
+        // Ne mettre à jour que si l'ethnie n'a pas changé pendant le chargement
+        if (lastLoadedEthnicityRef.current === ethnicityName) {
+          setEthnicityData(null);
+          setLoading(false);
+          // Réinitialiser pour permettre un nouvel essai
+          lastLoadedEthnicityRef.current = null;
+        }
+      });
   }, [ethnicityName]);
 
   const formatNumber = useCallback(
@@ -243,7 +293,7 @@ export const EthnicityDetailView = ({
     );
   }, [ethnicityData, regionPopulations, formatNumber, t, language]);
 
-  if (loading || !ethnicityData) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
         <p className="text-muted-foreground">
@@ -254,6 +304,22 @@ export const EthnicityDetailView = ({
               : language === "es"
                 ? "Cargando datos de la etnia..."
                 : "Carregando dados da etnia..."}
+        </p>
+      </div>
+    );
+  }
+
+  if (!ethnicityData) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground">
+          {language === "en"
+            ? "Ethnicity data not found"
+            : language === "fr"
+              ? "Données de l'ethnie non trouvées"
+              : language === "es"
+                ? "Datos de la etnia no encontrados"
+                : "Dados da etnia não encontrados"}
         </p>
       </div>
     );
@@ -431,11 +497,7 @@ export const EthnicityDetailView = ({
                       return (
                         <div
                           key={`${country.country}-${country.region}`}
-                          className={`p-3 md:p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors ${
-                            selectedCountryKey === countryKey
-                              ? "bg-accent border-2 border-primary"
-                              : ""
-                          }`}
+                          className={`p-3 md:p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors`}
                           onClick={() =>
                             onCountrySelect?.(countryKey, regionKey)
                           }

@@ -362,7 +362,7 @@ export const CountryDetailView = ({
                   <div
                     className={`p-4 rounded-lg border bg-card hover:bg-muted/50 cursor-pointer transition-colors ${
                       selectedEthnicityKey === ethnicityKey
-                        ? "bg-accent border-2 border-primary"
+                        ? "border-2 border-primary"
                         : ""
                     } ${item.isSubgroup ? "bg-muted/30 border-l-4 border-l-muted-foreground/30" : ""}`}
                     onClick={() => {
@@ -498,7 +498,7 @@ export const CountryDetailView = ({
                       key={`${item.ethnicity.name}-${item.isSubgroup}`}
                       className={`cursor-pointer hover:bg-muted/50 ${
                         selectedEthnicityKey === ethnicityKey
-                          ? "bg-accent border-l-4 border-primary"
+                          ? "border-l-4 border-primary"
                           : ""
                       } ${item.isSubgroup ? "bg-muted/20" : ""}`}
                       onClick={() => {

@@ -30,6 +30,10 @@ export function EthnicitiesPageContent() {
   useEffect(() => {
     const correctRoute = getLocalizedRoute(language, "ethnicities");
     if (pathname !== correctRoute) {
+      // Réinitialiser la sélection lors du changement de langue
+      setSelectedEthnicity(null);
+      setSelectedCountry(null);
+      setSelectedRegion(null);
       router.replace(correctRoute);
     }
   }, [language, router, pathname]);

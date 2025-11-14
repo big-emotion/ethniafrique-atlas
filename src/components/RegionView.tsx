@@ -402,7 +402,7 @@ export const RegionView = ({
                     hideSearchAndAlphabet ? "mx-0" : ""
                   } ${
                     selectedRegionKey === region.key
-                      ? "bg-accent border-2 border-primary"
+                      ? "border-2 border-primary"
                       : ""
                   }`}
                   onClick={() => onRegionSelect(region.key)}

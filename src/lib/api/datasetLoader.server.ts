@@ -27,6 +27,7 @@ import {
 import {
   getAllEthnicities as getAllEthnicitiesFromSupabase,
   getEthnicityBySlug as getEthnicityBySlugFromSupabase,
+  getEthnicityByName,
 } from "@/lib/supabase/queries/ethnicities";
 import {
   getPresencesByCountry as getPresencesByCountryFromSupabase,
@@ -308,8 +309,26 @@ export async function getCountryDetails(
 export async function getEthnicityGlobalDetails(
   ethnicityName: string
 ): Promise<EthnicityGlobalData | null> {
-  const ethnicitySlug = getEthnicityKey(ethnicityName) || ethnicityName;
-  const ethnicity = await getEthnicityBySlugFromSupabase(ethnicitySlug);
+  // Essayer d'abord de convertir le nom en clé
+  const ethnicitySlug = getEthnicityKey(ethnicityName);
+  let ethnicity = null;
+
+  // 1. Si on a une clé, chercher par slug
+  if (ethnicitySlug) {
+    ethnicity = await getEthnicityBySlugFromSupabase(ethnicitySlug);
+  }
+
+  // 2. Si pas trouvé, essayer de chercher par slug en normalisant en minuscules
+  if (!ethnicity) {
+    const normalizedSlug = ethnicityName.toLowerCase().trim();
+    ethnicity = await getEthnicityBySlugFromSupabase(normalizedSlug);
+  }
+
+  // 3. Si toujours pas trouvé, chercher par nom exact
+  if (!ethnicity) {
+    ethnicity = await getEthnicityByName(ethnicityName);
+  }
+
   if (!ethnicity) return null;
 
   const presences = await getPresencesByEthnicityFromSupabase(ethnicity.id);

@@ -69,6 +69,31 @@ export async function getEthnicityBySlug(
 }
 
 /**
+ * Obtenir une ethnie par son nom (recherche exacte)
+ */
+export async function getEthnicityByName(
+  name: string
+): Promise<Ethnicity | null> {
+  const supabase = createServerClient();
+  const { data, error } = await supabase
+    .from("ethnic_groups")
+    .select("*")
+    .eq("name_fr", name)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      // Not found
+      return null;
+    }
+    console.error("Error fetching ethnicity by name:", error);
+    throw error;
+  }
+
+  return data;
+}
+
+/**
  * Obtenir les ethnies d'un pays
  */
 export async function getEthnicitiesByCountry(

@@ -32,6 +32,10 @@ export function PaysPageContent() {
   useEffect(() => {
     const expected = getLocalizedRoute(language, "countries");
     if (pathname !== expected) {
+      // Réinitialiser la sélection lors du changement de langue
+      setSelectedCountry(null);
+      setSelectedEthnicity(null);
+      setSelectedRegion(null);
       router.replace(expected);
     }
   }, [language, pathname, router]);
