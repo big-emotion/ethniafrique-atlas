@@ -66,5 +66,5 @@ Thumbs.db
 .tmp
 
 # Dataset
-dataset/matched
-dataset/parsed
+dataset/*
+!dataset/source/*
