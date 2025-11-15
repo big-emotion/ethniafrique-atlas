@@ -12,7 +12,8 @@ export async function getTotalPopulationAfrica(): Promise<number> {
       throw new Error("Failed to load total population");
     }
     const data = await response.json();
-    return data.totalPopulation || 0;
+    // L'API retourne totalPopulationAfrica, pas totalPopulation
+    return data.totalPopulationAfrica || data.totalPopulation || 0;
   } catch (error) {
     console.error("Error loading total population:", error);
     return 0;
