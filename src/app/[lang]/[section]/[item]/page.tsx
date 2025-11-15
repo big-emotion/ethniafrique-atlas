@@ -74,6 +74,8 @@ interface CountryDetailPayload {
   description?: string;
   ancientNames?: Array<{ period: string; names: string[] }>; // Max 3 entrées pour le résumé
   allAncientNames?: Array<{ period: string; names: string[] }>; // Toutes les entrées pour la section détaillée
+  ethnicGroupsSummary?: string; // Section 4
+  notes?: string; // Section 6
   topEthnicities?: Array<{
     name: string;
     languages: string[];
@@ -197,6 +199,8 @@ export default async function LocalizedDetailPage({
         description: enrichedCountry?.description,
         ancientNames: ancientNames.slice(0, 3), // Max 3 pour le résumé
         allAncientNames: ancientNames, // Tous pour la section détaillée
+        ethnicGroupsSummary: countryDetails.ethnicGroupsSummary,
+        notes: countryDetails.notes,
         topEthnicities: topEthnicities,
       };
       detailData = { type: "country", payload };

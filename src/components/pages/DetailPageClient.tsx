@@ -10,6 +10,7 @@ import {
   getRegionName,
   getCountryName,
   getEthnicityName,
+  getTranslation,
 } from "@/lib/translations";
 import { getRegionKey, getCountryKey, getEthnicityKey } from "@/lib/entityKeys";
 import { Button } from "@/components/ui/button";
@@ -29,12 +30,16 @@ import {
   FileText,
   ChevronRight,
   ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { EthnicityWithSubgroups } from "@/types/ethnicity";
 import { TopLanguagesCard } from "@/components/TopLanguagesCard";
 import { SubgroupsTable } from "@/components/SubgroupsTable";
 import { CountryDescriptionSection } from "@/components/CountryDescriptionSection";
 import { EthnicityDescriptionSection } from "@/components/EthnicityDescriptionSection";
+import { DesktopNavBar } from "@/components/DesktopNavBar";
+import { MobileNavBar } from "@/components/MobileNavBar";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type SectionType = "country" | "region" | "ethnicity";
 
@@ -48,6 +53,8 @@ interface CountryDetailPayload {
   description?: string;
   ancientNames?: Array<{ period: string; names: string[] }>; // Max 3 entrées pour le résumé
   allAncientNames?: Array<{ period: string; names: string[] }>; // Toutes les entrées pour la section détaillée
+  ethnicGroupsSummary?: string; // Section 4
+  notes?: string; // Section 6
   topEthnicities?: Array<{
     name: string;
     languages: string[];
@@ -408,6 +415,70 @@ export function DetailPageClient({
     );
   };
 
+  // Types pour le tri
+  type SortFieldCountryEthnicities =
+    | "name"
+    | "population"
+    | "percentageInCountry";
+  type SortFieldRegionCountries =
+    | "name"
+    | "population"
+    | "percentageInRegion"
+    | "percentageInAfrica";
+  type SortFieldRegionEthnicities =
+    | "name"
+    | "population"
+    | "percentageInRegion"
+    | "percentageInAfrica";
+  type SortFieldEthnicityCountries =
+    | "country"
+    | "region"
+    | "population"
+    | "percentageInCountry";
+  type SortDirection = "asc" | "desc";
+
+  // Composant SortButton réutilisable
+  const SortButton = ({
+    field,
+    currentField,
+    currentDirection,
+    onSort,
+  }: {
+    field: string;
+    currentField: string;
+    currentDirection: SortDirection;
+    onSort: (field: string) => void;
+  }) => (
+    <Button
+      variant="ghost"
+      size="sm"
+      className="h-auto p-0 font-normal"
+      onClick={() => onSort(field)}
+      title={
+        language === "en"
+          ? "Click to sort"
+          : language === "fr"
+            ? "Cliquer pour trier"
+            : language === "es"
+              ? "Hacer clic para ordenar"
+              : "Clique para ordenar"
+      }
+    >
+      {currentField === field ? (
+        currentDirection === "asc" ? (
+          <ChevronUp className="h-4 w-4 text-primary" />
+        ) : (
+          <ChevronDown className="h-4 w-4 text-primary" />
+        )
+      ) : (
+        <div className="flex flex-col h-4 w-4 items-center justify-center opacity-40 hover:opacity-100 transition-opacity">
+          <ChevronUp className="h-2 w-2 -mb-0.5" />
+          <ChevronDown className="h-2 w-2" />
+        </div>
+      )}
+    </Button>
+  );
+
   const CountryEthnicitiesTable = ({
     payload,
   }: {
@@ -416,6 +487,9 @@ export function DetailPageClient({
     const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
       new Set()
     );
+    const [sortField, setSortField] =
+      useState<SortFieldCountryEthnicities>("name");
+    const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
 
     const toggleGroup = (groupName: string) => {
       setExpandedGroups((prev) => {
@@ -429,6 +503,34 @@ export function DetailPageClient({
       });
     };
 
+    const handleSort = (field: SortFieldCountryEthnicities) => {
+      if (sortField === field) {
+        setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      } else {
+        setSortField(field);
+        setSortDirection("asc");
+      }
+    };
+
+    // Trier les ethnies avant de construire la liste plate
+    const sortedEthnicities = useMemo(() => {
+      return [...payload.ethnicities].sort((a, b) => {
+        let comparison = 0;
+        switch (sortField) {
+          case "name":
+            comparison = a.name.localeCompare(b.name);
+            break;
+          case "population":
+            comparison = a.population - b.population;
+            break;
+          case "percentageInCountry":
+            comparison = a.percentageInCountry - b.percentageInCountry;
+            break;
+        }
+        return sortDirection === "asc" ? comparison : -comparison;
+      });
+    }, [payload.ethnicities, sortField, sortDirection]);
+
     // Construire la liste plate avec groupes parents et sous-groupes expandés
     const flattenedEthnicities = useMemo(() => {
       const result: Array<{
@@ -437,7 +539,7 @@ export function DetailPageClient({
         parentName?: string;
       }> = [];
 
-      for (const ethnicity of payload.ethnicities) {
+      for (const ethnicity of sortedEthnicities) {
         result.push({
           ethnicity,
           isSubgroup: !ethnicity.isParent,
@@ -465,7 +567,7 @@ export function DetailPageClient({
       }
 
       return result;
-    }, [payload.ethnicities, expandedGroups]);
+    }, [sortedEthnicities, expandedGroups]);
 
     return (
       <Card className="shadow-soft">
@@ -485,9 +587,39 @@ export function DetailPageClient({
           <table className="w-full text-sm">
             <thead className="text-left text-muted-foreground">
               <tr className="border-b">
-                <th className="py-2 pr-4">{t.ethnicity}</th>
-                <th className="py-2 pr-4">{t.population}</th>
-                <th className="py-2 pr-4">{t.percentage}</th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.ethnicity}
+                    <SortButton
+                      field="name"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.population}
+                    <SortButton
+                      field="population"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.percentage}
+                    <SortButton
+                      field="percentageInCountry"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -558,12 +690,46 @@ export function DetailPageClient({
   }: {
     payload: RegionDetailPayload;
   }) => {
-    const countries = Object.entries(payload.countries).map(
-      ([name, stats]) => ({
-        name,
-        ...stats,
-      })
-    );
+    const [sortField, setSortField] =
+      useState<SortFieldRegionCountries>("name");
+    const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+
+    const handleSort = (field: SortFieldRegionCountries) => {
+      if (sortField === field) {
+        setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      } else {
+        setSortField(field);
+        setSortDirection("asc");
+      }
+    };
+
+    const countries = useMemo(() => {
+      const countriesList = Object.entries(payload.countries).map(
+        ([name, stats]) => ({
+          name,
+          ...stats,
+        })
+      );
+
+      return countriesList.sort((a, b) => {
+        let comparison = 0;
+        switch (sortField) {
+          case "name":
+            comparison = a.name.localeCompare(b.name);
+            break;
+          case "population":
+            comparison = a.population - b.population;
+            break;
+          case "percentageInRegion":
+            comparison = a.percentageInRegion - b.percentageInRegion;
+            break;
+          case "percentageInAfrica":
+            comparison = a.percentageInAfrica - b.percentageInAfrica;
+            break;
+        }
+        return sortDirection === "asc" ? comparison : -comparison;
+      });
+    }, [payload.countries, sortField, sortDirection]);
 
     return (
       <Card className="shadow-soft">
@@ -583,8 +749,28 @@ export function DetailPageClient({
           <table className="w-full text-sm">
             <thead className="text-left text-muted-foreground">
               <tr className="border-b">
-                <th className="py-2 pr-4">{t.country}</th>
-                <th className="py-2 pr-4">{t.population}</th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.country}
+                    <SortButton
+                      field="name"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.population}
+                    <SortButton
+                      field="population"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
                 <th className="py-2 pr-4">
                   {language === "en"
                     ? "In region"
@@ -637,12 +823,46 @@ export function DetailPageClient({
   }: {
     payload: RegionDetailPayload;
   }) => {
-    const ethnicities = Object.entries(payload.ethnicities).map(
-      ([name, stats]) => ({
-        name,
-        ...stats,
-      })
-    );
+    const [sortField, setSortField] =
+      useState<SortFieldRegionEthnicities>("name");
+    const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+
+    const handleSort = (field: SortFieldRegionEthnicities) => {
+      if (sortField === field) {
+        setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      } else {
+        setSortField(field);
+        setSortDirection("asc");
+      }
+    };
+
+    const ethnicities = useMemo(() => {
+      const ethnicitiesList = Object.entries(payload.ethnicities).map(
+        ([name, stats]) => ({
+          name,
+          ...stats,
+        })
+      );
+
+      return ethnicitiesList.sort((a, b) => {
+        let comparison = 0;
+        switch (sortField) {
+          case "name":
+            comparison = a.name.localeCompare(b.name);
+            break;
+          case "population":
+            comparison = a.totalPopulationInRegion - b.totalPopulationInRegion;
+            break;
+          case "percentageInRegion":
+            comparison = a.percentageInRegion - b.percentageInRegion;
+            break;
+          case "percentageInAfrica":
+            comparison = a.percentageInAfrica - b.percentageInAfrica;
+            break;
+        }
+        return sortDirection === "asc" ? comparison : -comparison;
+      });
+    }, [payload.ethnicities, sortField, sortDirection]);
 
     return (
       <Card className="shadow-soft">
@@ -653,8 +873,28 @@ export function DetailPageClient({
           <table className="w-full text-sm">
             <thead className="text-left text-muted-foreground">
               <tr className="border-b">
-                <th className="py-2 pr-4">{t.ethnicity}</th>
-                <th className="py-2 pr-4">{t.population}</th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.ethnicity}
+                    <SortButton
+                      field="name"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.population}
+                    <SortButton
+                      field="population"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
                 <th className="py-2 pr-4">
                   {language === "en"
                     ? "In region"
@@ -715,57 +955,156 @@ export function DetailPageClient({
     payload,
   }: {
     payload: EthnicityDetailPayload;
-  }) => (
-    <Card className="shadow-soft">
-      <CardHeader>
-        <CardTitle>{t.countries}</CardTitle>
-      </CardHeader>
-      <CardContent className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="text-left text-muted-foreground">
-            <tr className="border-b">
-              <th className="py-2 pr-4">{t.country}</th>
-              <th className="py-2 pr-4">{t.region}</th>
-              <th className="py-2 pr-4">{t.population}</th>
-              <th className="py-2 pr-4">{t.percentage}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {payload.countries.map((country) => {
-              const countryKey =
-                getCountryKey(country.country) || country.country;
-              const regionKey = getRegionKey(country.region) || country.region;
-              return (
-                <tr
-                  key={`${country.country}-${country.region}`}
-                  className="border-b last:border-none"
-                >
-                  <td className="py-2 pr-4 font-medium">
-                    {getCountryName(countryKey, language)}
-                  </td>
-                  <td className="py-2 pr-4">
-                    <Badge variant="secondary">
-                      {getRegionName(regionKey, language)}
-                    </Badge>
-                  </td>
-                  <td className="py-2 pr-4">
-                    {formatNumber(country.population, language)}
-                  </td>
-                  <td className="py-2 pr-4">
-                    {formatPercentage(country.percentageInCountry, language)}%
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </CardContent>
-    </Card>
-  );
+  }) => {
+    const [sortField, setSortField] =
+      useState<SortFieldEthnicityCountries>("country");
+    const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+
+    const handleSort = (field: SortFieldEthnicityCountries) => {
+      if (sortField === field) {
+        setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      } else {
+        setSortField(field);
+        setSortDirection("asc");
+      }
+    };
+
+    const sortedCountries = useMemo(() => {
+      return [...payload.countries].sort((a, b) => {
+        let comparison = 0;
+        switch (sortField) {
+          case "country":
+            comparison = a.country.localeCompare(b.country);
+            break;
+          case "region":
+            comparison = a.region.localeCompare(b.region);
+            break;
+          case "population":
+            comparison = a.population - b.population;
+            break;
+          case "percentageInCountry":
+            comparison = a.percentageInCountry - b.percentageInCountry;
+            break;
+        }
+        return sortDirection === "asc" ? comparison : -comparison;
+      });
+    }, [payload.countries, sortField, sortDirection]);
+
+    return (
+      <Card className="shadow-soft">
+        <CardHeader>
+          <CardTitle>{t.countries}</CardTitle>
+        </CardHeader>
+        <CardContent className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="text-left text-muted-foreground">
+              <tr className="border-b">
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.country}
+                    <SortButton
+                      field="country"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.region}
+                    <SortButton
+                      field="region"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.population}
+                    <SortButton
+                      field="population"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
+                <th className="py-2 pr-4">
+                  <div className="flex items-center gap-2">
+                    {t.percentage}
+                    <SortButton
+                      field="percentageInCountry"
+                      currentField={sortField}
+                      currentDirection={sortDirection}
+                      onSort={handleSort}
+                    />
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedCountries.map((country) => {
+                const countryKey =
+                  getCountryKey(country.country) || country.country;
+                const regionKey =
+                  getRegionKey(country.region) || country.region;
+                return (
+                  <tr
+                    key={`${country.country}-${country.region}`}
+                    className="border-b last:border-none"
+                  >
+                    <td className="py-2 pr-4 font-medium">
+                      {getCountryName(countryKey, language)}
+                    </td>
+                    <td className="py-2 pr-4">
+                      <Badge variant="secondary">
+                        {getRegionName(regionKey, language)}
+                      </Badge>
+                    </td>
+                    <td className="py-2 pr-4">
+                      {formatNumber(country.population, language)}
+                    </td>
+                    <td className="py-2 pr-4">
+                      {formatPercentage(country.percentageInCountry, language)}%
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  const isMobile = useIsMobile();
 
   return (
     <div className="min-h-screen gradient-earth">
-      <header className="border-b bg-card shadow-soft">
+      {/* Barre de navigation desktop */}
+      {!isMobile && (
+        <DesktopNavBar
+          language={language}
+          onLanguageChange={handleLanguageChange}
+        />
+      )}
+
+      {/* Barre de navigation mobile */}
+      {isMobile && (
+        <MobileNavBar
+          language={language}
+          onLanguageChange={handleLanguageChange}
+        />
+      )}
+
+      <header
+        className={`border-b bg-card shadow-soft ${
+          isMobile ? "pt-[73px]" : "pt-20"
+        }`}
+      >
         <div className="container mx-auto px-4 py-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-sm text-muted-foreground">
@@ -818,7 +1157,17 @@ export function DetailPageClient({
 
         {data.type === "country" && (
           <div className="space-y-6">
-            {/* 1. Résumé historique (description) */}
+            {/* 1. Section 2 : Anciennes appellations (toutes, sans CTA) */}
+            <CountryDescriptionSection
+              description={undefined}
+              ancientNames={
+                data.payload.allAncientNames || data.payload.ancientNames
+              }
+              language={language}
+              countrySlug={getCountryKey(data.payload.name) || item}
+              showAll={true}
+            />
+            {/* 2. Section 3 : Résumé historique (description) */}
             {data.payload.description && (
               <Card>
                 <CardHeader>
@@ -840,16 +1189,83 @@ export function DetailPageClient({
                 </CardContent>
               </Card>
             )}
-            {/* 2. Anciennes appellations */}
-            <CountryDescriptionSection
-              description={undefined}
-              ancientNames={
-                data.payload.allAncientNames || data.payload.ancientNames
-              }
-              language={language}
-              countrySlug={getCountryKey(data.payload.name) || item}
-            />
-            {/* 3. Tableau des ethnies */}
+            {/* 3. Section 4 : Résumé détaillé des groupes ethniques */}
+            {data.payload.ethnicGroupsSummary && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    {language === "fr"
+                      ? "Résumé détaillé des groupes ethniques"
+                      : language === "en"
+                        ? "Detailed Summary of Ethnic Groups"
+                        : language === "es"
+                          ? "Resumen detallado de los grupos étnicos"
+                          : "Resumo detalhado dos grupos étnicos"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-muted-foreground whitespace-pre-line">
+                    {data.payload.ethnicGroupsSummary
+                      .split("\n")
+                      .map((line, index) => {
+                        // Si la ligne commence par "-", l'afficher comme une puce
+                        if (line.trim().startsWith("-")) {
+                          return (
+                            <div key={index} className="ml-4 mb-1">
+                              {line.trim()}
+                            </div>
+                          );
+                        }
+                        // Sinon, afficher comme un paragraphe
+                        return (
+                          <p key={index} className="mb-2">
+                            {line}
+                          </p>
+                        );
+                      })}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            {/* 4. Section 6 : Notes / Points importants */}
+            {data.payload.notes && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    {language === "fr"
+                      ? "Notes / Points importants"
+                      : language === "en"
+                        ? "Notes / Important Points"
+                        : language === "es"
+                          ? "Notas / Puntos importantes"
+                          : "Notas / Pontos importantes"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-muted-foreground whitespace-pre-line">
+                    {data.payload.notes.split("\n").map((line, index) => {
+                      // Si la ligne commence par "-", l'afficher comme une puce
+                      if (line.trim().startsWith("-")) {
+                        return (
+                          <div key={index} className="ml-4 mb-1">
+                            {line.trim()}
+                          </div>
+                        );
+                      }
+                      // Sinon, afficher comme un paragraphe
+                      return (
+                        <p key={index} className="mb-2">
+                          {line}
+                        </p>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            {/* 5. Tableau des ethnies */}
             <CountryEthnicitiesTable payload={data.payload} />
           </div>
         )}
@@ -919,6 +1335,25 @@ export function DetailPageClient({
           </div>
         )}
       </main>
+
+      {/* Footer */}
+      <footer className="border-t bg-card">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+            <p className="text-center md:text-left">
+              © 2025 African Ethnicities Dictionary | Data sources: Official
+              demographic estimates 2025
+            </p>
+            <div className="flex items-center gap-2 text-center">
+              <span>{t.madeWithEmotion}</span>
+              <div className="flex items-center gap-1">
+                <span className="font-bold text-yellow-500">BIG</span>
+                <span className="font-bold text-foreground">EMOTION</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

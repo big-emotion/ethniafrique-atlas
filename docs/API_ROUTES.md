@@ -282,8 +282,16 @@ Base URL (développement) : `http://localhost:3000`
   - **Content-Disposition** : `attachment; filename="ethniafrique-atlas-data.zip"`
   - **Corps** : Fichier ZIP contenant tous les fichiers CSV du dataset organisés par région/pays
 - **Format des CSV** : Chaque fichier CSV contient les colonnes suivantes :
-  - Colonnes de base : `Group`, `Population_2025`, `Percentage_in_country`, `Percentage_in_Africa`
-  - Colonnes enrichies : `Sub_group`, `Language`, `Region`, `Sources`, `Ancient_Name`, `Description`, `Type_de_societe`, `Religion`, `Famille_linguistique`, `Statut_historique`, `Presence_regionale`
+  - **Colonnes de base** : `Group`, `Sub_group`, `Population_2025`, `Percentage_in_country`, `Percentage_in_Africa`
+  - **Colonnes enrichies** : `Language`, `Region`, `Sources`, `Ancient_Name`, `Description`, `Type_de_societe`, `Religion`, `Famille_linguistique`, `Statut_historique`, `Presence_regionale`
+
+  **Structure des données** :
+  - Les groupes parents sont exportés avec `Sub_group` vide
+  - Les sous-groupes sont exportés avec le nom du groupe parent dans `Group` et le nom du sous-groupe dans `Sub_group`
+  - Les langues multiples sont séparées par `; `
+  - Les sources multiples sont séparées par `; `
+  - Les valeurs contenant des virgules, guillemets ou sauts de ligne sont correctement échappées
+
 - **Erreurs**
   - `400` : `{"error": "Invalid format. Use 'csv' or 'excel'"}`
   - `500` : `{"error": "Failed to generate download"}`

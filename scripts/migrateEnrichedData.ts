@@ -29,6 +29,8 @@ interface MatchedCountryData {
   countryDescription: {
     ancientNames: AncientNameEntry[];
     description: string;
+    ethnicGroupsSummary?: string; // Section 4
+    notes?: string; // Section 6
   } | null;
   ethnicities: MatchedEthnicity[];
 }
@@ -116,6 +118,24 @@ function limitAncientNames(names: string | string[]): string {
   return namesArray.slice(0, 3).join(", ");
 }
 
+// Formater la section 4 (Résumé détaillé des groupes ethniques) pour la base de données
+function formatEthnicGroupsSummaryForDB(
+  ethnicGroupsSummary: string | null | undefined
+): string | null {
+  if (!ethnicGroupsSummary || !ethnicGroupsSummary.trim()) {
+    return null;
+  }
+  return ethnicGroupsSummary.trim();
+}
+
+// Formater la section 6 (Notes) pour la base de données
+function formatNotesForDB(notes: string | null | undefined): string | null {
+  if (!notes || !notes.trim()) {
+    return null;
+  }
+  return notes.trim();
+}
+
 /**
  * Formate une erreur pour l'affichage
  */
@@ -161,7 +181,12 @@ function formatError(error: unknown): string {
 // Invalider le cache Next.js après la migration
 async function invalidateCache() {
   const revalidateSecret = process.env.REVALIDATE_SECRET;
-  const apiUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  let apiUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+  // Ajouter le protocole si manquant
+  if (!apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
+    apiUrl = `http://${apiUrl}`;
+  }
 
   if (!revalidateSecret) {
     console.warn(
@@ -174,6 +199,7 @@ async function invalidateCache() {
   }
 
   console.log("\n🔄 Invalidating Next.js cache...");
+  console.log(`   URL: ${apiUrl}/api/admin/revalidate`);
 
   try {
     const response = await fetch(`${apiUrl}/api/admin/revalidate`, {
@@ -194,7 +220,9 @@ async function invalidateCache() {
 
     const result = await response.json();
     console.log("✅ Cache invalidated successfully!");
-    console.log(`   Invalidated tags: ${result.invalidatedTags.join(", ")}`);
+    console.log(
+      `   Invalidated tags: ${result.invalidatedTags?.join(", ") || "all"}`
+    );
   } catch (error) {
     console.error("⚠️  Failed to invalidate cache:", error);
     console.error(
@@ -398,6 +426,12 @@ async function main() {
         const ancientNames = matchedData.countryDescription?.ancientNames || [];
         const ancientNamesJson = formatAncientNamesForDB(ancientNames);
 
+        // Sections 4 et 6
+        const ethnicGroupsSummary = formatEthnicGroupsSummaryForDB(
+          matchedData.countryDescription?.ethnicGroupsSummary
+        );
+        const notes = formatNotesForDB(matchedData.countryDescription?.notes);
+
         const { data, error } = await supabase
           .from("countries")
           .upsert(
@@ -410,6 +444,8 @@ async function main() {
               percentage_in_africa: percentageInAfrica,
               description: matchedData.countryDescription?.description || null,
               ancient_names: ancientNamesJson,
+              ethnic_groups_summary: ethnicGroupsSummary,
+              notes: notes,
             },
             {
               onConflict: "slug",

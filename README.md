@@ -129,8 +129,13 @@ L'application expose une API REST publique pour accéder aux données démograph
 
 #### Téléchargement de données
 
-- `GET /api/download?format=csv` - Télécharge toutes les données en format CSV (ZIP)
-- `GET /api/download?format=excel` - Télécharge toutes les données en format Excel (XLSX)
+- `GET /api/download?format=csv` - Télécharge toutes les données en format CSV (ZIP) avec **tous les champs enrichis**
+- `GET /api/download?format=excel` - Télécharge toutes les données en format Excel (XLSX) avec **tous les champs enrichis**
+
+Les exports incluent désormais tous les champs enrichis :
+
+- Colonnes de base : `Group`, `Sub_group`, `Population_2025`, `Percentage_in_country`, `Percentage_in_Africa`
+- Colonnes enrichies : `Language`, `Region`, `Sources`, `Ancient_Name`, `Description`, `Type_de_societe`, `Religion`, `Famille_linguistique`, `Statut_historique`, `Presence_regionale`
 
 > Documentation détaillée : `docs/API_ROUTES.md`
 

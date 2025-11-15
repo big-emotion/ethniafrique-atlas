@@ -512,6 +512,7 @@ function parseCountryCSV(
         const percentageInAfrica = parseFloat(row.Percentage_in_Africa) || 0;
 
         // Détecter les sous-groupes dans le nom du groupe ou Sub_group
+        // PRIORITÉ : Utiliser Sub_group si disponible avec plusieurs éléments, sinon utiliser les parenthèses dans Group
         const groupNameWithParens = detectSubgroupsFromGroupName(row.Group);
         const subGroupsFromSubGroup = detectSubgroupsFromSubGroup(
           row.Sub_group
@@ -521,14 +522,19 @@ function parseCountryCSV(
         let subgroups: string[] = [];
         let isGroupWithSubgroups = false;
 
-        if (groupNameWithParens) {
+        if (subGroupsFromSubGroup.length > 1) {
+          // Priorité 1 : Sub_group contient plusieurs sous-groupes
+          // Si le nom du groupe a des parenthèses, utiliser le nom principal sans parenthèses
+          mainGroupName = groupNameWithParens
+            ? groupNameWithParens.mainGroup
+            : row.Group.trim();
+          subgroups = subGroupsFromSubGroup;
+          isGroupWithSubgroups = true;
+        } else if (groupNameWithParens) {
+          // Priorité 2 : Utiliser les parenthèses dans le nom du groupe
           mainGroupName = groupNameWithParens.mainGroup;
           subgroups = groupNameWithParens.subgroups;
           isGroupWithSubgroups = subgroups.length > 0;
-        } else if (subGroupsFromSubGroup.length > 1) {
-          mainGroupName = row.Group.trim();
-          subgroups = subGroupsFromSubGroup;
-          isGroupWithSubgroups = true;
         } else {
           mainGroupName = row.Group.trim();
           isGroupWithSubgroups = false;
@@ -583,12 +589,16 @@ function parseCountryCSV(
               i,
               subgroups.length
             );
+            // CORRECTION : Calcul correct des pourcentages
+            // Le pourcentage d'un sous-groupe = (population du sous-groupe / population du groupe) * pourcentage du groupe
             const subgroupPercentageInCountry =
-              (subgroupPopulation / (population / percentageInCountry)) * 100 ||
-              0;
+              population > 0
+                ? (subgroupPopulation / population) * percentageInCountry
+                : 0;
             const subgroupPercentageInAfrica =
-              (subgroupPopulation / (population / percentageInAfrica)) * 100 ||
-              0;
+              population > 0
+                ? (subgroupPopulation / population) * percentageInAfrica
+                : 0;
 
             ethnicity.subGroups.push({
               name: subgroupName,

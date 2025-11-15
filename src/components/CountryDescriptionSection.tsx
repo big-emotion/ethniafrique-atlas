@@ -12,6 +12,7 @@ interface CountryDescriptionSectionProps {
   ancientNames?: AncientNameEntry[];
   language: "en" | "fr" | "es" | "pt";
   countrySlug?: string; // Pour le lien "Voir plus"
+  showAll?: boolean; // Si true, afficher toutes les entrées sans CTA
 }
 
 export const CountryDescriptionSection = ({
@@ -19,6 +20,7 @@ export const CountryDescriptionSection = ({
   ancientNames,
   language,
   countrySlug,
+  showAll = false,
 }: CountryDescriptionSectionProps) => {
   const t = {
     en: {
@@ -47,12 +49,12 @@ export const CountryDescriptionSection = ({
     return null;
   }
 
-  // Afficher les 3 premières entrées
-  const displayedEntries = ancientNames?.slice(0, 3) || [];
-  // Afficher "Voir plus" s'il y a plus de 3 entrées
-  // Note: on affiche toujours le CTA si on a un countrySlug, car même avec 3 entrées,
-  // la page dédiée peut avoir plus d'informations
-  const hasMore = ancientNames && ancientNames.length > 3;
+  // Afficher toutes les entrées si showAll est true, sinon seulement les 3 premières
+  const displayedEntries = showAll
+    ? ancientNames || []
+    : ancientNames?.slice(0, 3) || [];
+  // Afficher "Voir plus" s'il y a plus de 3 entrées et que showAll est false
+  const hasMore = !showAll && ancientNames && ancientNames.length > 3;
 
   return (
     <div className="space-y-6">

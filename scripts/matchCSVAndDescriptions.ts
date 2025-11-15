@@ -44,6 +44,8 @@ interface ParsedCountryDescription {
   region: string;
   ancientNames: AncientNameEntry[];
   description: string;
+  ethnicGroupsSummary?: string; // Section 4
+  notes?: string; // Section 6
   ethnicities: ParsedEthnicityDescription[];
 }
 

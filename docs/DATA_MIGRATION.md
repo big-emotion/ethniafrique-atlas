@@ -78,30 +78,44 @@ Le format est détecté en analysant les colonnes présentes dans le fichier.
 
 ### Format du fichier de description
 
-Le fichier `.txt` doit suivre cette structure :
+Le fichier `.txt` ou `{Country}_format.txt` doit suivre cette structure :
 
 ```markdown
-# {NOM_DU_PAYS}
+{NOM_DU_PAYS} — FORMAT OFFICIEL ETHNIAFRICA (Version enrichie)
 
-## PAYS
+1. NOM DU PAYS
+   {Nom du pays}
 
-### Anciennes appellations
+2. ANCIENNES APPELLATIONS ET HISTOIRE DES NOMS
 
-- Nom 1
-- Nom 2
-- Nom 3
+- Période 1 : Nom1, Nom2, Nom3
+- Période 2 : Nom4, Nom5
 
-### Description
+3. RÉSUMÉ HISTORIQUE (PRÉCOLONIAL → COLONIAL → MODERNE)
+   Description historique complète du pays...
 
-Description complète du pays...
+4. RÉSUMÉ DÉTAILLÉ DES GROUPES ETHNIQUES
 
-## ETHNIES
+- Groupe 1 : Description...
+- Groupe 2 : Description...
 
-### {Nom de l'ethnie}
+5. POPULATIONS ESTIMÉES 2025
 
-**Ancien nom**: Nom1, Nom2, Nom3
-**Description**: Description de l'ethnie...
+- Groupe 1 : ~X millions
+- Groupe 2 : ~Y millions
+
+6. NOTES / POINTS IMPORTANTS
+
+- Note 1
+- Note 2
 ```
+
+**Sections extraites** :
+
+- **Section 2** : Anciennes appellations (format structuré avec périodes)
+- **Section 3** : Résumé historique (description du pays)
+- **Section 4** : Résumé détaillé des groupes ethniques
+- **Section 6** : Notes et points importants
 
 ## Détection des sous-groupes
 
@@ -156,8 +170,12 @@ tsx scripts/parseCountryDescriptions.ts
 
 Ce script :
 
-- Parse tous les fichiers `.txt`
-- Extrait les descriptions et anciens noms
+- Parse tous les fichiers `.txt` ou `{Country}_format.txt`
+- Extrait les sections suivantes :
+  - **Section 2** : Anciennes appellations et histoire des noms
+  - **Section 3** : Résumé historique (précolonial → colonial → moderne)
+  - **Section 4** : Résumé détaillé des groupes ethniques
+  - **Section 6** : Notes / Points importants
 - Génère des fichiers JSON dans `dataset/parsed/`
 
 ### 4. Matcher CSV et descriptions
@@ -218,15 +236,31 @@ Les scripts utilisent `ON CONFLICT` pour mettre à jour les données existantes.
 
 Si vous souhaitez réinitialiser complètement la base de données avec de nouvelles données :
 
-1. **Réinitialiser la base de données** (supprime toutes les données existantes) :
+1. **Supprimer les dossiers générés** :
 
    ```bash
-   tsx scripts/resetDatabase.ts
+   rm -rf dataset/matched dataset/parsed
+   mkdir -p dataset/matched dataset/parsed
    ```
 
-   ⚠️ **ATTENTION** : Ce script supprime TOUTES les données de la base de données !
+2. **Réinitialiser la base de données** (supprime toutes les données existantes) :
 
-2. **Puis exécuter les scripts de migration** :
+   Exécutez cette requête SQL via Supabase ou via MCP :
+
+   ```sql
+   TRUNCATE TABLE ethnic_group_sources CASCADE;
+   TRUNCATE TABLE ethnic_group_languages CASCADE;
+   TRUNCATE TABLE ethnic_group_presence CASCADE;
+   TRUNCATE TABLE ethnic_groups CASCADE;
+   TRUNCATE TABLE countries CASCADE;
+   TRUNCATE TABLE african_regions CASCADE;
+   TRUNCATE TABLE languages CASCADE;
+   TRUNCATE TABLE sources CASCADE;
+   ```
+
+   ⚠️ **ATTENTION** : Cette opération supprime TOUTES les données de la base de données !
+
+3. **Puis exécuter les scripts de migration** :
    ```bash
    tsx scripts/parseEnrichedCountryCSV.ts
    tsx scripts/parseCountryDescriptions.ts
@@ -235,6 +269,8 @@ Si vous souhaitez réinitialiser complètement la base de données avec de nouve
    ```
 
 Cette approche est recommandée lorsque vous avez ajouté de nouveaux fichiers ou modifié significativement la structure des données.
+
+**Note** : Les dossiers `dataset/matched/` et `dataset/parsed/` sont ignorés par git (voir `.gitignore`). Ils contiennent des fichiers générés automatiquement et ne doivent pas être versionnés.
 
 ## Notes importantes
 

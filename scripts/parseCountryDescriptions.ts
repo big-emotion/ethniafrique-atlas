@@ -12,6 +12,8 @@ interface ParsedCountryDescription {
   region: string;
   ancientNames: AncientNameEntry[]; // Max 3 entrées
   description: string;
+  ethnicGroupsSummary?: string; // Section 4
+  notes?: string; // Section 6
   ethnicities: ParsedEthnicityDescription[];
 }
 
@@ -123,6 +125,8 @@ function parseDescriptionFile(
     region,
     ancientNames: [],
     description: "",
+    ethnicGroupsSummary: undefined,
+    notes: undefined,
     ethnicities: [],
   };
 
@@ -130,8 +134,15 @@ function parseDescriptionFile(
   let currentEthnicity: ParsedEthnicityDescription | null = null;
   let collectingDescription = false;
   let collectingAncientNames = false;
+  let collectingEthnicGroupsSummary = false;
+  let collectingNotes = false;
   let descriptionLines: string[] = [];
+  let ethnicGroupsSummaryLines: string[] = [];
+  let notesLines: string[] = [];
   let ancientNamesSectionEnd = -1;
+  let descriptionSectionEnd = -1;
+  let ethnicGroupsSummarySectionEnd = -1;
+  let notesSectionEnd = -1;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -141,14 +152,104 @@ function parseDescriptionFile(
       currentSection = "country";
       collectingDescription = false;
       collectingAncientNames = false;
+      collectingEthnicGroupsSummary = false;
+      collectingNotes = false;
       descriptionLines = [];
       continue;
     }
 
-    // Détecter la section ETHNIES (mais pas si on est en train de collecter les anciens noms)
-    // Ne pas passer en mode ethnicities si on est en train de collecter les anciens noms
+    // Détecter la section 3 : RÉSUMÉ HISTORIQUE
+    if (
+      line.match(/^3\.\s*RÉSUMÉ\s+HISTORIQUE/i) ||
+      line.match(/^3\.\s*Résumé\s+historique/i)
+    ) {
+      // S'assurer qu'on est en mode country
+      if (!currentSection) {
+        currentSection = "country";
+      }
+      collectingDescription = true;
+      collectingAncientNames = false;
+      collectingEthnicGroupsSummary = false;
+      collectingNotes = false;
+      descriptionLines = [];
+      descriptionSectionEnd = -1;
+
+      // Chercher où se termine la section (prochaine section numérotée)
+      for (let j = i + 1; j < lines.length && j < i + 200; j++) {
+        if (
+          lines[j].match(/^4\./) ||
+          lines[j].match(/^5\./) ||
+          lines[j].match(/^6\./) ||
+          lines[j].match(/^#+\s*ETHNIES/i) ||
+          lines[j].match(/GROUPE[S]?\s+ETHNIQUE[S]?/i)
+        ) {
+          descriptionSectionEnd = j;
+          break;
+        }
+      }
+      continue;
+    }
+
+    // Détecter la section 4 : RÉSUMÉ DÉTAILLÉ DES GROUPES ETHNIQUES
+    if (
+      line.match(/^4\.\s*RÉSUMÉ\s+DÉTAILLÉ\s+DES\s+GROUPES\s+ETHNIQUES/i) ||
+      line.match(/^4\.\s*Résumé\s+détaillé\s+des\s+groupes\s+ethniques/i)
+    ) {
+      collectingEthnicGroupsSummary = true;
+      collectingDescription = false;
+      collectingAncientNames = false;
+      collectingNotes = false;
+      ethnicGroupsSummaryLines = [];
+      ethnicGroupsSummarySectionEnd = -1;
+
+      // Chercher où se termine la section (prochaine section numérotée)
+      for (let j = i + 1; j < lines.length && j < i + 200; j++) {
+        if (
+          lines[j].match(/^5\./) ||
+          lines[j].match(/^6\./) ||
+          lines[j].match(/^#+\s*ETHNIES/i) ||
+          lines[j].match(/GROUPE[S]?\s+ETHNIQUE[S]?/i)
+        ) {
+          ethnicGroupsSummarySectionEnd = j;
+          break;
+        }
+      }
+      continue;
+    }
+
+    // Détecter la section 6 : NOTES / POINTS IMPORTANTS
+    if (
+      line.match(/^6\.\s*NOTES\s*\/\s*POINTS\s*IMPORTANTS/i) ||
+      line.match(/^6\.\s*Notes\s*\/\s*Points\s*importants/i) ||
+      line.match(/^6\.\s*NOTES/i) ||
+      line.match(/^6\.\s*Notes/i)
+    ) {
+      collectingNotes = true;
+      collectingDescription = false;
+      collectingAncientNames = false;
+      collectingEthnicGroupsSummary = false;
+      notesLines = [];
+      notesSectionEnd = -1;
+
+      // Chercher où se termine la section (fin de fichier ou prochaine section majeure)
+      for (let j = i + 1; j < lines.length && j < i + 200; j++) {
+        if (
+          lines[j].match(/^[1-9]\./) ||
+          lines[j].match(/^#+\s*ETHNIES/i) ||
+          lines[j].match(/GROUPE[S]?\s+ETHNIQUE[S]?/i)
+        ) {
+          notesSectionEnd = j;
+          break;
+        }
+      }
+      continue;
+    }
+
+    // Détecter la section ETHNIES (mais pas si on est en train de collecter les anciens noms ou la description)
+    // Ne pas passer en mode ethnicities si on est en train de collecter les anciens noms ou la description
     if (
       !collectingAncientNames &&
+      !collectingDescription &&
       currentSection !== "ethnicities" &&
       (line.match(/^#+\s*ETHNIES/i) ||
         line.match(/GROUPE[S]?\s+ETHNIQUE[S]?/i) ||
@@ -377,8 +478,38 @@ function parseDescriptionFile(
       }
 
       // Collecter la description
-      if (collectingDescription && line && !line.match(/^#/)) {
-        descriptionLines.push(line);
+      if (collectingDescription) {
+        // Arrêter si on a atteint la fin de la section
+        if (descriptionSectionEnd > 0 && i >= descriptionSectionEnd) {
+          collectingDescription = false;
+        } else if (line && !line.match(/^#/) && !line.match(/^[1-9]\./)) {
+          descriptionLines.push(line);
+        }
+      }
+
+      // Collecter la section 4 : Résumé détaillé des groupes ethniques
+      if (collectingEthnicGroupsSummary) {
+        // Arrêter si on a atteint la fin de la section
+        if (
+          ethnicGroupsSummarySectionEnd > 0 &&
+          i >= ethnicGroupsSummarySectionEnd
+        ) {
+          collectingEthnicGroupsSummary = false;
+        } else if (line && !line.match(/^[1-9]\./)) {
+          // Conserver toutes les lignes (y compris les puces)
+          ethnicGroupsSummaryLines.push(line);
+        }
+      }
+
+      // Collecter la section 6 : Notes / Points importants
+      if (collectingNotes) {
+        // Arrêter si on a atteint la fin de la section
+        if (notesSectionEnd > 0 && i >= notesSectionEnd) {
+          collectingNotes = false;
+        } else if (line && !line.match(/^[1-9]\./)) {
+          // Conserver toutes les lignes (y compris les puces)
+          notesLines.push(line);
+        }
       }
     }
 
@@ -454,6 +585,16 @@ function parseDescriptionFile(
 
   // Finaliser la description du pays
   result.description = descriptionLines.join("\n").trim();
+
+  // Finaliser la section 4 : Résumé détaillé des groupes ethniques
+  if (ethnicGroupsSummaryLines.length > 0) {
+    result.ethnicGroupsSummary = ethnicGroupsSummaryLines.join("\n").trim();
+  }
+
+  // Finaliser la section 6 : Notes / Points importants
+  if (notesLines.length > 0) {
+    result.notes = notesLines.join("\n").trim();
+  }
 
   // Si pas de description trouvée, essayer de la trouver autrement
   if (!result.description && currentSection === "country") {
@@ -549,6 +690,12 @@ function main() {
           console.log(
             `    - ${parsedDescription.ethnicities.length} ethnies avec descriptions`
           );
+          if (parsedDescription.ethnicGroupsSummary) {
+            console.log(`    - Section 4 (Résumé détaillé) trouvée`);
+          }
+          if (parsedDescription.notes) {
+            console.log(`    - Section 6 (Notes) trouvée`);
+          }
         }
       } catch (error) {
         console.error(

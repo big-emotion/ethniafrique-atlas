@@ -20,6 +20,8 @@ export interface Country {
   percentage_in_africa?: number;
   description?: string;
   ancient_names?: string | unknown; // JSONB ou TEXT contenant du JSON
+  ethnic_groups_summary?: string; // Section 4
+  notes?: string; // Section 6
   created_at: string;
   updated_at: string;
 }
