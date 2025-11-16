@@ -1,0 +1,40 @@
+# Nom du peuple
+- Nom principal : Bété
+- Auto-appellation : Bété
+- Famille linguistique : Niger-Congo – Krou
+- Région historique : Centre-Ouest de la Côte d’Ivoire (Gagnoa, Issia)
+- Pays actuels : Côte d’Ivoire
+- Identifiant peuple : PPL_BETE
+
+# 1. Ethnies incluses
+- Bété Gagnoa
+- Bété Daloa
+- Bété Oumé
+
+# 2. Origines
+- Peuple forestier ancien de la région centrale ivoirienne.
+- Liens historiques avec les groupes krou et wê.
+
+# 3. Organisation
+- Structures lignagères.
+- Chefferies locales.
+
+# 4. Langue
+- Bété
+- ISO : beb, btv (plusieurs variétés)
+
+# 5. Culture
+- Masques forestiers
+- Musique traditionnelle percussive
+- Rites de bois sacrés
+
+# 6. Histoire
+- Conflits et alliances anciennes avec les Wè et les Gouro.
+
+# 7. Démographie
+- Population : 2 500 000
+- Année : 2025
+
+# 8. Sources
+- Ethnologue
+- Côte d'Ivoire Archives culturelles

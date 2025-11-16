@@ -1,0 +1,48 @@
+# Nom du peuple
+- Nom principal du peuple : Yoruba
+- Auto-appellation : Yorùbá (Yorùbá ènìyàn)
+- Exonymes / appellations historiques : « Nago » (terme colonial, connotation réductrice) ; « Aku » (diaspora, Sierra Leone)
+- Famille linguistique principale : Bénoué-Congo (Nigéro-Congo)
+- Groupe ethno-linguistique : Volta-Congo → Yoruboïde
+- Région historique : Sud-Ouest du Nigeria (Forêt–Savane)
+- Pays actuels : Nigeria, Bénin, Togo, Ghana, diaspora afro-atlantique
+- Identifiant peuple (ID) : PPL_YORUBA
+
+# 1. Ethnies incluses dans le peuple
+- Ọ̀yọ́
+- Èkìtì
+- Ìjẹ̀ṣà
+
+# 2. Origines, migrations et formation du peuple
+- Origine à Ilé-Ifẹ̀.
+- Expansion historique via le royaume d’Oyo.
+- Consolidation par réseaux marchands et cultuels orisha.
+
+# 3. Organisation et structure interne
+- Royaumes (Oyo, Ife), cités-États.
+- Lignages patrilinéaires (ídìlé).
+- Conseils de notables.
+
+# 4. Langues et sous-familles
+- Langue principale : Yorùbá (ISO 639-3 : yor)
+- Dialectes : Oyo, Ijebu, Ekiti, Ife, Egba, etc.
+
+# 5. Culture, rites et traditions
+- Culte des orisha.
+- Divination Ifá.
+- Masques Gẹ̀lẹ̀dẹ̀, tambours dùndún.
+
+# 6. Rôle historique et interactions régionales
+- Royaume d’Oyo.
+- Relations : Edo, Fon, Nupe, Igbo.
+- Diaspora atlantique : candomblé, santería.
+
+# 7. Démographie globale
+- Population totale : 48 482 000
+- Répartition : Nigeria (principal), Bénin, Togo, Ghana
+- Année : 2025
+- Source : peuple_demographie_globale.csv
+
+# 8. Sources
+- Encyclopedia Africana ; Ifé studies
+- Ethnologue ; Glottolog

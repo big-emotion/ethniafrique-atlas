@@ -1,0 +1,38 @@
+# Nom du peuple
+- Nom principal : Efik
+- Auto-appellation : Efik
+- Famille linguistique : Niger-Congo – Bénoué-Congo (Cross-River)
+- Région historique : Nigeria (Calabar, Cross River)
+- Identifiant peuple : PPL_EFIK
+
+# 1. Ethnies incluses
+- Efik du littoral
+- Communautés Efik historiques de Calabar
+
+# 2. Origines
+- Peuple côtier issu de migrations anciennes depuis le Cameroun.
+
+# 3. Organisation
+- Société secrète Ekpe (Ngbe)
+- Chefferies lignagères
+
+# 4. Langue
+- Efik
+- ISO : efi
+
+# 5. Culture
+- Masques *Ekpe*
+- Rituels du Léopard
+- Gastronomie locale (poissons, épices)
+
+# 6. Histoire
+- Calabar fut un port majeur du commerce atlantique.
+- Influence Efik sur le rite « Abakuá » (Cuba) via diaspora.
+
+# 7. Démographie
+- Population : 350 000
+- Année : 2025
+
+# 8. Sources
+- Ethnologue (efi)
+- Calabar Historical Records

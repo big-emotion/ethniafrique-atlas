@@ -1,0 +1,43 @@
+# Nom du peuple
+- Nom principal du peuple : Bambara
+- Auto-appellation : Bamana
+- Exonymes historiques :
+  - « Bambara » (forme coloniale ; non péjorative mais extérieure)
+- Famille linguistique : Niger-Congo – Mandé occidental
+- Région historique : Mali (Bamako, Ségou, Koulikoro)
+- Pays actuels : Mali, Burkina Faso, Côte d’Ivoire, Guinée
+- Identifiant peuple : PPL_BAMBARA
+
+# 1. Ethnies incluses
+- Bamana de Ségou
+- Bamana de Koulikoro
+- Bamana de Dioïla
+
+# 2. Origines
+- Héritiers du royaume de Ségou (XVIIIe siècle).
+- Peuplement mandé ancien du Haut Niger.
+
+# 3. Organisation
+- Système lignager patrilinéaire.
+- Sociétés initiatiques (*Komo*, *Nama*).
+
+# 4. Langue
+- Bambara (bamanankan)
+- ISO : bam
+
+# 5. Culture
+- Masques rituels.
+- Grande tradition musicale (balafon, ngoni).
+- Culte des ancêtres.
+
+# 6. Histoire
+- Royaume bambara de Ségou.
+- Résistance à l'expansion islamique puis coloniale.
+
+# 7. Démographie
+- Population : 7 787 000
+- Année : 2025
+
+# 8. Sources
+- Ethnologue (bam)
+- PeopleGroups / Joshua Project

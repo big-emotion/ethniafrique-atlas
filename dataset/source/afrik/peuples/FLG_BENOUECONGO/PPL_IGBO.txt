@@ -1,0 +1,46 @@
+# Nom du peuple
+- Nom principal du peuple : Igbo
+- Auto-appellation : Ǹdị́ Ìgbò
+- Exonymes / appellations historiques : « Ibo » (terme colonial réducteur)
+- Famille linguistique principale : Bénoué-Congo
+- Groupe ethno-linguistique : Volta-Congo → Igboïde
+- Région historique : Forêt orientale du Nigeria
+- Pays actuels : Nigeria, Cameroun, Guinée Éq., diaspora
+- Identifiant peuple (ID) : PPL_IGBO
+
+# 1. Ethnies incluses dans le peuple
+- Onicha
+- Ngwa
+- Aro
+
+# 2. Origines, migrations et formation du peuple
+- Histoire ancienne liée aux cités-États igbo.
+- Réseaux Aro comme système marchand et religieux.
+
+# 3. Organisation et structure interne
+- Sociétés lignagères segmentaires.
+- Titulature Ozo, Ndi Nze.
+- Organisation villageoise.
+
+# 4. Langues et sous-familles
+- Langue principale : Igbo (ISO 639-3 : ibo)
+- Variantes : Ngwa, Owerri, Onitsha.
+
+# 5. Culture, rites et traditions
+- Masques mmanwu.
+- Festivals New Yam.
+- Panthéon Ala et Chukwu.
+
+# 6. Rôle historique et interactions régionales
+- Réseaux marchands Aro.
+- Relations Igbo–Ijo–Ibibio.
+
+# 7. Démographie globale
+- Population totale : 39 365 000
+- Pays : Nigeria principalement
+- Année : 2025
+- Source : peuple_demographie_globale.csv
+
+# 8. Sources
+- Nigerian Ethnographic Survey
+- Ethnologue ; ALCAM

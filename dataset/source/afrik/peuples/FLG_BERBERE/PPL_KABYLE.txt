@@ -1,0 +1,53 @@
+# Nom du peuple
+- Nom principal du peuple : Kabyle
+- Auto-appellation : Leqbayel / Iqbayliyen
+- Exonymes / appellations historiques :
+  - « Kabyle » (exonyme arabe devenu courant ; non péjoratif mais issu d’une classification extérieure)
+  - « Berbère » (terme colonial, considéré problématique ; auto-appellation correcte : Amazigh / Imazighen)
+- Famille linguistique principale : Afro-asiatique – Berbère (Amazigh)
+- Groupe ethno-linguistique : Berbère du Nord (branche zenatienne)
+- Région historique : Kabylie (nord de l’Algérie, massif de l’Atlas tellien)
+- Pays actuels : Algérie (principal), diaspora mondiale
+- Identifiant peuple (ID) : PPL_KABYLE
+
+# 1. Ethnies incluses dans le peuple
+- Kabyles de la Grande Kabylie
+- Kabyles de la Petite Kabylie
+- Kabyles du Djurdjura
+
+# 2. Origines, migrations et formation du peuple
+- Présence amazighe antique dans le massif kabyle.
+- Consolidation d’une identité régionale forte dès l’Antiquité et le Moyen Âge.
+- Résistance historique aux dominations extérieures (romaine, ottomane, française).
+
+# 3. Organisation et structure interne
+- Organisation par villages (thaddart) et assemblées (tajmaât).
+- Structures familiales lignagères.
+- Fort attachement aux systèmes d’autogestion communautaire.
+
+# 4. Langues et sous-familles
+- Langue principale : Kabyle (tamaziɣt taqbaylit)
+- Code ISO : kab
+- Branche : Berbère nord (Zenati)
+
+# 5. Culture, rites et traditions
+- Musique kabyle (chaâbi kabyle, poésie).
+- Arts : bijoux, poterie, tissage.
+- Fêtes amazighes : Yennayer, Thafsut.
+- Tradition orale importante (contes, proverbes).
+
+# 6. Rôle historique et interactions régionales
+- Participation majeure aux résistances anti-coloniales (Abdelkader, Mokrani).
+- Centres de réformes culturelles amazighes (mouvement identitaire).
+- Rôle politique dans l’histoire moderne algérienne.
+
+# 7. Démographie globale
+- Population totale : 10 000 000
+- Répartition : Algérie (principal), diaspora
+- Année de référence : 2025
+- Source : peuple_demographie_globale.csv
+
+# 8. Sources
+- CNRS Berbères
+- Ethnologue (kab)
+- travaux de Salem Chaker

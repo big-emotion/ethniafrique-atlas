@@ -58,6 +58,8 @@ build
 # OS
 Thumbs.db
 .DS_Store
+**/.DS_Store
+*.DS_Store
 
 # Misc
 *.local
@@ -70,6 +72,9 @@ dataset/*
 !dataset/source/
 dataset/source/*
 !dataset/source/**/*
+# Ignorer les fichiers système dans dataset
+dataset/**/.DS_Store
+dataset/**/*.DS_Store
 # Ignorer les dossiers générés
 dataset/matched/
 dataset/parsed/
