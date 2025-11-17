@@ -1,0 +1,79 @@
+# Nom du peuple
+- Nom principal du peuple : Dyula
+- Auto-appellation : Jula / Dyula
+- Exonymes / appellations historiques : Dyula (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Mandé occidental
+- Région historique : Côte d'Ivoire, Burkina Faso, Mali
+- Pays actuels : Côte d'Ivoire, Burkina Faso, Mali
+- Identifiant peuple (ID) : PPL_DYULA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Dyula commerçants
+- Ethnie 2 : Dyula de Kong
+- Ethnie 3 : Dyula du Worodougou
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Marchands mandé islamisés dès le Moyen Âge. Diffusion le long des routes commerciales transsahariennes.
+- Routes migratoires : 
+  - Diffusion le long des routes commerciales transsahariennes
+  - Expansion vers la Côte d'Ivoire, le Burkina Faso et le Mali
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes commerciaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Influence profonde de l'islam, rôle majeur dans les réseaux commerciaux transsahariens.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Structure marchande. Leadership religieux (imams dyula). Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances commerciales.
+- Autorité religieuse : Autorité des imams dyula et des oulémas. L'islam sunnite structure la vie sociale.
+
+# 4. Langues et sous-familles
+- Langue principale : Dyula
+- Codes ISO : dyu (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le dyula est parlé par la majorité des Dyula. Il sert de langue véhiculaire dans certaines régions. Le français et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Célébrations religieuses islamiques (Ramadan, Aïd)
+  - Rites de passage (circoncision, fêtes de naissance)
+  - Cérémonies commerciales
+- Symboles : Symboles commerciaux, symboles islamiques
+- Arts et musique : 
+  - Musiques mandingues
+  - Artisanat
+  - Littérature islamique
+- Spiritualités : Islam ancien. Rôle central de l'islam dans la culture dyula.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Fondation du royaume de Kong
+  - Organisation en groupes commerciaux
+- Relations avec peuples voisins : 
+  - Relations avec les peuples mandé
+  - Interactions avec les peuples akan
+  - Contacts commerciaux transsahariens
+- Conflits / alliances : 
+  - Rôle crucial dans le commerce sahélien
+  - Participation aux mouvements politiques
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora dyula dans les grandes villes d'Afrique de l'Ouest et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 1 900 000
+- Répartition par pays : 
+  - Côte d'Ivoire : 1 200 000
+  - Burkina Faso : 400 000
+  - Mali : 300 000
+- Année de référence : 2025
+- Source : Ethnologue (dyu), Manding Historical Archives
+
+# 8. Sources
+- SIL Ethnologue – Dyula language (dyu)
+- Manding Historical Archives
+- CIA World Factbook
+- Recensements nationaux
+

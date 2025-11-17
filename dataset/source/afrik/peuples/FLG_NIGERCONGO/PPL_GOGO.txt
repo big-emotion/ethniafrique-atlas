@@ -1,0 +1,83 @@
+# Nom du peuple
+- Nom principal du peuple : Gogo
+- Auto-appellation : Wagogo
+- Exonymes / appellations historiques : Gogo (neutre)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantous de Tanzanie centrale
+- Région historique : Dodoma, Manyoni, Mpwapwa
+- Pays actuels : Tanzanie
+- Identifiant peuple (ID) : PPL_GOGO
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Wagogo du Nord (Mpwapwa)
+- Ethnie 2 : Wagogo du Sud (Manyoni)
+- Ethnie 3 : Sous-groupes pastoraux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Populations bantoues anciennes du centre tanzanien. Migrations internes liées aux cycles pastoraux.
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers le centre de la Tanzanie
+  - Migrations internes liées aux cycles pastoraux
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Tradition pastorale forte.
+- Influences externes : Relations anciennes avec Nyamwezi et Hehe. Zone stratégique de caravanes au XIXe siècle.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Chef traditionnel (mtani). Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Lignages familiaux saisis autour du bétail. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances pastorales.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Cigogo / Gogo
+- Codes ISO : gog (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le gogo est parlé par la majorité des Gogo. Le swahili, l'anglais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Rituels pastoraux
+  - Danses collectives
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'élevage
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symbolique du bétail, symboles liés à l'élevage, symboles culturels gogo
+- Arts et musique : 
+  - Danses collectives
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations anciennes avec Nyamwezi et Hehe
+  - Interactions avec les autres peuples bantous
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Zone stratégique de caravanes au XIXe siècle
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora gogo dans les grandes villes tanzaniennes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 2 000 000
+- Répartition par pays : 
+  - Tanzanie : 2 000 000
+- Année de référence : 2025
+- Source : peuple_demographie_globale.csv (PPL_GOGO)
+
+# 8. Sources
+- SIL Ethnologue – Gogo language (gog)
+- Tanzania National Bureau
+- CIA World Factbook – Tanzania
+- Recensements tanzaniens
+

@@ -1,0 +1,78 @@
+# Nom du peuple
+- Nom principal du peuple : Edo / Bini
+- Auto-appellation : Edo
+- Exonymes / appellations historiques : Edo (terme utilisé par les Européens), Bini (variante)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bénoué-Congo (Edoïde)
+- Région historique : Nigeria (Edo State)
+- Pays actuels : Nigeria
+- Identifiant peuple (ID) : PPL_EDO
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Communautés Edo du royaume de Bénin
+- Ethnie 2 : Sous-groupes urbains et ruraux
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Peuple fondateur du royaume du Bénin (XIᵉ–XIXᵉ siècle). Civilisation réputée pour ses bronzes.
+- Routes migratoires : 
+  - Installation dans la région de l'actuel Edo State
+  - Expansion vers les zones environnantes
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Formation du royaume du Bénin. Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Contact ancien avec les Portugais (XVe siècle), influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Monarchie (Oba d'Edo). Chefferies hautement structurées. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Edo (Bini)
+- Codes ISO : bin (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : L'edo est parlé par la majorité des Edo. L'anglais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cultes royaux
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à la royauté
+- Symboles : Bronzes du Bénin, symboles royaux
+- Arts et musique : 
+  - Bronzes du Bénin
+  - Masques et têtes d'Ifé (liens culturels)
+  - Musique traditionnelle
+  - Danse traditionnelle
+- Spiritualités : Croyances traditionnelles, syncrétisme avec le christianisme.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Royaume du Bénin (XIᵉ–XIXᵉ siècle)
+  - Organisation en chefferies traditionnelles
+- Relations avec peuples voisins : 
+  - Relations avec les peuples voisins
+  - Interactions avec les Yoruba
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Royaume puissant influençant toute la zone méridionale du Nigeria
+  - Contact ancien avec les Portugais (XVe siècle)
+  - Participation aux mouvements politiques
+- Diaspora : Diaspora edo dans les grandes villes nigérianes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 3 800 000
+- Répartition par pays : 
+  - Nigeria : 3 800 000
+- Année de référence : 2025
+- Source : Ethnologue (bin), Edo Royal Archives (Benin Kingdom)
+
+# 8. Sources
+- SIL Ethnologue – Edo language (bin)
+- Edo Royal Archives (Benin Kingdom)
+- CIA World Factbook – Nigeria
+- Recensements nationaux
+

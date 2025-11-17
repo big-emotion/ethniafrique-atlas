@@ -1,0 +1,97 @@
+# Nom du peuple
+- Nom principal du peuple : Fula (Sahel)
+- Auto-appellation : Fulɓe (pluriel), Pullo (singulier)
+- Exonymes / appellations historiques : 
+  - « Fula » (forme anglophone)
+  - « Peul » (terme français)
+  - « Fulani » (terme haoussa, également utilisé)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Atlantique (branche sénégambienne)
+- Région historique : Bande sahélienne de l'Atlantique au Tchad
+- Pays actuels : Sénégal, Mali, Burkina Faso, Niger, Nigeria, Cameroun, Tchad, et autres pays sahéliens
+- Identifiant peuple (ID) : PPL_FULA_SAHEL
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Fulɓe Toroɓe (Fouta Toro, Sénégal/Mauritanie)
+- Ethnie 2 : Fulɓe du Sahel central
+- Ethnie 3 : Fulɓe du Sahel oriental
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Fula du Sahel sont originaires de la bande sahélienne. Leur présence dans cette région remonte à plusieurs siècles. Ils font partie du groupe Atlantique de la famille Niger-Congo.
+- Routes migratoires : 
+  - Expansion pastorale vers l'est (Sahel) entre le XVe et XVIIIe siècles
+  - Migrations depuis le Fouta Toro et le Fouta Djallon vers le Mali, Burkina Faso, Niger
+  - Expansion vers le Nigeria et le Cameroun
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Adaptation aux environnements sahéliens.
+- Influences externes : Influence profonde de l'islam, rôle majeur dans les réseaux islamiques du Sahel. Contacts avec les peuples mandé, haoussa, et autres groupes sahéliens.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies dirigées par des chefs traditionnels (Ardo). Systèmes étatiques historiques (émirats, sultanats). Organisation en classes d'âge.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages. Hiérarchie lignagère importante.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des oulémas (savants religieux) et des chefs religieux. L'islam sunnite (majoritairement malékite) structure la vie sociale. Grande tradition islamique savante.
+
+# 4. Langues et sous-familles
+- Langue principale : Fulfulde / Pulaar / Pular
+- Codes ISO : ful (ISO 639-3), fub, fuc, fuf, fuh
+- Dialectes : 
+  - Pulaar (Sénégal, Mauritanie)
+  - Fulfulde (Mali, Burkina Faso, Niger, Nigeria, Cameroun, Tchad)
+  - Variantes régionales sahéliennes
+- Rôle véhiculaire : Le fulfulde/pulaar est parlé par la majorité des Fula du Sahel. Il sert de langue véhiculaire dans certaines régions du Sahel. L'arabe, le français et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Célébrations religieuses islamiques (Ramadan, Aïd)
+  - Rites de passage (circoncision, fêtes de naissance)
+  - Cérémonies pastorales liées au bétail
+  - Pèlerinage à La Mecque (Hajj)
+- Symboles : Bétail (bovins) comme symbole de richesse et de statut. Poésie élogieuse (ɗiogal). Calligraphie arabe. Architecture islamique.
+- Arts et musique : 
+  - Poésie élogieuse traditionnelle (ɗiogal)
+  - Musique traditionnelle (tambours, flûtes)
+  - Danse traditionnelle
+  - Artisanat lié au pastoralisme
+  - Littérature islamique en arabe et en fulfulde
+- Spiritualités : Islam sunnite majoritaire (école malékite). Rôle central de l'islam dans la culture fula. Grande tradition islamique savante.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Fouta Toro (Sénégal/Mauritanie)
+  - État de Sokoto (Nigeria)
+  - Empire de Macina (Mali)
+  - Émirat d'Adamawa (Cameroun/Nigeria)
+- Relations avec peuples voisins : 
+  - Relations avec les Mandinka
+  - Interactions avec les Haoussa
+  - Relations avec les Songhay
+  - Contacts commerciaux avec les peuples de l'intérieur
+- Conflits / alliances : 
+  - Jihads peuls du XIXe siècle (Sokoto, Macina)
+  - Résistance à la colonisation française et britannique
+  - Conflits pastoraux avec groupes agriculteurs
+  - Alliances commerciales et politiques
+  - Conflits contemporains liés au pastoralisme et à l'accès aux ressources
+- Diaspora : Migration vers les grandes villes et la diaspora.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 15 000 000 - 20 000 000
+- Répartition par pays : 
+  - Nigeria : 6 000 000 - 8 000 000
+  - Mali : 1 500 000 - 2 000 000
+  - Niger : 1 200 000 - 1 500 000
+  - Burkina Faso : 800 000 - 1 200 000
+  - Cameroun : 1 000 000 - 1 500 000
+  - Sénégal : 2 000 000 - 3 000 000
+  - Tchad : 400 000 - 600 000
+  - Autres pays : 2 100 000 - 2 200 000
+- Année de référence : 2025
+- Source : Estimations basées sur CIA World Factbook, UNFPA, recensements nationaux, et études démographiques régionales
+
+# 8. Sources
+- SIL Ethnologue – Fulfulde language (ful)
+- CIA World Factbook – Country profiles
+- UNFPA – Sahel population data
+- Last, Murray – *The Sokoto Caliphate*
+- Recensements nationaux
+

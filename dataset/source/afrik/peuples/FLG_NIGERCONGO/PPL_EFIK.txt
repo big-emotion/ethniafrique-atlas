@@ -1,0 +1,79 @@
+# Nom du peuple
+- Nom principal du peuple : Efik
+- Auto-appellation : Efik
+- Exonymes / appellations historiques : Efik (terme utilisé par les Européens), parfois regroupés avec les Ibibio sous le terme "Calabar"
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bénoué-Congo (Cross-River)
+- Région historique : Nigeria (Calabar, Cross River)
+- Pays actuels : Nigeria
+- Identifiant peuple (ID) : PPL_EFIK
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Efik du littoral
+- Ethnie 2 : Communautés Efik historiques de Calabar
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Peuple côtier issu de migrations anciennes depuis le Cameroun.
+- Routes migratoires : 
+  - Migrations depuis le Cameroun
+  - Installation sur le littoral nigérian
+  - Expansion vers Calabar et les zones environnantes
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Relations étroites avec les Ibibio.
+- Influences externes : Contacts avec les commerçants européens (XVIIe-XIXe siècles), influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Société secrète Ekpe (Ngbe). Chefferies lignagères. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Efik
+- Codes ISO : efi (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : L'efik est parlé par la majorité des Efik. L'anglais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Masques Ekpe
+  - Rituels du Léopard
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à la société secrète Ekpe
+- Symboles : Masques Ekpe, symboles du Léopard
+- Arts et musique : 
+  - Masques Ekpe
+  - Gastronomie locale (poissons, épices)
+  - Musique traditionnelle
+  - Danse traditionnelle
+- Spiritualités : Croyances traditionnelles, syncrétisme avec le christianisme.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations étroites avec les Ibibio
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Calabar fut un port majeur du commerce atlantique
+  - Influence Efik sur le rite « Abakuá » (Cuba) via diaspora
+  - Participation aux mouvements politiques
+- Diaspora : Diaspora efik dans les grandes villes nigérianes et dans les pays occidentaux, notamment influence sur les traditions afro-cubaines.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 350 000
+- Répartition par pays : 
+  - Nigeria : 350 000
+- Année de référence : 2025
+- Source : Ethnologue (efi), Calabar Historical Records
+
+# 8. Sources
+- SIL Ethnologue – Efik language (efi)
+- Calabar Historical Records
+- CIA World Factbook – Nigeria
+- Recensements nationaux
+

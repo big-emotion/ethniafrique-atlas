@@ -1,0 +1,65 @@
+# Nom du peuple
+- Nom principal du peuple : Dagomba / Dagbamba
+- Auto-appellation : Dagbamba
+- Exonymes / appellations historiques : Dagomba (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Gur
+- Région historique : Ghana (Nord)
+- Pays actuels : Ghana
+- Identifiant peuple (ID) : PPL_DAGOMBA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Dagomba de Tamale
+- Ethnie 2 : Dagbamba ruraux
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Dagomba sont originaires du nord du Ghana. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe Gur de la famille Niger-Congo. Créateurs du royaume du Dagbon (État historique majeur).
+- Routes migratoires : 
+  - Migrations depuis les régions ouest-africaines
+  - Expansion vers le nord du Ghana
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Formation du royaume du Dagbon. Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Contacts avec les peuples gur voisins, influence de l'islam et du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Monarchie (Na Gbewaa → Yaa Naa). Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Systèmes lignagers complexes. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels, des oulémas musulmans, et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Dagbani
+- Codes ISO : dag (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le dagbani est parlé par la majorité des Dagomba. L'anglais est également utilisé.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Funérailles traditionnelles
+  - Cérémonies royales
+  - Rites de passage
+- Symboles : Musique royale, ensembles de tambours
+- Arts et musique : Musique royale, ensembles de tambours, danses traditionnelles
+- Spiritualités : Croyances traditionnelles, islam, christianisme
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : Un des royaumes précoloniaux les plus importants du Ghana (Dagbon)
+- Relations avec peuples voisins : Relations avec les peuples gur voisins
+- Conflits / alliances : Alliances et conflits historiques avec les peuples voisins
+- Diaspora : Présence dans les grandes villes du Ghana
+
+# 7. Démographie globale
+- Population totale (tous pays) : 3 500 000
+- Répartition par pays : 
+  - Ghana : 3 500 000
+- Année de référence : 2025
+- Source : Ethnologue (dag), Dagbon Kingdom Archives
+
+# 8. Sources
+- Ethnologue (dag)
+- Dagbon Kingdom Archives
+- Ghana Statistical Service
+

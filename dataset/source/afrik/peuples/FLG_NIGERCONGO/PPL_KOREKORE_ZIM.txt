@@ -1,0 +1,81 @@
+# Nom du peuple
+- Nom principal du peuple : Korekore (Zimbabwe)
+- Auto-appellation : Korekore
+- Exonymes / appellations historiques : Korekore (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantou (Zone S)
+- Région historique : Nord du Zimbabwe
+- Pays actuels : Zimbabwe
+- Identifiant peuple (ID) : PPL_KOREKORE_ZIM
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Korekore du Nord
+- Ethnie 2 : Korekore du Sud
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Korekore sont originaires du nord du Zimbabwe. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe bantou (Zone S) et sont liés aux Shona.
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers le nord du Zimbabwe
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune avec les Shona.
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Korekore (dialecte shona)
+- Codes ISO : sna (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le korekore (shona) est parlé par la majorité des Korekore. L'anglais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à l'agriculture, symboles culturels korekore, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples shona
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation britannique
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora korekore dans les grandes villes zimbabwéennes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 1 500 000 - 2 000 000
+- Répartition par pays : 
+  - Zimbabwe : 1 500 000 - 2 000 000
+  - Diaspora : 30 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements zimbabwéens, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Shona language (sna)
+- CIA World Factbook – Zimbabwe
+- Recensements zimbabwéens
+- Études anthropologiques sur les peuples bantous
+

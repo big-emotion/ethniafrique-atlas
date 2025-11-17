@@ -1,0 +1,91 @@
+# Nom du peuple
+- Nom principal du peuple : Nguni
+- Auto-appellation : Nguni
+- Exonymes / appellations historiques : Nguni (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantou (Zone S)
+- Région historique : Afrique du Sud, Eswatini, Lesotho, Zimbabwe, Mozambique
+- Pays actuels : Afrique du Sud, Eswatini, Lesotho, Zimbabwe, Mozambique
+- Identifiant peuple (ID) : PPL_NGUNI
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Nguni d'Afrique du Sud
+- Ethnie 2 : Nguni d'Eswatini
+- Ethnie 3 : Nguni du Lesotho
+- Ethnie 4 : Nguni du Zimbabwe
+- Ethnie 5 : Nguni du Mozambique
+- Ethnie 6 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Nguni sont originaires de la région de l'Afrique du Sud, de l'Eswatini, du Lesotho, du Zimbabwe et du Mozambique. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe bantou (Zone S).
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers l'Afrique du Sud, l'Eswatini, le Lesotho, le Zimbabwe et le Mozambique
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Diversité interne importante.
+- Influences externes : Contacts avec les peuples khoïsan, influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Nguni (groupe de langues)
+- Codes ISO : zul, xho, nbl, ssw (ISO 639-3)
+- Dialectes : 
+  - Zulu
+  - Xhosa
+  - Ndebele
+  - Swati
+  - Variantes régionales
+- Rôle véhiculaire : Les langues nguni sont parlées par la majorité des Nguni. L'anglais, l'afrikaans et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à l'agriculture, symboles culturels nguni, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples bantous
+  - Interactions avec les peuples khoïsan
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation britannique et afrikaner
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora nguni dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 20 000 000 - 25 000 000
+- Répartition par pays : 
+  - Afrique du Sud : 15 000 000 - 18 000 000
+  - Eswatini : 1 200 000 - 1 300 000
+  - Lesotho : 2 000 000 - 2 200 000
+  - Zimbabwe : 1 500 000 - 2 000 000
+  - Mozambique : 500 000 - 500 000
+  - Diaspora : 500 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Nguni languages (zul, xho, nbl, ssw)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples bantous
+

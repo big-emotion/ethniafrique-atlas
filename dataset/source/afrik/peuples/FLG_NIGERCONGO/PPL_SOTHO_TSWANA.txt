@@ -1,0 +1,84 @@
+# Nom du peuple
+- Nom principal du peuple : Sotho-Tswana
+- Auto-appellation : Sotho-Tswana
+- Exonymes / appellations historiques : Sotho-Tswana (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantou (Zone S)
+- Région historique : Lesotho, Afrique du Sud, Botswana
+- Pays actuels : Lesotho, Afrique du Sud, Botswana
+- Identifiant peuple (ID) : PPL_SOTHO_TSWANA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Sotho-Tswana du Lesotho
+- Ethnie 2 : Sotho-Tswana d'Afrique du Sud
+- Ethnie 3 : Sotho-Tswana du Botswana
+- Ethnie 4 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Sotho-Tswana sont originaires de la région du Lesotho, de l'Afrique du Sud et du Botswana. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe bantou (Zone S).
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers le Lesotho, l'Afrique du Sud et le Botswana
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune (Sotho-Tswana).
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Sesotho / Setswana
+- Codes ISO : sot, tsn (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre pays
+- Rôle véhiculaire : Le sesotho/setswana est parlé par la majorité des Sotho-Tswana. L'anglais, l'afrikaans et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à l'agriculture, symboles culturels sotho-tswana, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples bantous
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation britannique et afrikaner
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora sotho-tswana dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 11 000 000 - 13 000 000
+- Répartition par pays : 
+  - Lesotho : 2 000 000 - 2 200 000
+  - Afrique du Sud : 7 500 000 - 9 000 000
+  - Botswana : 1 500 000 - 1 800 000
+  - Diaspora : 200 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Sesotho / Setswana languages (sot, tsn)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples bantous
+

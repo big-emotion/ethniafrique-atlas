@@ -1,0 +1,81 @@
+# Nom du peuple
+- Nom principal du peuple : Yao (Mozambique)
+- Auto-appellation : Yao
+- Exonymes / appellations historiques : Yao (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantou (Zone P)
+- Région historique : Mozambique
+- Pays actuels : Mozambique
+- Identifiant peuple (ID) : PPL_YAO_MOZ
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Yao du Nord
+- Ethnie 2 : Yao du Sud
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Yao du Mozambique sont originaires de la région du Mozambique. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe bantou (Zone P).
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers le Mozambique
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune avec les Yao du Malawi et de Tanzanie.
+- Influences externes : Contacts avec les commerçants arabes et européens, influence de l'islam.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique matrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages matrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des oulémas musulmans. Islam majoritaire.
+
+# 4. Langues et sous-familles
+- Langue principale : Yao
+- Codes ISO : yao (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le yao est parlé par la majorité des Yao du Mozambique. Le portugais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses islamiques
+- Symboles : Symboles liés à l'agriculture, symboles culturels yao, symboles islamiques
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Islam majoritaire. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples bantous
+  - Interactions avec les peuples arabes
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation portugaise
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora yao dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 500 000 - 800 000
+- Répartition par pays : 
+  - Mozambique : 500 000 - 800 000
+  - Diaspora : 10 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Yao language (yao)
+- CIA World Factbook – Mozambique
+- Recensements nationaux
+- Études anthropologiques sur les peuples bantous
+

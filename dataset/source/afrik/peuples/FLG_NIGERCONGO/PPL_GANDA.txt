@@ -1,0 +1,84 @@
+# Nom du peuple
+- Nom principal du peuple : Ganda
+- Auto-appellation : Baganda (pluriel), Muganda (singulier)
+- Exonymes / appellations historiques : Ganda (terme utilisé par les Européens), « Buganda tribe » (terme colonial administratif)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantous des Grands Lacs (Ouganda)
+- Région historique : Royaume du Buganda (région centrale de l'actuelle Ouganda)
+- Pays actuels : Ouganda (principal), petites communautés dans les pays voisins
+- Identifiant peuple (ID) : PPL_GANDA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Groupe ethnique baganda
+- Ethnie 2 : Sous-groupes régionaux du Buganda
+- Ethnie 3 : Autres segments lignagers internes
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Formation progressive autour des rives nord du lac Victoria, à partir de populations bantoues venues du nord-ouest des Grands Lacs.
+- Routes migratoires : 
+  - Mouvements internes autour du lac Victoria
+  - Expansion à partir du noyau central de Buganda
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Unification politique sous la monarchie du Kabaka. Intégration de plusieurs clans et chefferies locales dans un royaume centralisé.
+- Influences externes : Contacts anciens avec Bunyoro, puis avec les commerçants swahili et arabes. Influence britannique à l'époque coloniale.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Monarchie (Kabaka) avec un conseil de chefs (Lukiiko) et une forte centralisation autour de la cour royale.
+- Organisation clanique : Plus de 50 clans reconnus, chacun avec un totem, une histoire et des responsabilités spécifiques.
+- Rôle des lignages : Les lignages structurent la parenté, l'héritage, les alliances matrimoniales et la transmission des fonctions.
+- Autorité religieuse : Autorités spirituelles traditionnelles liées aux esprits (balubaale) et aux sanctuaires, coexistant aujourd'hui avec christianisme et islam.
+
+# 4. Langues et sous-familles
+- Langue principale : Luganda (Ganda)
+- Codes ISO : lug (ISO 639-3)
+- Dialectes : 
+  - Variétés régionales internes (Kibuga – langue de la cour, variétés rurales)
+  - Forte standardisation actuelle
+- Rôle véhiculaire : Langue majeure de communication en Ouganda central. L'une des grandes langues véhiculaires du pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Rites d'initiation
+  - Cérémonies royales du Kabaka
+  - Funérailles très codifiées
+  - Cérémonies de mariage traditionnelles
+  - Cérémonies liées à l'agriculture
+- Symboles : Totems de clans (animaux, plantes), tambours royaux, emblèmes du royaume de Buganda
+- Arts et musique : 
+  - Tambours, harpes
+  - Danses de cour
+  - Chants de louange
+  - Riche tradition orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Anciennes croyances aux balubaale (esprits/ancêtres). Aujourd'hui forte présence du christianisme (catholique et protestant) et de l'islam.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Royaume du Buganda (XVe-XIXe siècles)
+  - L'un des plus puissants États précoloniaux de la région des Grands Lacs
+- Relations avec peuples voisins : 
+  - Relations complexes (alliances, guerres, échanges) avec Bunyoro, Toro, Ankole
+  - Interactions avec les peuples voisins nilotiques et bantous
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Alliances avec la puissance coloniale britannique au XIXe siècle
+  - Participation centrale à la formation de l'État ougandais moderne
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora baganda en Afrique de l'Est et dans les pays d'émigration (Europe, Amérique du Nord).
+
+# 7. Démographie globale
+- Population totale (tous pays) : 8 499 000
+- Répartition par pays : 
+  - Ouganda : 8 499 000
+  - Communautés plus petites dans la région
+- Année de référence : 2025
+- Source : peuple_demographie_globale.csv (PPL_GANDA) + statistiques nationales ougandaises
+
+# 8. Sources
+- SIL Ethnologue – Ganda language (lug)
+- Uganda Bureau of Statistics (UBOS)
+- CIA World Factbook – Uganda
+- Travaux historiques et anthropologiques sur le royaume de Buganda
+- Recensements ougandais
+

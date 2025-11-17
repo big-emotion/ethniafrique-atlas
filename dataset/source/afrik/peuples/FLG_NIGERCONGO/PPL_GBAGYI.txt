@@ -1,0 +1,82 @@
+# Nom du peuple
+- Nom principal du peuple : Gbagyi / Gwari
+- Auto-appellation : Gbagyi
+- Exonymes / appellations historiques : Gbagyi (terme utilisé par les Européens), Gwari (variante)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bénoué-Congo
+- Région historique : Nigeria (FCT Abuja, Niger State, Kaduna)
+- Pays actuels : Nigeria
+- Identifiant peuple (ID) : PPL_GBAGYI
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Gbagyi Ogu
+- Ethnie 2 : Gbagyi Nkwa
+- Ethnie 3 : Gbagyi du centre et du nord
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Ancien peuple agricole de la ceinture centrale du Nigeria. Présents dans la région d'Abuja avant sa création comme capitale.
+- Routes migratoires : 
+  - Migrations depuis les régions intérieures vers les zones actuelles
+  - Expansion vers la région d'Abuja
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme et de l'islam.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Société lignagère. Chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels, des pasteurs chrétiens, et des oulémas musulmans. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Gbagyi
+- Codes ISO : gbr (ISO 639-3)
+- Dialectes : 
+  - Gbagyi Ogu
+  - Gbagyi Nkwa
+  - Dialectes régionaux
+- Rôle véhiculaire : Le gbagyi est parlé par la majorité des Gbagyi. L'anglais, le haoussa et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes et islamiques
+- Symboles : Poterie réputée, masques cérémoniels, symboles liés à l'agriculture
+- Arts et musique : 
+  - Poterie réputée
+  - Masques cérémoniels
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles, christianisme et islam. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples du centre du Nigeria
+  - Interactions avec les peuples haoussa
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Présents dans la région d'Abuja avant sa création comme capitale
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora gbagyi dans les grandes villes nigérianes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 3 500 000
+- Répartition par pays : 
+  - Nigeria : 3 500 000
+- Année de référence : 2025
+- Source : Estimations basées sur recensements nigérians, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Gbagyi language (gbr)
+- CIA World Factbook – Nigeria
+- Central Nigeria Cultural Documentation
+- Recensements nigérians
+

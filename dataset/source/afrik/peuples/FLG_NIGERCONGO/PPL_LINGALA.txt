@@ -1,0 +1,85 @@
+# Nom du peuple
+- Nom principal du peuple : Lingala (locuteurs)
+- Auto-appellation : Lingala
+- Exonymes / appellations historiques : Lingala (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantou (Zone C)
+- Région historique : RDC, Congo, RCA
+- Pays actuels : RDC, Congo, RCA
+- Identifiant peuple (ID) : PPL_LINGALA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Locuteurs lingala de RDC
+- Ethnie 2 : Locuteurs lingala du Congo
+- Ethnie 3 : Locuteurs lingala de RCA
+- Ethnie 4 : Autres locuteurs lingala
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les locuteurs lingala sont originaires de la région de la RDC, du Congo et de la RCA. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe bantou (Zone C). Le lingala est une langue véhiculaire importante.
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers la RDC, le Congo et la RCA
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une langue commune (lingala).
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Lingala
+- Codes ISO : lin (ISO 639-3)
+- Dialectes : 
+  - Lingala standard
+  - Lingala populaire
+  - Variantes régionales
+- Rôle véhiculaire : Le lingala est parlé par de nombreux locuteurs en RDC, au Congo et en RCA. Le français et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à l'agriculture, symboles culturels, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples bantous
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation belge et française
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora lingala dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 15 000 000 - 20 000 000
+- Répartition par pays : 
+  - RDC : 10 000 000 - 12 000 000
+  - Congo : 3 000 000 - 5 000 000
+  - RCA : 2 000 000 - 3 000 000
+  - Diaspora : 500 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Lingala language (lin)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples bantous
+

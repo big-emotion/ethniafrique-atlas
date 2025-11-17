@@ -1,0 +1,80 @@
+# Nom du peuple
+- Nom principal du peuple : Fante
+- Auto-appellation : Fante / Mfantse
+- Exonymes / appellations historiques : Fante (terme utilisé par les Européens), Fanti (variante)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Kwa (sous-groupe Akan)
+- Région historique : Côte du Ghana (Central, Western)
+- Pays actuels : Ghana
+- Identifiant peuple (ID) : PPL_FANTE
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Fante du Central
+- Ethnie 2 : Fante du Western
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Fante sont un sous-groupe akan originaire de la côte du Ghana. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe Kwa de la famille Niger-Congo.
+- Routes migratoires : 
+  - Migrations depuis les régions akan
+  - Installation sur la côte du Ghana
+  - Expansion vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune avec les autres Akan.
+- Influences externes : Contacts avec les commerçants européens (XVIIe-XIXe siècles), influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique matrilinéaire (comme les autres Akan). Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages matrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Fante
+- Codes ISO : fat (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le fante est parlé par la majorité des Fante. L'anglais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies royales
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture et à la pêche
+- Symboles : Symboles akan, symboles maritimes
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Croyances traditionnelles, syncrétisme avec le christianisme.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres Akan (Ashanti, etc.)
+  - Interactions avec les peuples côtiers
+  - Contacts commerciaux avec les Européens
+- Conflits / alliances : 
+  - Rôle majeur dans le commerce côtier
+  - Participation aux mouvements politiques
+  - Conflits territoriaux avec les Ashanti
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora fante dans les grandes villes ghanéennes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 3 000 000 - 4 000 000
+- Répartition par pays : 
+  - Ghana : 3 000 000 - 4 000 000
+- Année de référence : 2025
+- Source : Ethnologue (fat), CIA World Factbook – Ghana
+
+# 8. Sources
+- SIL Ethnologue – Fante language (fat)
+- CIA World Factbook – Ghana
+- Recensements nationaux
+- Études sur les peuples akan
+

@@ -1,0 +1,81 @@
+# Nom du peuple
+- Nom principal du peuple : Tonga (Zimbabwe)
+- Auto-appellation : Tonga
+- Exonymes / appellations historiques : Tonga (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantou (Zone N)
+- Région historique : Zimbabwe
+- Pays actuels : Zimbabwe
+- Identifiant peuple (ID) : PPL_TONGA_ZIM
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Tonga du Nord
+- Ethnie 2 : Tonga du Sud
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Tonga du Zimbabwe sont originaires de la région du Zimbabwe. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe bantou (Zone N).
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers le Zimbabwe
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune avec les Tonga de Zambie, du Malawi et du Mozambique.
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique matrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages matrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Tonga
+- Codes ISO : toi, tog (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le tonga est parlé par la majorité des Tonga du Zimbabwe. L'anglais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à l'agriculture, symboles culturels tonga, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples bantous
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation britannique
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora tonga dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 500 000 - 800 000
+- Répartition par pays : 
+  - Zimbabwe : 500 000 - 800 000
+  - Diaspora : 20 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Tonga languages (toi, tog)
+- CIA World Factbook – Zimbabwe
+- Recensements nationaux
+- Études anthropologiques sur les peuples bantous
+

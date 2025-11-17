@@ -1,0 +1,81 @@
+# Nom du peuple
+- Nom principal du peuple : Ewondo
+- Auto-appellation : Ewondo
+- Exonymes / appellations historiques : Yaunde (orthographe allemande)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Macro-groupe Beti-Pahouin
+- Région historique : Centre du Cameroun (Yaoundé)
+- Pays actuels : Cameroun
+- Identifiant peuple (ID) : PPL_EWONDO
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Ewondo urbains
+- Ethnie 2 : Ewondo ruraux
+- Ethnie 3 : Sous-groupes lignagers régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Origines forestières anciennes. Intégration dans le macro-groupe Beti.
+- Routes migratoires : 
+  - Migrations depuis les régions forestières
+  - Expansion vers le centre du Cameroun
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Interaction avec Fang et Bulu. Influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Chefferies, conseils d'anciens. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Clans lignagers étendus. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Ewondo
+- Codes ISO : ewo (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : L'ewondo est parlé par la majorité des Ewondo. Le français et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Masques pahouin
+  - Rituels lignagers
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+- Symboles : Masques pahouin, symboles culturels ewondo
+- Arts et musique : 
+  - Masques pahouin
+  - Musiques et danses du Centre Cameroun
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Croyances traditionnelles, syncrétisme avec le christianisme.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Interaction avec Fang et Bulu
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Poids historique élevé car Yaoundé est en territoire ewondo
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora ewondo dans les grandes villes camerounaises et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 1 400 000
+- Répartition par pays : 
+  - Cameroun : 1 400 000
+- Année de référence : 2025
+- Source : peuple_demographie_globale.csv (PPL_EWONDO)
+
+# 8. Sources
+- SIL Ethnologue – Ewondo language (ewo)
+- Archives Pahouin
+- CIA World Factbook – Cameroun
+- Recensements nationaux
+

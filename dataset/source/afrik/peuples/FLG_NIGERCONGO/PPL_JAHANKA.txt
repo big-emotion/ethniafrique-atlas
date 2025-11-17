@@ -1,0 +1,81 @@
+# Nom du peuple
+- Nom principal du peuple : Jahanka
+- Auto-appellation : Jahanka
+- Exonymes / appellations historiques : Jahanka (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Mandé (sous-groupe du Mandé occidental)
+- Région historique : Guinée, Mali, Sénégal
+- Pays actuels : Guinée, Mali, Sénégal
+- Identifiant peuple (ID) : PPL_JAHANKA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Jahanka de Guinée
+- Ethnie 2 : Jahanka du Mali
+- Ethnie 3 : Jahanka du Sénégal
+- Ethnie 4 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Jahanka sont originaires de la région de la Guinée, du Mali et du Sénégal. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe mandé.
+- Routes migratoires : 
+  - Migrations depuis les régions intérieures vers les zones actuelles
+  - Expansion vers la Guinée, le Mali et le Sénégal
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Relations avec les peuples voisins (Malinké, Soninké).
+- Influences externes : Contacts avec les peuples voisins, influence de l'islam, et plus récemment de la modernisation.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies dirigées par des chefs traditionnels. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des oulémas musulmans et des chefs religieux. Rôle important de l'islam.
+
+# 4. Langues et sous-familles
+- Langue principale : Jahanka
+- Codes ISO : jad (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre pays
+- Rôle véhiculaire : Le jahanka est parlé par la majorité des Jahanka. Le français, le malinké et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies d'initiation
+  - Rites de passage (naissance, puberté, mariage, mort)
+  - Festivals traditionnels
+  - Cérémonies religieuses islamiques
+- Symboles : Symboles culturels jahanka, symboles islamiques
+- Arts et musique : 
+  - Musique traditionnelle (tambours, flûtes)
+  - Danse traditionnelle
+  - Artisanat (tissage, poterie)
+  - Littérature orale
+- Spiritualités : Islam majoritaire. Rôle important des croyances traditionnelles.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : Organisation en chefferies indépendantes.
+- Relations avec peuples voisins : 
+  - Relations avec les Malinké
+  - Interactions avec les Soninké
+  - Relations commerciales avec les peuples de l'intérieur
+- Conflits / alliances : 
+  - Participation aux mouvements politiques
+  - Conflits territoriaux avec groupes voisins
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora jahanka dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 50 000 - 100 000
+- Répartition par pays : 
+  - Guinée : 30 000 - 50 000
+  - Mali : 15 000 - 30 000
+  - Sénégal : 5 000 - 20 000
+  - Diaspora : 5 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Jahanka language (jad)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples mandé
+

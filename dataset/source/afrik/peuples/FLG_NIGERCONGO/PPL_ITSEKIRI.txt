@@ -1,0 +1,84 @@
+# Nom du peuple
+- Nom principal du peuple : Itsekiri
+- Auto-appellation : Itsekiri
+- Exonymes / appellations historiques : « Jekri » (terme utilisé par les Européens), « Warri » (nom de la ville principale)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Yoruboid (sous-groupe du Bénoué-Congo)
+- Région historique : Delta du Niger, sud-ouest du Nigeria
+- Pays actuels : Nigeria
+- Identifiant peuple (ID) : PPL_ITSEKIRI
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Itsekiri central
+- Ethnie 2 : Itsekiri du Nord
+- Ethnie 3 : Itsekiri du Sud
+- Ethnie 4 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Itsekiri sont originaires de la région du delta du Niger dans le sud-ouest du Nigeria. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe yoruboid et sont liés aux Yoruba.
+- Routes migratoires : 
+  - Migrations depuis les régions intérieures vers les zones côtières
+  - Expansion vers le delta du Niger
+  - Déplacements vers les zones urbaines (Warri, Lagos)
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Relations avec les peuples voisins (Yoruba, Ijaw, Urhobo).
+- Influences externes : Contacts avec les commerçants européens (XVIIe-XIXe siècles), influence du christianisme, et plus récemment de l'islam et de la modernisation.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en royaume traditionnel dirigé par l'Olu de Warri. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité, les droits fonciers et les alliances matrimoniales.
+- Autorité religieuse : Autorité des prêtres traditionnels et des chefs religieux. Rôle important des croyances traditionnelles.
+
+# 4. Langues et sous-familles
+- Langue principale : Itsekiri
+- Codes ISO : its (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : L'itsekiri est parlé par la majorité des Itsekiri. L'anglais est utilisé dans l'éducation et l'administration. Le pidgin english nigérian est également utilisé.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies d'initiation
+  - Rites de passage (naissance, puberté, mariage, mort)
+  - Festivals traditionnels
+  - Cérémonies de réconciliation
+- Symboles : Masques traditionnels, symboles culturels itsekiri, art itsekiri
+- Arts et musique : 
+  - Sculpture sur bois (masques, statues)
+  - Musique traditionnelle (tambours, flûtes)
+  - Danse traditionnelle
+  - Artisanat (tissage, poterie)
+  - Littérature orale
+- Spiritualités : Croyances traditionnelles centrées sur le culte des ancêtres et des esprits. Influence croissante du christianisme (protestantisme majoritaire) et de l'islam.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : Royaume d'Itsekiri (Warri) dirigé par l'Olu de Warri.
+- Relations avec peuples voisins : 
+  - Relations avec les Yoruba
+  - Interactions avec les Ijaw
+  - Relations avec les Urhobo
+  - Relations commerciales avec les peuples de l'intérieur
+  - Contacts avec commerçants européens
+- Conflits / alliances : 
+  - Participation au commerce transatlantique (huile de palme, esclaves)
+  - Résistance à la colonisation britannique
+  - Conflits territoriaux avec groupes voisins
+  - Alliances commerciales et politiques
+  - Conflits liés à l'exploitation pétrolière
+- Diaspora : Diaspora itsekiri dans les grandes villes nigérianes (Lagos, Abuja, Port Harcourt) et dans les pays occidentaux (États-Unis, Royaume-Uni).
+
+# 7. Démographie globale
+- Population totale (tous pays) : 1 000 000 - 1 500 000
+- Répartition par pays : 
+  - Nigeria : 1 000 000 - 1 500 000 (majorité dans l'État du Delta)
+  - Diaspora : 50 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements nigérians, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Itsekiri language (its)
+- CIA World Factbook – Nigeria
+- Recensements nigérians
+- Études anthropologiques sur les peuples yoruboid
+

@@ -1,0 +1,79 @@
+# Nom du peuple
+- Nom principal du peuple : Nankana
+- Auto-appellation : Nankana
+- Exonymes / appellations historiques : Nankana (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Gur
+- Région historique : Ghana
+- Pays actuels : Ghana
+- Identifiant peuple (ID) : PPL_NANKANA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Nankana du Nord
+- Ethnie 2 : Nankana du Sud
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Nankana sont originaires de la région du Ghana. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe gur.
+- Routes migratoires : 
+  - Migrations depuis les régions intérieures vers les zones actuelles
+  - Expansion vers le Ghana
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme et de l'islam.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies dirigées par des chefs traditionnels. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels, des oulémas musulmans et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Nankana
+- Codes ISO : naf (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le nankana est parlé par la majorité des Nankana. L'anglais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies d'initiation
+  - Rites de passage (naissance, puberté, mariage, mort)
+  - Festivals traditionnels
+  - Cérémonies religieuses islamiques et chrétiennes
+- Symboles : Symboles culturels nankana, symboles islamiques et chrétiens
+- Arts et musique : 
+  - Musique traditionnelle (tambours, flûtes)
+  - Danse traditionnelle
+  - Artisanat (tissage, poterie)
+  - Littérature orale
+- Spiritualités : Syncrétisme entre croyances traditionnelles, islam et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : Organisation en chefferies indépendantes.
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples gur
+  - Interactions avec les peuples akan
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation britannique
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora nankana dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 200 000 - 300 000
+- Répartition par pays : 
+  - Ghana : 200 000 - 300 000
+  - Diaspora : 10 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Nankana language (naf)
+- CIA World Factbook – Ghana
+- Recensements nationaux
+- Études anthropologiques sur les peuples gur
+

@@ -1,0 +1,80 @@
+# Nom du peuple
+- Nom principal du peuple : Kroumen
+- Auto-appellation : Kroumen
+- Exonymes / appellations historiques : « Kroumen » (terme utilisé par les Européens), parfois appelés « Krou » (terme générique)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Krou occidental
+- Région historique : Côte d'Ivoire, Libéria
+- Pays actuels : Côte d'Ivoire, Libéria
+- Identifiant peuple (ID) : PPL_KROUMEN
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Kroumen de Côte d'Ivoire
+- Ethnie 2 : Kroumen du Libéria
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Kroumen sont originaires de la région de la Côte d'Ivoire et du Libéria. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe krou occidental.
+- Routes migratoires : 
+  - Migrations depuis les régions intérieures vers les zones côtières
+  - Expansion vers la Côte d'Ivoire et le Libéria
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune avec les autres peuples krou.
+- Influences externes : Contacts avec les commerçants européens, influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies dirigées par des chefs traditionnels. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des prêtres traditionnels et des chefs religieux. Rôle important des croyances traditionnelles.
+
+# 4. Langues et sous-familles
+- Langue principale : Kroumen
+- Codes ISO : krm (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre pays
+- Rôle véhiculaire : Le kroumen est parlé par la majorité des Kroumen. Le français, l'anglais et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à la pêche et à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à la pêche et à l'agriculture, symboles culturels kroumen, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Croyances traditionnelles, syncrétisme avec le christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : Organisation en chefferies indépendantes.
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples krou
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora kroumen dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 100 000 - 200 000
+- Répartition par pays : 
+  - Côte d'Ivoire : 60 000 - 120 000
+  - Libéria : 40 000 - 80 000
+  - Diaspora : 10 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Kroumen language (krm)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples krou
+

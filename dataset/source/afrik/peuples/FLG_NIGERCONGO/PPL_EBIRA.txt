@@ -1,0 +1,78 @@
+# Nom du peuple
+- Nom principal du peuple : Ebira / Egbira
+- Auto-appellation : Ebira / Igbira
+- Exonymes / appellations historiques : Ebira (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bénoué-Congo
+- Région historique : Nigeria (État de Kogi, centre)
+- Pays actuels : Nigeria
+- Identifiant peuple (ID) : PPL_EBIRA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Ebira Tao (Okene)
+- Ethnie 2 : Ebira Koto (Kogi)
+- Ethnie 3 : Ebira Etuno (Edo State)
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Peuple du centre nigérian issu des migrations de la zone Niger-Benue. Parentés avec Idoma, Igala et Nupe.
+- Routes migratoires : 
+  - Migrations depuis les régions de la zone Niger-Benue
+  - Expansion vers l'État de Kogi
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Forte centralité culturelle autour d'Okene.
+- Influences externes : Contacts avec les peuples voisins (Idoma, Igala, Nupe), influence du christianisme et de l'islam.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Lignages familiaux. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels, des oulémas musulmans, et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Ebira
+- Codes ISO : igb (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux (Okene, Kogi, Edo State)
+  - Variantes entre groupes
+- Rôle véhiculaire : L'ebira est parlé par la majorité des Ebira. L'anglais et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Masques Ekuechi (célèbres rituels masquerades)
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+- Symboles : Masques Ekuechi, symboles culturels ebira
+- Arts et musique : 
+  - Masques Ekuechi (célèbres rituels masquerades)
+  - Musiques percussives
+  - Artisanat du fer
+  - Danse traditionnelle
+- Spiritualités : Croyances traditionnelles, syncrétisme avec le christianisme et l'islam.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec Idoma, Igala et Nupe
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Influence importante dans la région de Kogi dès les époques précoloniales
+  - Forte résistance lors de la pénétration britannique
+  - Participation aux mouvements politiques
+- Diaspora : Diaspora ebira dans les grandes villes nigérianes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 2 400 000
+- Répartition par pays : 
+  - Nigeria : 2 400 000
+- Année de référence : 2025
+- Source : Ethnologue (igb), Kogi State Cultural Archives
+
+# 8. Sources
+- SIL Ethnologue – Ebira language (igb)
+- Kogi State Cultural Archives
+- CIA World Factbook – Nigeria
+- Recensements nationaux
+

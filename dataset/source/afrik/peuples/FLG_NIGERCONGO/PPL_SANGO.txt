@@ -1,0 +1,87 @@
+# Nom du peuple
+- Nom principal du peuple : Sango (locuteurs)
+- Auto-appellation : Sango
+- Exonymes / appellations historiques : Sango (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Oubanguien
+- Région historique : RCA, RDC, Congo, Cameroun
+- Pays actuels : RCA, RDC, Congo, Cameroun
+- Identifiant peuple (ID) : PPL_SANGO
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Locuteurs sango de RCA
+- Ethnie 2 : Locuteurs sango de RDC
+- Ethnie 3 : Locuteurs sango du Congo
+- Ethnie 4 : Locuteurs sango du Cameroun
+- Ethnie 5 : Autres locuteurs sango
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les locuteurs sango sont originaires de la région de la RCA, de la RDC, du Congo et du Cameroun. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe oubanguien. Le sango est une langue véhiculaire importante.
+- Routes migratoires : 
+  - Migrations depuis les régions oubanguiennes
+  - Expansion vers la RCA, la RDC, le Congo et le Cameroun
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une langue commune (sango).
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Sango
+- Codes ISO : sag (ISO 639-3)
+- Dialectes : 
+  - Sango standard
+  - Sango populaire
+  - Variantes régionales
+- Rôle véhiculaire : Le sango est parlé par de nombreux locuteurs en RCA, en RDC, au Congo et au Cameroun. Le français et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à l'agriculture, symboles culturels, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples oubanguiens
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation française et belge
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora sango dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 5 000 000 - 7 000 000
+- Répartition par pays : 
+  - RCA : 4 000 000 - 5 000 000
+  - RDC : 500 000 - 1 000 000
+  - Congo : 300 000 - 500 000
+  - Cameroun : 200 000 - 500 000
+  - Diaspora : 100 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Sango language (sag)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples oubanguiens
+

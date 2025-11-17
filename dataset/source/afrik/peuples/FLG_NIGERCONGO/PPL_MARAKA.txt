@@ -1,0 +1,81 @@
+# Nom du peuple
+- Nom principal du peuple : Maraka
+- Auto-appellation : Maraka
+- Exonymes / appellations historiques : Maraka (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Mandé (Mandé occidental)
+- Région historique : Mali
+- Pays actuels : Mali
+- Identifiant peuple (ID) : PPL_MARAKA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Maraka du Nord
+- Ethnie 2 : Maraka du Sud
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Maraka sont originaires de la région du Mali. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe mandé (Mandé occidental).
+- Routes migratoires : 
+  - Migrations depuis les régions mandé
+  - Expansion vers le Mali
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Contacts avec les peuples voisins, influence de l'islam.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des oulémas musulmans et des chefs religieux. Rôle important de l'islam.
+
+# 4. Langues et sous-familles
+- Langue principale : Maraka
+- Codes ISO : rmm (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre groupes
+- Rôle véhiculaire : Le maraka est parlé par la majorité des Maraka. Le français et d'autres langues sont également utilisés.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies d'initiation
+  - Rites de passage (naissance, puberté, mariage, mort)
+  - Festivals traditionnels
+  - Cérémonies religieuses islamiques
+- Symboles : Symboles culturels maraka, symboles islamiques
+- Arts et musique : 
+  - Musique traditionnelle (griots, kora)
+  - Danse traditionnelle
+  - Artisanat (tissage, poterie)
+  - Littérature orale
+- Spiritualités : Islam majoritaire. Rôle important des croyances traditionnelles.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples mandé
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation française
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora maraka dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 200 000 - 300 000
+- Répartition par pays : 
+  - Mali : 200 000 - 300 000
+  - Diaspora : 10 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Maraka language (rmm)
+- CIA World Factbook – Mali
+- Recensements nationaux
+- Études anthropologiques sur les peuples mandé
+

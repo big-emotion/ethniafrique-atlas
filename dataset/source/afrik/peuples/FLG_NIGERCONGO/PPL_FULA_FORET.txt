@@ -1,0 +1,86 @@
+# Nom du peuple
+- Nom principal du peuple : Fula (Forêt)
+- Auto-appellation : Fulɓe (pluriel), Pullo (singulier)
+- Exonymes / appellations historiques : 
+  - « Fula » (forme anglophone)
+  - « Peul » (terme français)
+  - « Fulani » (terme haoussa, également utilisé)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Atlantique (branche sénégambienne)
+- Région historique : Zones forestières d'Afrique de l'Ouest et centrale
+- Pays actuels : Guinée, Côte d'Ivoire, Cameroun, Gabon, et autres pays forestiers
+- Identifiant peuple (ID) : PPL_FULA_FORET
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Fulɓe des zones forestières
+- Ethnie 2 : Sous-groupes régionaux forestiers
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Fula des zones forestières sont originaires de la bande sahélienne. Leur présence dans les zones forestières remonte aux migrations historiques.
+- Routes migratoires : 
+  - Migrations depuis les zones sahéliennes vers les zones forestières
+  - Expansion vers la Guinée, la Côte d'Ivoire, le Cameroun, le Gabon
+  - Adaptation aux environnements forestiers
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Adaptation aux environnements forestiers.
+- Influences externes : Contacts avec les peuples forestiers, influence de l'islam.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies dirigées par des chefs traditionnels (Ardo). Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des oulémas (savants religieux) et des chefs religieux. L'islam sunnite structure la vie sociale.
+
+# 4. Langues et sous-familles
+- Langue principale : Fulfulde / Pulaar / Pular
+- Codes ISO : ful (ISO 639-3), fub, fuc, fuf, fuh
+- Dialectes : 
+  - Dialectes régionaux forestiers
+  - Variantes entre groupes
+- Rôle véhiculaire : Le fulfulde/pulaar est parlé par la majorité des Fula des zones forestières. Le français et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Célébrations religieuses islamiques (Ramadan, Aïd)
+  - Rites de passage (circoncision, fêtes de naissance)
+  - Cérémonies pastorales liées au bétail
+  - Cérémonies adaptées aux environnements forestiers
+- Symboles : Bétail (bovins) comme symbole de richesse et de statut. Poésie élogieuse (ɗiogal). Calligraphie arabe.
+- Arts et musique : 
+  - Poésie élogieuse traditionnelle (ɗiogal)
+  - Musique traditionnelle (tambours, flûtes)
+  - Danse traditionnelle
+  - Artisanat lié au pastoralisme
+  - Littérature islamique en arabe et en fulfulde
+- Spiritualités : Islam sunnite majoritaire (école malékite). Rôle central de l'islam dans la culture fula.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les peuples forestiers
+  - Interactions avec les peuples bantous
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Participation aux mouvements politiques
+  - Conflits pastoraux avec groupes agriculteurs
+  - Alliances commerciales et politiques
+- Diaspora : Migration vers les grandes villes et la diaspora.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 2 000 000 - 3 000 000
+- Répartition par pays : 
+  - Guinée : 500 000 - 800 000
+  - Côte d'Ivoire : 300 000 - 500 000
+  - Cameroun : 400 000 - 600 000
+  - Gabon : 200 000 - 300 000
+  - Autres pays : 600 000 - 800 000
+- Année de référence : 2025
+- Source : Estimations basées sur CIA World Factbook, UNFPA, recensements nationaux
+
+# 8. Sources
+- SIL Ethnologue – Fulfulde language (ful)
+- CIA World Factbook – Country profiles
+- UNFPA – Population data
+- Recensements nationaux
+

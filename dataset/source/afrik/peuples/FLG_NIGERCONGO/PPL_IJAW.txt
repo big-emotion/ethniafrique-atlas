@@ -1,0 +1,98 @@
+# Nom du peuple
+- Nom principal du peuple : Ijaw
+- Auto-appellation : Izon / Ijo
+- Exonymes / appellations historiques : « Ijaw » (terme utilisé par les Européens), « Ijo » (variante)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Ijoid (sous-groupe du Bénoué-Congo)
+- Région historique : Delta du Niger, côte du Nigeria
+- Pays actuels : Nigeria
+- Identifiant peuple (ID) : PPL_IJAW
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Izon (Ijaw central)
+- Ethnie 2 : Kalabari
+- Ethnie 3 : Nembe
+- Ethnie 4 : Okrika
+- Ethnie 5 : Bonny
+- Ethnie 6 : Andoni
+- Ethnie 7 : Ogbia
+- Ethnie 8 : Biseni
+- Ethnie 9 : Epie-Atissa
+- Ethnie 10 : Autres sous-groupes ijaw
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Ijaw sont originaires de la région du delta du Niger dans le sud du Nigeria. Leur présence dans la région remonte à plusieurs siècles. Ils sont considérés comme l'un des plus anciens peuples du Nigeria.
+- Routes migratoires : 
+  - Migrations depuis les régions intérieures vers les zones côtières
+  - Expansion le long des rivières et du delta du Niger
+  - Déplacements vers les zones urbaines (Port Harcourt, Yenagoa, Warri)
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune. Relations avec les peuples voisins (Igbo, Ibibio).
+- Influences externes : Contacts avec les commerçants européens (XVIIe-XIXe siècles), influence du christianisme, et plus récemment de l'islam et de la modernisation.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies (amanyanabo) dirigées par des chefs traditionnels. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité, les droits fonciers et les alliances matrimoniales.
+- Autorité religieuse : Autorité des prêtres traditionnels et des chefs religieux. Rôle important des croyances traditionnelles liées à l'eau et aux esprits.
+
+# 4. Langues et sous-familles
+- Langue principale : Izon (Ijaw)
+- Codes ISO : ijo (ISO 639-3)
+- Dialectes : 
+  - Izon central
+  - Kalabari
+  - Nembe
+  - Okrika
+  - Bonny
+  - Andoni
+  - Ogbia
+  - Biseni
+  - Epie-Atissa
+- Rôle véhiculaire : L'ijaw est parlé par la majorité des Ijaw. L'anglais est utilisé dans l'éducation et l'administration. Le pidgin english nigérian est également utilisé.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies liées à l'eau (Owambe)
+  - Festivals traditionnels (Ijaw festivals)
+  - Cérémonies d'initiation
+  - Rites de passage (naissance, puberté, mariage, mort)
+  - Cérémonies de réconciliation
+- Symboles : Masques traditionnels, symboles liés à l'eau, art ijaw
+- Arts et musique : 
+  - Sculpture sur bois (masques, statues)
+  - Musique traditionnelle (tambours, flûtes)
+  - Danse traditionnelle
+  - Artisanat (tissage, poterie)
+  - Littérature orale
+- Spiritualités : Croyances traditionnelles centrées sur le culte des ancêtres et des esprits de l'eau. Rôle important des divinités aquatiques. Influence croissante du christianisme (protestantisme majoritaire) et de l'islam.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : Organisation en chefferies indépendantes (amanyanabo). Relations avec le royaume de Bonny et de Kalabari.
+- Relations avec peuples voisins : 
+  - Relations avec les Igbo
+  - Interactions avec les Ibibio
+  - Relations commerciales avec les peuples de l'intérieur
+  - Contacts avec commerçants européens
+- Conflits / alliances : 
+  - Participation au commerce transatlantique (huile de palme, esclaves)
+  - Résistance à la colonisation britannique
+  - Conflits territoriaux avec groupes voisins
+  - Alliances commerciales et politiques
+  - Conflits liés à l'exploitation pétrolière
+- Diaspora : Diaspora ijaw dans les grandes villes nigérianes (Lagos, Abuja, Port Harcourt) et dans les pays occidentaux (États-Unis, Royaume-Uni).
+
+# 7. Démographie globale
+- Population totale (tous pays) : 14 000 000 - 15 000 000
+- Répartition par pays : 
+  - Nigeria : 14 000 000 - 15 000 000 (majorité dans les États du Delta, Bayelsa, Rivers)
+  - Diaspora : 100 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements nigérians, CIA World Factbook, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Izon language (ijo)
+- CIA World Factbook – Nigeria
+- Alagoa, Ebiegberi Joe – *A History of the Niger Delta*
+- Recensements nigérians
+- Études anthropologiques sur les peuples ijaw
+

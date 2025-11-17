@@ -1,0 +1,85 @@
+# Nom du peuple
+- Nom principal du peuple : Lunda
+- Auto-appellation : Balunda
+- Exonymes / appellations historiques : « Lunda » (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantou (Zone K)
+- Région historique : RDC, Angola, Zambie
+- Pays actuels : RDC, Angola, Zambie
+- Identifiant peuple (ID) : PPL_LUNDA
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Lunda de RDC
+- Ethnie 2 : Lunda d'Angola
+- Ethnie 3 : Lunda de Zambie
+- Ethnie 4 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Lunda sont originaires de la région de la RDC, de l'Angola et de la Zambie. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe bantou (Zone K). Ancien royaume Lunda.
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers la RDC, l'Angola et la Zambie
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en royaume traditionnel (ancien royaume Lunda). Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en royaume traditionnel (ancien royaume Lunda). Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique matrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages matrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Lunda
+- Codes ISO : lun (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre pays
+- Rôle véhiculaire : Le lunda est parlé par la majorité des Lunda. Le français, le portugais, l'anglais et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à l'agriculture, symboles culturels lunda, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Ancien royaume Lunda
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples bantous
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation belge, portugaise et britannique
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora lunda dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 500 000 - 800 000
+- Répartition par pays : 
+  - RDC : 200 000 - 300 000
+  - Angola : 200 000 - 300 000
+  - Zambie : 100 000 - 200 000
+  - Diaspora : 20 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Lunda language (lun)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples bantous
+

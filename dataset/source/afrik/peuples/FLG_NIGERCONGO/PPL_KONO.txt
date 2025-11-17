@@ -1,0 +1,80 @@
+# Nom du peuple
+- Nom principal du peuple : Kono
+- Auto-appellation : Kono
+- Exonymes / appellations historiques : Kono (terme utilisé par les Européens)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Mandé (sous-groupe du Mandé occidental)
+- Région historique : Sierra Leone, Guinée
+- Pays actuels : Sierra Leone, Guinée
+- Identifiant peuple (ID) : PPL_KONO
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Kono de Sierra Leone
+- Ethnie 2 : Kono de Guinée
+- Ethnie 3 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Kono sont originaires de la région de la Sierra Leone et de la Guinée. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe mandé.
+- Routes migratoires : 
+  - Migrations depuis les régions intérieures vers les zones actuelles
+  - Expansion vers la Sierra Leone et la Guinée
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une identité culturelle et linguistique commune.
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme et de l'islam.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies dirigées par des chefs traditionnels. Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels, des oulémas musulmans et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Kono
+- Codes ISO : kno (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre pays
+- Rôle véhiculaire : Le kono est parlé par la majorité des Kono. L'anglais, le français et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies d'initiation
+  - Rites de passage (naissance, puberté, mariage, mort)
+  - Festivals traditionnels
+  - Cérémonies religieuses islamiques et chrétiennes
+- Symboles : Symboles culturels kono, symboles islamiques et chrétiens
+- Arts et musique : 
+  - Musique traditionnelle (tambours, flûtes)
+  - Danse traditionnelle
+  - Artisanat (tissage, poterie)
+  - Littérature orale
+- Spiritualités : Syncrétisme entre croyances traditionnelles, islam et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : Organisation en chefferies indépendantes.
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples mandé
+  - Interactions avec les peuples voisins
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation
+  - Participation aux mouvements politiques
+  - Conflits territoriaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora kono dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 200 000 - 300 000
+- Répartition par pays : 
+  - Sierra Leone : 150 000 - 200 000
+  - Guinée : 50 000 - 100 000
+  - Diaspora : 20 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Kono language (kno)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples mandé
+

@@ -1,0 +1,89 @@
+# Nom du peuple
+- Nom principal du peuple : Rwandais (Hutu)
+- Auto-appellation : Hutu
+- Exonymes / appellations historiques : 
+  - « Hutu » (terme utilisé par les Européens)
+  - Note importante : Les distinctions Hutu/Tutsi/Twa sont des constructions sociales et politiques complexes, historiquement instrumentalisées par le colonialisme. Ces termes doivent être contextualisés.
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Bantou (Zone J)
+- Région historique : Rwanda, RDC, Ouganda, Burundi
+- Pays actuels : Rwanda, RDC, Ouganda, Burundi
+- Identifiant peuple (ID) : PPL_RWANDAIS_HUTU
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Hutu du Rwanda
+- Ethnie 2 : Hutu de RDC
+- Ethnie 3 : Hutu d'Ouganda
+- Ethnie 4 : Hutu du Burundi
+- Ethnie 5 : Sous-groupes régionaux
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Hutu sont originaires de la région du Rwanda, de la RDC, de l'Ouganda et du Burundi. Leur présence dans la région remonte à plusieurs siècles. Ils font partie du groupe bantou (Zone J). Les distinctions Hutu/Tutsi sont des constructions sociales complexes.
+- Routes migratoires : 
+  - Migrations depuis les régions bantoues
+  - Expansion vers le Rwanda, la RDC, l'Ouganda et le Burundi
+  - Déplacements vers les zones urbaines
+- Unifications / divisions : Organisation en groupes territoriaux distincts mais partageant une langue commune (kinyarwanda/kirundi) et une identité culturelle. Distinctions sociales historiques avec les Tutsi.
+- Influences externes : Contacts avec les peuples voisins, influence du christianisme. Instrumentalisation coloniale des distinctions sociales.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en chefferies traditionnelles. Système de conseils d'anciens pour la gouvernance. Hiérarchies sociales historiques complexes.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances.
+- Autorité religieuse : Autorité des chefs religieux traditionnels et des pasteurs chrétiens. Syncrétisme religieux.
+
+# 4. Langues et sous-familles
+- Langue principale : Kinyarwanda / Kirundi
+- Codes ISO : kin, run (ISO 639-3)
+- Dialectes : 
+  - Dialectes régionaux
+  - Variantes entre pays
+- Rôle véhiculaire : Le kinyarwanda/kirundi est parlé par la majorité des Hutu. Le français, l'anglais et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Cérémonies de mariage traditionnelles
+  - Rites de passage (initiation, fêtes de naissance)
+  - Cérémonies liées à l'agriculture
+  - Cérémonies religieuses chrétiennes
+- Symboles : Symboles liés à l'agriculture, symboles culturels, symboles chrétiens
+- Arts et musique : 
+  - Musique traditionnelle
+  - Danse traditionnelle
+  - Poésie orale
+  - Artisanat (poterie, tissage)
+- Spiritualités : Syncrétisme entre croyances traditionnelles et christianisme. Rôle important des ancêtres.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Chefferies traditionnelles
+  - Organisation en groupes territoriaux
+  - Ancien royaume du Rwanda
+- Relations avec peuples voisins : 
+  - Relations avec les autres peuples bantous
+  - Interactions avec les Tutsi et les Twa
+  - Contacts commerciaux
+- Conflits / alliances : 
+  - Résistance à la colonisation belge et allemande
+  - Participation aux mouvements politiques
+  - Conflits territoriaux et sociaux
+  - Alliances commerciales et politiques
+- Diaspora : Diaspora hutu dans les grandes villes et dans les pays occidentaux.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 10 000 000 - 12 000 000
+- Répartition par pays : 
+  - Rwanda : 7 000 000 - 8 000 000
+  - Burundi : 2 000 000 - 3 000 000
+  - RDC : 500 000 - 1 000 000
+  - Ouganda : 500 000 - 1 000 000
+  - Diaspora : 200 000+
+- Année de référence : 2025
+- Source : Estimations basées sur recensements, SIL Ethnologue, et études démographiques
+
+# 8. Sources
+- SIL Ethnologue – Kinyarwanda / Kirundi languages (kin, run)
+- CIA World Factbook – Country profiles
+- Recensements nationaux
+- Études anthropologiques sur les peuples bantous
+

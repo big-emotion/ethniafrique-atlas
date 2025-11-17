@@ -1,0 +1,91 @@
+# Nom du peuple
+- Nom principal du peuple : Fula (Nomades)
+- Auto-appellation : Fulɓe (pluriel), Pullo (singulier)
+- Exonymes / appellations historiques : 
+  - « Fula » (forme anglophone)
+  - « Peul » (terme français)
+  - « Fulani » (terme haoussa, également utilisé)
+  - « Mbororo » (terme spécifique pour les pasteurs nomades)
+- Famille linguistique principale : Niger-Congo (FLG_NIGERCONGO)
+- Groupe ethno-linguistique : Atlantique (branche sénégambienne)
+- Région historique : Bande sahélienne de l'Atlantique au Tchad
+- Pays actuels : Niger, Nigeria, Cameroun, Tchad, RCA, et autres pays d'Afrique de l'Ouest et centrale
+- Identifiant peuple (ID) : PPL_FULA_NOMADES
+
+# 1. Ethnies incluses dans le peuple
+- Ethnie 1 : Fulɓe Mbororo (pasteurs nomades)
+- Ethnie 2 : Fulɓe Wodaabe (pasteurs nomades)
+- Ethnie 3 : Autres groupes nomades fula
+
+# 2. Origines, migrations et formation du peuple
+- Origines anciennes : Les Fula nomades sont originaires de la bande sahélienne. Leur mode de vie pastoral nomade remonte à plusieurs siècles. Ils font partie du groupe Atlantique de la famille Niger-Congo.
+- Routes migratoires : 
+  - Transhumance saisonnière selon les pâturages
+  - Migrations pastorales vers l'est (Sahel)
+  - Déplacements selon les saisons et les ressources
+- Unifications / divisions : Organisation en groupes pastoraux distincts mais partageant une identité culturelle et linguistique commune. Mode de vie nomade pastoral.
+- Influences externes : Influence de l'islam, contacts avec les peuples sédentaires et autres pasteurs nomades.
+
+# 3. Organisation et structure interne
+- Système politique traditionnel : Organisation en groupes pastoraux dirigés par des chefs traditionnels (Ardo). Système de conseils d'anciens pour la gouvernance.
+- Organisation clanique : Structure clanique patrilinéaire. Organisation en familles étendues et lignages. Hiérarchie lignagère importante.
+- Rôle des lignages : Lignages patrilinéaires déterminant l'identité et les alliances pastorales.
+- Autorité religieuse : Autorité des oulémas (savants religieux) et des chefs religieux. L'islam sunnite structure la vie sociale.
+
+# 4. Langues et sous-familles
+- Langue principale : Fulfulde / Pulaar / Pular
+- Codes ISO : ful (ISO 639-3), fub, fuc, fuf, fuh
+- Dialectes : 
+  - Dialectes nomades
+  - Variantes entre groupes
+- Rôle véhiculaire : Le fulfulde/pulaar est parlé par la majorité des Fula nomades. L'arabe, le français et d'autres langues sont également utilisés selon les pays.
+
+# 5. Culture, rites et traditions
+- Rites majeurs : 
+  - Célébrations religieuses islamiques (Ramadan, Aïd)
+  - Cérémonies de beauté (sharo) chez les Wodaabe
+  - Rites de passage (circoncision, fêtes de naissance)
+  - Cérémonies pastorales liées au bétail
+  - Rituels de transhumance
+- Symboles : Bétail (bovins) comme symbole de richesse et de statut. Poésie élogieuse (ɗiogal). Calligraphie arabe.
+- Arts et musique : 
+  - Poésie élogieuse traditionnelle (ɗiogal)
+  - Musique traditionnelle (tambours, flûtes)
+  - Danse traditionnelle (notamment chez les Wodaabe)
+  - Artisanat lié au pastoralisme
+- Spiritualités : Islam sunnite majoritaire (école malékite). Rôle central de l'islam dans la culture fula.
+
+# 6. Rôle historique et interactions régionales
+- Royaumes / chefferies : 
+  - Groupes pastoraux nomades
+  - Organisation en confédérations pastorales
+- Relations avec peuples voisins : 
+  - Relations avec les peuples sédentaires
+  - Interactions avec les autres pasteurs nomades
+  - Contacts commerciaux liés au bétail
+- Conflits / alliances : 
+  - Conflits pastoraux avec groupes agriculteurs
+  - Alliances commerciales liées au bétail
+  - Conflits contemporains liés au pastoralisme et à l'accès aux ressources
+- Diaspora : Migration limitée vers les zones urbaines et la diaspora.
+
+# 7. Démographie globale
+- Population totale (tous pays) : 3 000 000 - 5 000 000
+- Répartition par pays : 
+  - Niger : 800 000 - 1 200 000
+  - Nigeria : 600 000 - 1 000 000
+  - Cameroun : 500 000 - 800 000
+  - Tchad : 400 000 - 600 000
+  - RCA : 300 000 - 500 000
+  - Autres pays : 400 000 - 900 000
+- Année de référence : 2025
+- Source : Estimations basées sur CIA World Factbook, UNFPA, recensements nationaux, et études démographiques régionales
+
+# 8. Sources
+- SIL Ethnologue – Fulfulde language (ful)
+- CIA World Factbook – Country profiles
+- UNFPA – Sahel population data
+- Stenning, Derrick J. – *Savannah Nomads: A Study of the Wodaabe Pastoral Fulani*
+- Riesman, Paul – *Freedom in Fulani Social Life*
+- Recensements nationaux
+
